@@ -15,6 +15,26 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+//============================
+//          ENUMS
+//============================
+enum Roles {
+    BASIC
+    ADMIN
+}
+//============================
+//          TABLES
+//===========================
+
+model LectureHierarchy {
+    id Int @id @default(autoincrement())
+    name String
+    
+    HierarchyParentId Int?
+    hierarchyParent LectureHierarchy? @relation("LectureHierarchyChildren", fields: [HierarchyParentId], references: [id])
+    hierarchyChildren LectureHierarchy[] @relation("LectureHierarchyChildren")
+}
+
 model Post {
     id        Int      @id @default(autoincrement())
     name      String
@@ -64,6 +84,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+    role Roles @default(BASIC)
 }
 
 model VerificationToken {
