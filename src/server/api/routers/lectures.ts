@@ -21,4 +21,15 @@ export const lectureRouter = createTRPCRouter({
 
     return buildHierarchyTree(flat);
   }),
+
+  createLecture: protectedProcedure
+    .input(z.object({ name: z.string(), parentId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.lectureHierarchy.create({
+        data: {
+          name: input.name,
+          HierarchyParentId: input.parentId,
+        },
+      });
+    }),
 });

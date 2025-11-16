@@ -17,6 +17,7 @@ function Button(props: ButtonProps) {
     <button
       className={`hover: cursor-pointer px-8 py-4 ${props.className ?? ""}`}
       onClick={(e) => {
+        e.stopPropagation();
         props.click?.(e);
 
         if (!props.redirectTo) return;
