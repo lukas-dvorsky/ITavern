@@ -15,16 +15,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+//============================
+//          ENUMS
+//============================
+enum Roles {
+  USER
+  ADMIN
+}
 
-  createdBy   User   @relation(fields: [createdById], references: [id])
-  createdById String
+//============================
+//          TABLES
+//===========================
 
-  @@index([name])
+model LectureHierarchy {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  HierarchyParentId Int?
+  hierarchyParent   LectureHierarchy?  @relation("LectureHierarchyChildren", fields: [HierarchyParentId], references: [id], onDelete: Cascade)
+  hierarchyChildren LectureHierarchy[] @relation("LectureHierarchyChildren")
 }
 
 // Necessary for Next auth
@@ -63,7 +72,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  posts         Post[]
+  role          Roles     @default(USER)
 }
 
 model VerificationToken {

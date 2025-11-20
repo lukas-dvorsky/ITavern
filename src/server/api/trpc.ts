@@ -131,3 +131,34 @@ export const protectedProcedure = t.procedure
       },
     });
   });
+
+/**
+ * Role-based procedure
+ *
+ * Použij toto, pokud chceš, aby query/mutation byla přístupná pouze určitým rolím.
+ *
+ * @param allowedRoles Pole rolí, které mají přístup, např. ['ADMIN', 'MODERATOR']
+ */
+export const roleProcedure = (allowedRoles: string[]) =>
+  t.procedure.use(timingMiddleware).use(({ ctx, next }) => {
+    // nejdřív ověříme, že je uživatel přihlášený
+    if (!ctx.session?.user) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    // teď kontrola role
+    const userRole = ctx.session.user.role; // předpokládáme, že role je string
+    if (!allowedRoles.includes(userRole)) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "Nemáš oprávnění tuto akci provést",
+      });
+    }
+
+    // předáváme ctx dál s typovanou session
+    return next({
+      ctx: {
+        session: { ...ctx.session, user: ctx.session.user },
+      },
+    });
+  });

@@ -127,14 +127,6 @@ exports.Prisma.LectureHierarchyScalarFieldEnum = {
   HierarchyParentId: 'HierarchyParentId'
 };
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
-};
-
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -188,13 +180,12 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.Roles = exports.$Enums.Roles = {
-  BASIC: 'BASIC',
+  USER: 'USER',
   ADMIN: 'ADMIN'
 };
 
 exports.Prisma.ModelName = {
   LectureHierarchy: 'LectureHierarchy',
-  Post: 'Post',
   Account: 'Account',
   Session: 'Session',
   User: 'User',
