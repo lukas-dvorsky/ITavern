@@ -29,6 +29,8 @@ enum Roles {
 model LectureHierarchy {
     id Int @id @default(autoincrement())
     name String
+    markdown String? @db.Text
+    updatedAt DateTime @updatedAt
     
     HierarchyParentId Int?
     hierarchyParent LectureHierarchy? @relation("LectureHierarchyChildren", fields: [HierarchyParentId], references: [id], onDelete: Cascade) 

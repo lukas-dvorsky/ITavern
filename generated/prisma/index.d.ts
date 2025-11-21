@@ -1337,18 +1337,24 @@ export namespace Prisma {
   export type LectureHierarchyMinAggregateOutputType = {
     id: number | null
     name: string | null
+    markdown: string | null
+    updatedAt: Date | null
     HierarchyParentId: number | null
   }
 
   export type LectureHierarchyMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    markdown: string | null
+    updatedAt: Date | null
     HierarchyParentId: number | null
   }
 
   export type LectureHierarchyCountAggregateOutputType = {
     id: number
     name: number
+    markdown: number
+    updatedAt: number
     HierarchyParentId: number
     _all: number
   }
@@ -1367,18 +1373,24 @@ export namespace Prisma {
   export type LectureHierarchyMinAggregateInputType = {
     id?: true
     name?: true
+    markdown?: true
+    updatedAt?: true
     HierarchyParentId?: true
   }
 
   export type LectureHierarchyMaxAggregateInputType = {
     id?: true
     name?: true
+    markdown?: true
+    updatedAt?: true
     HierarchyParentId?: true
   }
 
   export type LectureHierarchyCountAggregateInputType = {
     id?: true
     name?: true
+    markdown?: true
+    updatedAt?: true
     HierarchyParentId?: true
     _all?: true
   }
@@ -1472,6 +1484,8 @@ export namespace Prisma {
   export type LectureHierarchyGroupByOutputType = {
     id: number
     name: string
+    markdown: string | null
+    updatedAt: Date
     HierarchyParentId: number | null
     _count: LectureHierarchyCountAggregateOutputType | null
     _avg: LectureHierarchyAvgAggregateOutputType | null
@@ -1497,6 +1511,8 @@ export namespace Prisma {
   export type LectureHierarchySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    markdown?: boolean
+    updatedAt?: boolean
     HierarchyParentId?: boolean
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
     hierarchyChildren?: boolean | LectureHierarchy$hierarchyChildrenArgs<ExtArgs>
@@ -1506,6 +1522,8 @@ export namespace Prisma {
   export type LectureHierarchySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    markdown?: boolean
+    updatedAt?: boolean
     HierarchyParentId?: boolean
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
   }, ExtArgs["result"]["lectureHierarchy"]>
@@ -1513,6 +1531,8 @@ export namespace Prisma {
   export type LectureHierarchySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    markdown?: boolean
+    updatedAt?: boolean
     HierarchyParentId?: boolean
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
   }, ExtArgs["result"]["lectureHierarchy"]>
@@ -1520,10 +1540,12 @@ export namespace Prisma {
   export type LectureHierarchySelectScalar = {
     id?: boolean
     name?: boolean
+    markdown?: boolean
+    updatedAt?: boolean
     HierarchyParentId?: boolean
   }
 
-  export type LectureHierarchyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "HierarchyParentId", ExtArgs["result"]["lectureHierarchy"]>
+  export type LectureHierarchyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "markdown" | "updatedAt" | "HierarchyParentId", ExtArgs["result"]["lectureHierarchy"]>
   export type LectureHierarchyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
     hierarchyChildren?: boolean | LectureHierarchy$hierarchyChildrenArgs<ExtArgs>
@@ -1545,6 +1567,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      markdown: string | null
+      updatedAt: Date
       HierarchyParentId: number | null
     }, ExtArgs["result"]["lectureHierarchy"]>
     composites: {}
@@ -1973,6 +1997,8 @@ export namespace Prisma {
   interface LectureHierarchyFieldRefs {
     readonly id: FieldRef<"LectureHierarchy", 'Int'>
     readonly name: FieldRef<"LectureHierarchy", 'String'>
+    readonly markdown: FieldRef<"LectureHierarchy", 'String'>
+    readonly updatedAt: FieldRef<"LectureHierarchy", 'DateTime'>
     readonly HierarchyParentId: FieldRef<"LectureHierarchy", 'Int'>
   }
     
@@ -6773,6 +6799,8 @@ export namespace Prisma {
   export const LectureHierarchyScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    markdown: 'markdown',
+    updatedAt: 'updatedAt',
     HierarchyParentId: 'HierarchyParentId'
   };
 
@@ -6937,6 +6965,8 @@ export namespace Prisma {
     NOT?: LectureHierarchyWhereInput | LectureHierarchyWhereInput[]
     id?: IntFilter<"LectureHierarchy"> | number
     name?: StringFilter<"LectureHierarchy"> | string
+    markdown?: StringNullableFilter<"LectureHierarchy"> | string | null
+    updatedAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     HierarchyParentId?: IntNullableFilter<"LectureHierarchy"> | number | null
     hierarchyParent?: XOR<LectureHierarchyNullableScalarRelationFilter, LectureHierarchyWhereInput> | null
     hierarchyChildren?: LectureHierarchyListRelationFilter
@@ -6945,6 +6975,8 @@ export namespace Prisma {
   export type LectureHierarchyOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    markdown?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
     HierarchyParentId?: SortOrderInput | SortOrder
     hierarchyParent?: LectureHierarchyOrderByWithRelationInput
     hierarchyChildren?: LectureHierarchyOrderByRelationAggregateInput
@@ -6956,6 +6988,8 @@ export namespace Prisma {
     OR?: LectureHierarchyWhereInput[]
     NOT?: LectureHierarchyWhereInput | LectureHierarchyWhereInput[]
     name?: StringFilter<"LectureHierarchy"> | string
+    markdown?: StringNullableFilter<"LectureHierarchy"> | string | null
+    updatedAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     HierarchyParentId?: IntNullableFilter<"LectureHierarchy"> | number | null
     hierarchyParent?: XOR<LectureHierarchyNullableScalarRelationFilter, LectureHierarchyWhereInput> | null
     hierarchyChildren?: LectureHierarchyListRelationFilter
@@ -6964,6 +6998,8 @@ export namespace Prisma {
   export type LectureHierarchyOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    markdown?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
     HierarchyParentId?: SortOrderInput | SortOrder
     _count?: LectureHierarchyCountOrderByAggregateInput
     _avg?: LectureHierarchyAvgOrderByAggregateInput
@@ -6978,6 +7014,8 @@ export namespace Prisma {
     NOT?: LectureHierarchyScalarWhereWithAggregatesInput | LectureHierarchyScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"LectureHierarchy"> | number
     name?: StringWithAggregatesFilter<"LectureHierarchy"> | string
+    markdown?: StringNullableWithAggregatesFilter<"LectureHierarchy"> | string | null
+    updatedAt?: DateTimeWithAggregatesFilter<"LectureHierarchy"> | Date | string
     HierarchyParentId?: IntNullableWithAggregatesFilter<"LectureHierarchy"> | number | null
   }
 
@@ -7237,6 +7275,8 @@ export namespace Prisma {
 
   export type LectureHierarchyCreateInput = {
     name: string
+    markdown?: string | null
+    updatedAt?: Date | string
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -7244,12 +7284,16 @@ export namespace Prisma {
   export type LectureHierarchyUncheckedCreateInput = {
     id?: number
     name: string
+    markdown?: string | null
+    updatedAt?: Date | string
     HierarchyParentId?: number | null
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
   export type LectureHierarchyUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -7257,6 +7301,8 @@ export namespace Prisma {
   export type LectureHierarchyUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -7264,16 +7310,22 @@ export namespace Prisma {
   export type LectureHierarchyCreateManyInput = {
     id?: number
     name: string
+    markdown?: string | null
+    updatedAt?: Date | string
     HierarchyParentId?: number | null
   }
 
   export type LectureHierarchyUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LectureHierarchyUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -7575,6 +7627,32 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -7609,6 +7687,8 @@ export namespace Prisma {
   export type LectureHierarchyCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    markdown?: SortOrder
+    updatedAt?: SortOrder
     HierarchyParentId?: SortOrder
   }
 
@@ -7620,12 +7700,16 @@ export namespace Prisma {
   export type LectureHierarchyMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    markdown?: SortOrder
+    updatedAt?: SortOrder
     HierarchyParentId?: SortOrder
   }
 
   export type LectureHierarchyMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    markdown?: SortOrder
+    updatedAt?: SortOrder
     HierarchyParentId?: SortOrder
   }
 
@@ -7668,6 +7752,38 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -7682,21 +7798,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type UserScalarRelationFilter = {
@@ -7767,35 +7868,6 @@ export namespace Prisma {
     refresh_token_expires_in?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type SessionCountOrderByAggregateInput = {
     id?: SortOrder
     sessionToken?: SortOrder
@@ -7815,20 +7887,6 @@ export namespace Prisma {
     sessionToken?: SortOrder
     userId?: SortOrder
     expires?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -7967,6 +8025,14 @@ export namespace Prisma {
     set?: string
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput = {
     create?: XOR<LectureHierarchyCreateWithoutHierarchyChildrenInput, LectureHierarchyUncheckedCreateWithoutHierarchyChildrenInput>
     connectOrCreate?: LectureHierarchyCreateOrConnectWithoutHierarchyChildrenInput
@@ -8027,10 +8093,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -8043,10 +8105,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
@@ -8174,6 +8232,31 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -8229,6 +8312,37 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -8254,62 +8368,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -8356,12 +8414,16 @@ export namespace Prisma {
 
   export type LectureHierarchyCreateWithoutHierarchyChildrenInput = {
     name: string
+    markdown?: string | null
+    updatedAt?: Date | string
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
   }
 
   export type LectureHierarchyUncheckedCreateWithoutHierarchyChildrenInput = {
     id?: number
     name: string
+    markdown?: string | null
+    updatedAt?: Date | string
     HierarchyParentId?: number | null
   }
 
@@ -8372,12 +8434,16 @@ export namespace Prisma {
 
   export type LectureHierarchyCreateWithoutHierarchyParentInput = {
     name: string
+    markdown?: string | null
+    updatedAt?: Date | string
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
 
   export type LectureHierarchyUncheckedCreateWithoutHierarchyParentInput = {
     id?: number
     name: string
+    markdown?: string | null
+    updatedAt?: Date | string
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -8404,12 +8470,16 @@ export namespace Prisma {
 
   export type LectureHierarchyUpdateWithoutHierarchyChildrenInput = {
     name?: StringFieldUpdateOperationsInput | string
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
   }
 
   export type LectureHierarchyUncheckedUpdateWithoutHierarchyChildrenInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -8435,6 +8505,8 @@ export namespace Prisma {
     NOT?: LectureHierarchyScalarWhereInput | LectureHierarchyScalarWhereInput[]
     id?: IntFilter<"LectureHierarchy"> | number
     name?: StringFilter<"LectureHierarchy"> | string
+    markdown?: StringNullableFilter<"LectureHierarchy"> | string | null
+    updatedAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     HierarchyParentId?: IntNullableFilter<"LectureHierarchy"> | number | null
   }
 
@@ -8676,22 +8748,30 @@ export namespace Prisma {
   export type LectureHierarchyCreateManyHierarchyParentInput = {
     id?: number
     name: string
+    markdown?: string | null
+    updatedAt?: Date | string
   }
 
   export type LectureHierarchyUpdateWithoutHierarchyParentInput = {
     name?: StringFieldUpdateOperationsInput | string
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
 
   export type LectureHierarchyUncheckedUpdateWithoutHierarchyParentInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
   export type LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountCreateManyUserInput = {

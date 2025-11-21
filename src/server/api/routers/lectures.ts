@@ -4,6 +4,7 @@ import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
+  roleProcedure,
 } from "~/server/api/trpc";
 
 export const lectureRouter = createTRPCRouter({
@@ -44,7 +45,7 @@ export const lectureRouter = createTRPCRouter({
     return data;
   }),
 
-  createLecture: protectedProcedure
+  createLecture: roleProcedure(["ADMIN"])
     .input(z.object({ name: z.string(), parentId: z.number().nullable() }))
     .mutation(async ({ ctx, input }) => {
       return await ctx.db.lectureHierarchy.create({
@@ -55,7 +56,7 @@ export const lectureRouter = createTRPCRouter({
       });
     }),
 
-  updateLecture: protectedProcedure
+  updateLecture: roleProcedure(["ADMIN"])
     .input(
       z.object({
         id: z.number(), // ID lekce, kterou chceme update
@@ -73,12 +74,35 @@ export const lectureRouter = createTRPCRouter({
       });
     }),
 
-  deleteLecture: protectedProcedure
+  deleteLecture: roleProcedure(["ADMIN"])
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
       return await ctx.db.lectureHierarchy.delete({
         where: {
           id: input,
+        },
+      });
+    }),
+
+  getLecture: protectedProcedure
+    .input(z.number())
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.lectureHierarchy.findFirst({
+        where: {
+          id: input,
+        },
+      });
+    }),
+
+  udpateMarkdown: roleProcedure(["ADMIN"])
+    .input(z.object({ id: z.number(), markdown: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.lectureHierarchy.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          markdown: input.markdown,
         },
       });
     }),

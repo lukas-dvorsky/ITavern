@@ -124,6 +124,8 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.LectureHierarchyScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  markdown: 'markdown',
+  updatedAt: 'updatedAt',
   HierarchyParentId: 'HierarchyParentId'
 };
 

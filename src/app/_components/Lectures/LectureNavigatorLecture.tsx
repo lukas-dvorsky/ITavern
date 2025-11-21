@@ -34,7 +34,12 @@ const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
           <span>{isOpen ? <IoIosArrowDown /> : <IoIosArrowForward />}</span>
         )}
         <div className="flex h-full w-full items-center justify-between pr-10">
-          <span>{name}</span>
+          {!hasChildren ? (
+            <a href={`lecture/${id}`}>{name}</a>
+          ) : (
+            <span>{name}</span>
+          )}
+
           {/* IF ADMIN */}
           {userRole === "ADMIN" && (
             <div className="flex h-full items-center justify-center gap-8">
