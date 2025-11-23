@@ -9,8 +9,8 @@ export default async function Home() {
   const session = await requireLoggedIn();
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-linear-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="mt-36 max-h-screen w-2/3 flex-col">
+    <main className="bg-background text-text flex min-h-screen flex-col items-center">
+      <div className="bg-background-card mt-36 max-h-screen w-2/3 flex-col">
         <LectureNavigator userRole={session.user.role} />
       </div>
 

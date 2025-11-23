@@ -30,12 +30,36 @@ enum Roles {
 model LectureHierarchy {
   id        Int      @id @default(autoincrement())
   name      String
-  markdown  String?  @db.Text
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isPublic  Boolean  @default(false)
 
+  order String @default("[]")
+
+  createdById String
+  createdBy   User   @relation("LectureCreatedBy", fields: [createdById], references: [id])
+
+  updatedById String
+  updatedBy   User   @relation("LectureUpdatedBy", fields: [updatedById], references: [id])
+
+  // hierarchy
   HierarchyParentId Int?
   hierarchyParent   LectureHierarchy?  @relation("LectureHierarchyChildren", fields: [HierarchyParentId], references: [id], onDelete: Cascade)
   hierarchyChildren LectureHierarchy[] @relation("LectureHierarchyChildren")
+}
+
+model MarkdownBlock {
+  id        Int      @id @default(autoincrement())
+  name      String
+  content   String?  @default("# Nadpis") @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdById String
+  createdBy   User   @relation("BlockCreatedBy", fields: [createdById], references: [id])
+
+  updatedById String
+  updatedBy   User   @relation("BlockUpdatedBy", fields: [updatedById], references: [id])
 }
 
 // Necessary for Next auth
@@ -72,9 +96,16 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
   role          Roles     @default(USER)
+
+  accounts Account[]
+  sessions Session[]
+
+  // reverse relations
+  lecturesCreated LectureHierarchy[] @relation("LectureCreatedBy")
+  lecturesUpdated LectureHierarchy[] @relation("LectureUpdatedBy")
+  blocksCreated   MarkdownBlock[]    @relation("BlockCreatedBy")
+  blocksUpdated   MarkdownBlock[]    @relation("BlockUpdatedBy")
 }
 
 model VerificationToken {

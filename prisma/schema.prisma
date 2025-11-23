@@ -27,15 +27,40 @@ enum Roles {
 //===========================
 
 model LectureHierarchy {
-    id Int @id @default(autoincrement())
-    name String
-    markdown String? @db.Text
-    updatedAt DateTime @updatedAt
-    
-    HierarchyParentId Int?
-    hierarchyParent LectureHierarchy? @relation("LectureHierarchyChildren", fields: [HierarchyParentId], references: [id], onDelete: Cascade) 
-    hierarchyChildren LectureHierarchy[] @relation("LectureHierarchyChildren")
+  id          Int       @id @default(autoincrement())
+  name        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  isPublic    Boolean   @default(false)
+
+  order       String    @default("[]")
+
+  createdById String
+  createdBy   User @relation("LectureCreatedBy", fields: [createdById], references: [id])
+
+  updatedById String
+  updatedBy   User @relation("LectureUpdatedBy", fields: [updatedById], references: [id])
+
+  // hierarchy
+  HierarchyParentId Int?
+  hierarchyParent   LectureHierarchy? @relation("LectureHierarchyChildren", fields: [HierarchyParentId], references: [id], onDelete: Cascade)
+  hierarchyChildren LectureHierarchy[] @relation("LectureHierarchyChildren")
 }
+
+model MarkdownBlock {
+  id        Int      @id @default(autoincrement())
+  name      String
+  content   String?  @db.Text @default("# Nadpis")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdById String
+  createdBy   User @relation("BlockCreatedBy", fields: [createdById], references: [id])
+
+  updatedById String
+  updatedBy   User @relation("BlockUpdatedBy", fields: [updatedById], references: [id])
+}
+
 
 // Necessary for Next auth
 model Account {
@@ -66,14 +91,21 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    role Roles @default(USER)
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          Roles      @default(USER)
+
+  accounts      Account[]
+  sessions      Session[]
+
+  // reverse relations
+  lecturesCreated LectureHierarchy[] @relation("LectureCreatedBy")
+  lecturesUpdated LectureHierarchy[] @relation("LectureUpdatedBy")
+  blocksCreated   MarkdownBlock[]    @relation("BlockCreatedBy")
+  blocksUpdated   MarkdownBlock[]    @relation("BlockUpdatedBy")
 }
 
 model VerificationToken {

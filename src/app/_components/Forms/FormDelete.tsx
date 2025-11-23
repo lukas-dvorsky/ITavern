@@ -28,7 +28,7 @@ function FormDelete(props: FormDeleteProps) {
       <Modal ref={modalRef}>
         {props.children}
         <button
-          className="w-36 cursor-pointer self-center rounded-lg bg-red-500 py-4 text-white"
+          className="bg-danger w-36 cursor-pointer self-center rounded-lg py-4 text-white"
           type="submit"
         >
           {`SMAZAT`}

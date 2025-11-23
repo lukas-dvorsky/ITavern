@@ -1,15 +1,13 @@
 import { api } from "~/trpc/server";
-import MarkdownViewer from "~/app/_components/Lectures/Markdown/MarkdownViewer";
 import { requireLoggedIn } from "~/server/utils/auth";
-import Link from "next/link";
-import LinkButton from "~/app/_components/LinkButton";
+import MarkdownList from "~/app/_components/Lectures/Markdown/MarkdownList";
 
 interface PageProps {
   params: { lecture: string };
 }
 
 export default async function LecturePage({ params }: PageProps) {
-  const session = await requireLoggedIn(); // ověření přihlášení
+  const session = await requireLoggedIn();
   const lectureId = Number(params.lecture);
 
   if (isNaN(lectureId)) {
@@ -28,13 +26,29 @@ export default async function LecturePage({ params }: PageProps) {
     return <span>Předmět nenalezen</span>;
   }
 
+  const orderArray: number[] = lecture.order ? JSON.parse(lecture.order) : [];
+
+  let markdownBlocks;
+  try {
+    markdownBlocks = await api.lectures.getMarkdownBlocksByOrder(
+      JSON.stringify(orderArray),
+    );
+  } catch (err) {
+    console.error(err);
+    return <span>Chyba při načítání markdownu</span>;
+  }
+
   return (
-    <main className="flex w-screen flex-col items-center justify-center gap-6">
+    <main className="bg-background flex min-h-screen flex-col items-center gap-6">
       <h1 className="my-12 text-6xl font-bold">{lecture.name}</h1>
+
       <div className="w-4/5">
-        <MarkdownViewer content={lecture.markdown || ""} />
+        <MarkdownList
+          blocks={markdownBlocks}
+          lectureId={lectureId}
+          isAdmin={session.user.role === "ADMIN"}
+        />
       </div>
-      <LinkButton title="Editovat" link={`/lectureEdit/${lectureId}`} />
     </main>
   );
 }

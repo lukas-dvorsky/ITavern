@@ -14,6 +14,12 @@ interface MarkdownViewerProps {
 const components: Components = {
   div: ({ className, children }) => {
     if (!className) return <div>{children}</div>;
+    if (className.includes("md-markdown-")) {
+      const splitted = className.split("-");
+      let id = splitted[2];
+      return <div>Obsah markdownu s id: {id}</div>;
+    }
+
     switch (className) {
       case "md-note":
         return (
@@ -39,6 +45,9 @@ const components: Components = {
             {children}
           </h1>
         );
+      case "md-markdown":
+        let ahoj = "Ahoj";
+        return <div>{ahoj}</div>;
       default:
         return <div>{children}</div>;
     }

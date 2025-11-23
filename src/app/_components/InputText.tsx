@@ -59,9 +59,7 @@ function InputText(props: InputTextProps) {
       <input
         id={distinctId}
         name={props.dbKey}
-        className={`w-full border-b-2 outline-none ${
-          focused ? "border-b-blue-500" : "border-b-gray-500"
-        } ${errorMessage ? "border-b-red-600" : "border-b-gray-500"}`}
+        className={`w-full border-b-2 outline-none ${errorMessage ? "border-b-danger" : focused ? "border-b-primary" : "border-b-gray-500"}`}
         onChange={handleChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
@@ -82,7 +80,7 @@ function InputText(props: InputTextProps) {
           }
         }}
       />
-      <span className="text mb-0.5 block text-sm text-red-600">
+      <span className="text text-danger mb-0.5 block text-sm">
         {errorMessage}
       </span>
     </div>

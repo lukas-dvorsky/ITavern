@@ -124,9 +124,23 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.LectureHierarchyScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  markdown: 'markdown',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  isPublic: 'isPublic',
+  order: 'order',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
   HierarchyParentId: 'HierarchyParentId'
+};
+
+exports.Prisma.MarkdownBlockScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -188,6 +202,7 @@ exports.Roles = exports.$Enums.Roles = {
 
 exports.Prisma.ModelName = {
   LectureHierarchy: 'LectureHierarchy',
+  MarkdownBlock: 'MarkdownBlock',
   Account: 'Account',
   Session: 'Session',
   User: 'User',

@@ -11,10 +11,11 @@ export interface ModalHandle {
 interface ModalProps {
   title?: string;
   children: React.ReactNode;
+  autoWidth: boolean;
 }
 
 const Modal = forwardRef<ModalHandle, ModalProps>(
-  ({ title, children }, ref) => {
+  ({ title, children, autoWidth }, ref) => {
     const [open, setOpen] = useState(false);
 
     useImperativeHandle(ref, () => ({
@@ -26,11 +27,11 @@ const Modal = forwardRef<ModalHandle, ModalProps>(
 
     return (
       <div
-        className="fixed inset-0 flex cursor-auto items-center justify-center bg-black/20 text-xl"
+        className="fixed inset-0 z-50 flex cursor-auto items-center justify-center bg-black/20 text-xl"
         onClick={() => setOpen(false)}
       >
         <div
-          className="relative flex flex-col justify-center gap-12 bg-white p-4 text-black"
+          className={`text-text relative z-50 flex flex-col justify-center gap-12 overflow-y-scroll bg-white p-4 ${!autoWidth && "w-4/5"}`}
           onClick={(e) => e.stopPropagation()}
         >
           <button
