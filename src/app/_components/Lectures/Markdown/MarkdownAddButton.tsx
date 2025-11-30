@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { TfiPlus } from "react-icons/tfi";
-import Modal, { type ModalHandle } from "../../Modal";
-import { api } from "~/trpc/react";
+import Modal, { type ModalHandle } from "../../Modals/Modal";
 import MarkdownSelectList from "./MarkdownSelectList";
 
 export interface MarkdownAddButtonProps {
@@ -24,6 +23,9 @@ function MarkdownAddButton(props: MarkdownAddButtonProps) {
         />
       </div>
       <Modal ref={modalRef} title="Vyber markdown" autoWidth={false}>
+        <div className="w-16">
+          <button>Vytvorit</button>
+        </div>
         <MarkdownSelectList
           addToIndex={props.addToIndex}
           lectureId={props.lectureId}

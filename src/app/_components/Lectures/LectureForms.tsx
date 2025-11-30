@@ -1,6 +1,6 @@
 import React from "react";
-import InputText from "../InputText";
-import InputSelect from "../InputSelect";
+import InputText from "../UI/InputText";
+import InputSelect from "../UI/InputSelect";
 import FormManager from "../Forms/FormManager";
 import { api } from "~/trpc/react";
 import { createOptions } from "~/server/utils/lecture";
@@ -8,6 +8,7 @@ import { createOptions } from "~/server/utils/lecture";
 interface LectureFormsProps {
   id: number;
   name: string;
+  userId: string;
 }
 
 function LectureForms(props: LectureFormsProps) {
@@ -15,7 +16,7 @@ function LectureForms(props: LectureFormsProps) {
   const parentHierarchy = api.lectures.getParent.useQuery(props.id);
 
   const createLectureMutation = api.lectures.createLecture.useMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       console.log(
         "Vytvořeno tu dej nejake okno lol nejaky succes mozna pouzit TOUST? :)))):",
       );
@@ -38,18 +39,19 @@ function LectureForms(props: LectureFormsProps) {
     <FormManager
       apiCreate={(formData) => {
         createLectureMutation.mutate({
-          name: formData.name,
-          parentId: formData.parentId ? Number(formData.parentId) : null,
+          name: formData.name as string,
+          lectureId: formData.parentId ? Number(formData.parentId) : null,
+          userId: props.userId,
         });
       }}
       apiUpdate={(formData) => {
         updateLectureMutation.mutate({
           id: props.id,
-          name: formData.name,
+          name: formData.name as string,
           parentId: formData.parentId ? Number(formData.parentId) : null,
         });
       }}
-      apiDelete={(formData) => {
+      apiDelete={() => {
         deleteLectureMutation.mutate(props.id);
       }}
     >

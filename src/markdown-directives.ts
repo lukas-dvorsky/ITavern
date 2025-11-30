@@ -1,12 +1,23 @@
+import type { Node } from "unist";
 import { visit } from "unist-util-visit";
 
-export const customDirectives = () => (tree: any) => {
-  visit(tree, (node) => {
-    // containerDirective = :::name ... :::
+interface ContainerDirectiveNode extends Node {
+  type: "containerDirective";
+  name: string;
+  data?: {
+    hName?: string;
+    hProperties?: Record<string, unknown>;
+  };
+}
+
+export const customDirectives = () => (tree: Node) => {
+  visit(tree, (node: Node) => {
     if (node.type === "containerDirective") {
-      const data = node.data || (node.data = {});
-      data.hName = "div"; // převede na <div>
-      data.hProperties = { className: `md-${node.name}` };
+      const containerNode = node as ContainerDirectiveNode;
+
+      const data = containerNode.data ?? (containerNode.data = {});
+      data.hName = "div";
+      data.hProperties = { className: `md-${containerNode.name}` };
     }
   });
 };

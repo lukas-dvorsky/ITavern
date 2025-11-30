@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-import Modal, { type ModalHandle } from "../Modal";
+import React, { useRef } from "react";
+import Modal, { type ModalHandle } from "../Modals/Modal";
 import { FaRegEdit } from "react-icons/fa";
 
 interface FormUpdateProps {
   buttonTitle?: string;
   children: React.ReactNode;
-  apiUpdate: (data: Record<string, any>) => void;
+  apiUpdate: (data: Record<string, unknown>) => void;
 }
 
 function FormUpdate(props: FormUpdateProps) {
@@ -16,7 +16,7 @@ function FormUpdate(props: FormUpdateProps) {
       onSubmit={(e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        const obj: Record<string, any> = {};
+        const obj: Record<string, unknown> = {};
         data.forEach((value, key) => {
           obj[key] = value;
         });
@@ -25,7 +25,7 @@ function FormUpdate(props: FormUpdateProps) {
         modalRef.current?.close();
       }}
     >
-      <Modal ref={modalRef} title="Update">
+      <Modal ref={modalRef} title="Update" autoWidth={true}>
         {props.children}
         <button
           className="w-36 cursor-pointer self-end rounded-lg bg-blue-500 py-4 text-white"
@@ -42,7 +42,7 @@ function FormUpdate(props: FormUpdateProps) {
           modalRef.current?.open();
         }}
       >
-        {props.buttonTitle ? props.buttonTitle : <FaRegEdit />}
+        {props.buttonTitle ?? <FaRegEdit />}
       </button>
     </form>
   );

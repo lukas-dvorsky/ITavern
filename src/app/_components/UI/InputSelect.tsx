@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 
 export interface Option {
   label: string;
@@ -25,9 +25,11 @@ function InputSelect(props: InputSelectProps) {
   const [select, setSelect] = useState<Option | null>(null);
   const distinctId = useId();
 
-  const optionsWithNull = props.hasNull
-    ? [{ value: "", label: "" }, ...props.options]
-    : props.options;
+  const optionsWithNull = useMemo(() => {
+    return props.hasNull
+      ? [{ value: "", label: "" }, ...props.options]
+      : props.options;
+  }, [props.hasNull, props.options]);
 
   useEffect(() => {
     const closestForm = selectRef.current?.closest(
@@ -42,7 +44,11 @@ function InputSelect(props: InputSelectProps) {
     } else if (formType === "update") {
       setSelect(props.defaultValue?.editDefault ?? optionsWithNull[0] ?? null);
     }
-  }, []);
+  }, [
+    optionsWithNull,
+    props.defaultValue?.createDefault,
+    props.defaultValue?.editDefault,
+  ]);
 
   useEffect(() => {
     if (props.focus && selectRef.current) {

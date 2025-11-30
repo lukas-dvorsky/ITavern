@@ -6,7 +6,6 @@ import { FaArrowAltCircleRight } from "react-icons/fa";
 import { MdCopyAll } from "react-icons/md";
 import type { MarkdownAddButtonProps } from "./MarkdownAddButton";
 import { api } from "~/trpc/react";
-import { useRouter } from "next/navigation";
 
 interface MarkdownSelectItemProps {
   mdb: MarkdownBlock;
@@ -16,7 +15,6 @@ interface MarkdownSelectItemProps {
 function MarkdownSelectItem(
   props: MarkdownSelectItemProps & MarkdownAddButtonProps,
 ) {
-  const router = useRouter();
   const lectureOrderQuery = api.lectures.getLectureOrder.useQuery(
     props.lectureId,
   );
@@ -32,7 +30,9 @@ function MarkdownSelectItem(
 
     if (!lectureOrderQuery.data) return;
 
-    const currentOrder: number[] = JSON.parse(lectureOrderQuery.data.order);
+    const currentOrder: number[] = JSON.parse(
+      lectureOrderQuery.data.order,
+    ) as number[];
 
     const index = props.addToIndex ?? currentOrder.length;
 

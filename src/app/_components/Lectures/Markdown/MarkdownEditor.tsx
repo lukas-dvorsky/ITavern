@@ -1,66 +1,74 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { api } from "~/trpc/react";
+import React, { useState, useImperativeHandle, forwardRef } from "react";
 import MarkdownViewer from "./MarkdownViewer";
+import GridLayout from "../../Layout/GridLayout";
+import TextareaAutosize from "react-textarea-autosize";
 
-interface MarkdownEditorProps {
+export interface MarkdownEditorProps {
   id: string;
   markdown: string;
   name: string;
   userId: string;
+  className?: string;
+  view?: "horizontal" | "vertical";
 }
 
-function MarkdownEditor(props: MarkdownEditorProps) {
-  const router = useRouter();
-  const [markdown, setMarkdown] = useState(props.markdown);
-  const [name, setName] = useState(props.name);
+export interface MarkdownEditorRef {
+  getMarkdown: () => string;
+  getName: () => string;
+  setMarkdown: (newMarkdown: string) => void;
+  setName: (newName: string) => void;
+}
 
-  const updateMarkdown = api.lectures.udpateMarkdownBlock.useMutation({
-    onSuccess: () => router.back(),
-  });
+const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>(
+  (props, ref) => {
+    const [markdown, setMarkdown] = useState(props.markdown);
+    const [name, setName] = useState(props.name);
 
-  return (
-    <div className="flex h-full flex-col justify-center">
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
-      />
-      <div className="flex h-full w-full overflow-hidden">
-        {/* EDITOR */}
-        <div className="h-full w-1/2">
-          <textarea
-            className="custom-scrollbar h-full w-full resize-none overflow-auto p-4 text-lg outline-none"
-            value={markdown}
-            onChange={(e) => setMarkdown(e.target.value)}
-          />
+    useImperativeHandle(ref, () => ({
+      getMarkdown: () => markdown,
+      getName: () => name,
+      setMarkdown: (newMarkdown: string) => {
+        setMarkdown(newMarkdown);
+      },
+      setName: (newName: string) => {
+        setName(newName);
+      },
+    }));
 
-          <button
-            className="bg-primary absolute top-4 right-8 rounded px-4 py-2 text-2xl text-white"
-            onClick={() =>
-              updateMarkdown.mutate({
-                id: Number(props.id),
-                name: name,
-                userId: props.userId,
-                content: markdown,
-              })
-            }
+    return (
+      <div className={`flex h-full flex-col justify-center ${props.className}`}>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="mb-4 rounded border p-2"
+        />
+        <GridLayout>
+          {/* EDITOR */}
+          <div
+            className={`custom-scrollbar min-h-full p-4 ${props.view === "horizontal" ? "col-span-6" : "col-span-12"}`}
           >
-            Update
-          </button>
-        </div>
+            <TextareaAutosize
+              className="custom-scrollbar w-full resize-none p-4 text-lg outline-none"
+              value={markdown}
+              onChange={(e) => setMarkdown(e.target.value)}
+            />
+          </div>
 
-        {/* PREVIEW */}
-        <div className="custom-scrollbar text- h-full w-1/2 overflow-auto p-4">
-          <MarkdownViewer content={markdown} />
-        </div>
+          {/* PREVIEW */}
+          <div
+            className={`custom-scrollbar h-full p-4 ${props.view === "horizontal" ? "col-span-6" : "col-span-12"}`}
+          >
+            <MarkdownViewer content={markdown} />
+          </div>
+        </GridLayout>
       </div>
-    </div>
-  );
-}
+    );
+  },
+);
+
+MarkdownEditor.displayName = "MarkdownEditor";
 
 export default MarkdownEditor;

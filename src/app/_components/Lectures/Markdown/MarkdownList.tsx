@@ -3,33 +3,34 @@
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import type { DropResult } from "@hello-pangea/dnd";
 import { useState } from "react";
-import MarkdownViewer from "./MarkdownViewer";
 import MarkdownAddButton from "./MarkdownAddButton";
 import { api } from "~/trpc/react";
-import { MdDelete } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
-import { IoMdMove } from "react-icons/io";
-import { useRouter } from "next/navigation";
+import GridLayout from "../../Layout/GridLayout";
+import ToggleButton from "../../UI/ToggleButton";
+import MarkdownBlockView from "./MarkdownBlockView";
+import { MdEdit } from "react-icons/md";
 
 export interface MarkdownBlock {
   id: number;
   content: string | null;
+  name: string;
 }
 
 interface MarkdownListProps {
   blocks: MarkdownBlock[];
   lectureId: number;
   isAdmin: boolean;
+  userId: string;
 }
 
 export default function MarkdownList({
   blocks,
   lectureId,
   isAdmin,
+  userId,
 }: MarkdownListProps) {
   const [items, setItems] = useState(blocks);
   const [editModeEnabled, setEditModeEnabled] = useState(false);
-  const router = useRouter();
 
   const updateOrderMutation = api.lectures.updateOrder.useMutation();
 
@@ -52,23 +53,33 @@ export default function MarkdownList({
   };
 
   return (
-    <div className="w-full">
+    <GridLayout>
       {isAdmin && (
-        <div className="mb-4 flex gap-4">
-          <input
-            type="checkbox"
-            name="markdown-edit-mode"
-            checked={editModeEnabled}
-            onChange={(e) => setEditModeEnabled(e.target.checked)}
+        <div className="col-span-2 col-start-11 mb-4 flex gap-2">
+          <ToggleButton
+            title="Editační mód"
+            icon={<MdEdit size={18} />}
+            actionActive={() => {
+              setEditModeEnabled(true);
+            }}
+            actionDisabled={() => {
+              setEditModeEnabled(false);
+            }}
           />
-          <label htmlFor="markdown-edit-mode">Editační mód</label>
         </div>
       )}
 
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="markdownList">
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+            <div
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              className="col-span-12"
+            >
+              {isAdmin && editModeEnabled && items.length === 0 && (
+                <MarkdownAddButton addToIndex={0} lectureId={lectureId} />
+              )}
               {items.map((mdb, index) => (
                 <Draggable
                   key={mdb.id}
@@ -87,64 +98,16 @@ export default function MarkdownList({
                           lectureId={lectureId}
                         />
                       )}
-                      <div className="flex w-full items-start justify-between">
-                        <MarkdownViewer content={mdb.content ?? ""} />
-
-                        <div
-                          className={`border-l-accent flex items-center gap-4 border-l-2 p-4 ${!editModeEnabled && "border-none"}`}
-                        >
-                          {isAdmin && editModeEnabled && (
-                            <>
-                              <MdDelete
-                                size={24}
-                                className="cursor-pointer"
-                                onClick={async () => {
-                                  const potvrzeni = window.confirm(
-                                    "Opravdu chcete smazat tento blok z teto lekce?",
-                                  );
-                                  if (!potvrzeni) return;
-
-                                  const newItems = items.filter(
-                                    (b) => b.id !== mdb.id,
-                                  );
-                                  setItems(newItems);
-
-                                  const newOrder = newItems.map((b) => b.id);
-
-                                  try {
-                                    await updateOrderMutation.mutateAsync({
-                                      lectureId,
-                                      order: newOrder,
-                                    });
-                                  } catch (err) {
-                                    console.error("Chyba při mazání:", err);
-                                    setItems(items);
-                                  }
-                                }}
-                              />
-
-                              <FaRegEdit
-                                size={24}
-                                className="cursor-pointer"
-                                onClick={() =>
-                                  router.push(`/markdown-edit/${mdb.id}`)
-                                }
-                              />
-                            </>
-                          )}
-
-                          <div
-                            {...provided.dragHandleProps}
-                            className={`flex items-center ${
-                              isAdmin && editModeEnabled
-                                ? ""
-                                : "pointer-events-none opacity-0"
-                            }`}
-                          >
-                            <IoMdMove size={24} />
-                          </div>
-                        </div>
-                      </div>
+                      <MarkdownBlockView
+                        mdb={mdb}
+                        editModeEnabled={editModeEnabled}
+                        isAdmin={isAdmin}
+                        items={items}
+                        lectureId={lectureId}
+                        userId={userId}
+                        provided={provided}
+                        setItems={setItems}
+                      />
 
                       {isAdmin && editModeEnabled && (
                         <MarkdownAddButton
@@ -162,6 +125,6 @@ export default function MarkdownList({
           )}
         </Droppable>
       </DragDropContext>
-    </div>
+    </GridLayout>
   );
 }

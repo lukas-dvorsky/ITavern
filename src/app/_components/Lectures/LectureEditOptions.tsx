@@ -9,7 +9,7 @@ interface LectureEditOptionsProps {
 }
 
 function LectureEditOptions(props: LectureEditOptionsProps) {
-  const updateMarkdown = api.lectures.udpateMarkdown.useMutation();
+  const updateMarkdown = api.lectures.udpateMarkdownBlock.useMutation();
 
   return (
     <div>
@@ -17,8 +17,10 @@ function LectureEditOptions(props: LectureEditOptionsProps) {
       <button
         onClick={() => {
           updateMarkdown.mutate({
+            name: "LUKE TO NEOPRAVIL HAh",
+            userId: "cmiarj8uv0000vp7c11fpzoy1",
             id: Number(props.id),
-            markdown: props.markdown,
+            content: props.markdown,
           });
         }}
       >

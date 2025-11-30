@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import type { ReactNode } from "react";
-import InputText from "./InputText";
+import InputText from "../UI/InputText";
 
 interface SearchBarProps {
   children?: ReactNode;
@@ -16,7 +16,7 @@ function SearchBar({ children, filterFunction }: SearchBarProps) {
     <div className="flex w-full flex-col gap-12">
       <InputText
         dbKey=""
-        onChange={(e) => setSearchFor(e)}
+        onChange={(e: string) => setSearchFor(e)}
         placeholder="Hledat..."
       />
       <div className="max-h-60 overflow-y-scroll">

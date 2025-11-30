@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import LectureForms from "./LectureForms";
-import { api } from "~/trpc/react";
 import type { Roles } from "generated/prisma";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -10,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface LectureNavigatorLectureProps {
   id: number;
+  userId: string;
   name: string;
   children?: React.ReactNode;
   userRole: Roles;
@@ -17,6 +17,7 @@ interface LectureNavigatorLectureProps {
 
 const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
   id,
+  userId,
   name,
   children,
   userRole,
@@ -43,7 +44,7 @@ const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
           {/* IF ADMIN */}
           {userRole === "ADMIN" && (
             <div className="flex h-full items-center justify-center gap-8">
-              <LectureForms id={id} name={name} />
+              <LectureForms id={id} name={name} userId={userId} />
             </div>
           )}
         </div>

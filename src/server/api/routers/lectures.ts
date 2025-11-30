@@ -30,6 +30,25 @@ export const lectureRouter = createTRPCRouter({
     return data;
   }),
 
+  createLecture: roleProcedure(["ADMIN"])
+    .input(
+      z.object({
+        name: z.string(),
+        lectureId: z.number().nullable(),
+        userId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.lectureHierarchy.create({
+        data: {
+          name: input.name,
+          HierarchyParentId: input.lectureId,
+          createdById: input.userId,
+          updatedById: input.userId,
+        },
+      });
+    }),
+
   getParent: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
     const data = await ctx.db.lectureHierarchy.findUnique({
       select: {
@@ -51,7 +70,7 @@ export const lectureRouter = createTRPCRouter({
       let order: number[] = [];
 
       try {
-        order = JSON.parse(input);
+        order = JSON.parse(input) as number[];
 
         if (!Array.isArray(order)) return [];
         order = order.map(Number).filter((n) => !isNaN(n));
@@ -92,8 +111,8 @@ export const lectureRouter = createTRPCRouter({
   updateLecture: roleProcedure(["ADMIN"])
     .input(
       z.object({
-        id: z.number(), // ID lekce, kterou chceme update
-        name: z.string().optional(), // co chceme měnit
+        id: z.number(),
+        name: z.string().optional(),
         parentId: z.number().nullable().optional(),
       }),
     )

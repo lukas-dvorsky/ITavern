@@ -1,9 +1,6 @@
-import Link from "next/link";
-import { auth } from "~/server/auth";
 import { requireLoggedIn } from "~/server/utils/auth";
-import { api } from "~/trpc/react";
-import Button from "./_components/Button";
 import LectureNavigator from "./_components/Lectures/LectureNavigator";
+import Link from "next/link";
 
 export default async function Home() {
   const session = await requireLoggedIn();
@@ -11,11 +8,14 @@ export default async function Home() {
   return (
     <main className="bg-background text-text flex min-h-screen flex-col items-center">
       <div className="bg-background-card mt-36 max-h-screen w-2/3 flex-col">
-        <LectureNavigator userRole={session.user.role} />
+        <LectureNavigator
+          userRole={session.user.role}
+          userId={session.user.id}
+        />
       </div>
 
       <span>prihlaseny jako: {session.user.name}</span>
-      <a href="/api/auth/signout">SignOut</a>
+      <Link href="/api/auth/signout">SignOut</Link>
     </main>
   );
 }

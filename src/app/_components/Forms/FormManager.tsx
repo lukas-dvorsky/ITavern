@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
 import FormCreate from "./FormCreate";
 import FormUpdate from "./FormUpdate";
 import FormDelete from "./FormDelete";
 
 interface FormManagerProps {
   children: React.ReactNode;
-  apiCreate: (data: Record<string, any>) => void;
-  apiUpdate: (data: Record<string, any>) => void;
-  apiDelete: (data: Record<string, any>) => void;
+  apiCreate: (data: Record<string, unknown>) => void;
+  apiUpdate: (data: Record<string, unknown>) => void;
+  apiDelete: (data: Record<string, unknown>) => void;
   options?: {
     buttons?: {
       createTitle?: string;

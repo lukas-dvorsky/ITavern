@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-import Modal, { type ModalHandle } from "../Modal";
+import React, { useRef } from "react";
+import Modal, { type ModalHandle } from "../Modals/Modal";
 import { MdDelete } from "react-icons/md";
 
 interface FormDeleteProps {
   buttonTitle?: string;
   children?: React.ReactNode;
-  apiDelete: (data: Record<string, any>) => void;
+  apiDelete: (data: Record<string, unknown>) => void;
 }
 
 function FormDelete(props: FormDeleteProps) {
@@ -16,7 +16,7 @@ function FormDelete(props: FormDeleteProps) {
       onSubmit={(e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        const obj: Record<string, any> = {};
+        const obj: Record<string, unknown> = {};
         data.forEach((value, key) => {
           obj[key] = value;
         });
@@ -25,7 +25,7 @@ function FormDelete(props: FormDeleteProps) {
         modalRef.current?.close();
       }}
     >
-      <Modal ref={modalRef}>
+      <Modal ref={modalRef} autoWidth={true}>
         {props.children}
         <button
           className="bg-danger w-36 cursor-pointer self-center rounded-lg py-4 text-white"
@@ -42,7 +42,7 @@ function FormDelete(props: FormDeleteProps) {
           modalRef.current?.open();
         }}
       >
-        {props.buttonTitle ? props.buttonTitle : <MdDelete />}
+        {props.buttonTitle ?? <MdDelete />}
       </button>
     </form>
   );

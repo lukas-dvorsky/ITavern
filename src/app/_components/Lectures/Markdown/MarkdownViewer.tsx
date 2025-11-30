@@ -5,10 +5,10 @@ import remarkGfm from "remark-gfm";
 import remarkDirective from "remark-directive";
 import rehypeRaw from "rehype-raw";
 import { customDirectives } from "~/markdown-directives";
-import Link from "next/link";
 
 interface MarkdownViewerProps {
   content: string;
+  className?: string;
 }
 
 const components: Components = {
@@ -16,7 +16,7 @@ const components: Components = {
     if (!className) return <div>{children}</div>;
     if (className.includes("md-markdown-")) {
       const splitted = className.split("-");
-      let id = splitted[2];
+      const id = splitted[2];
       return <div>Obsah markdownu s id: {id}</div>;
     }
 
@@ -46,7 +46,7 @@ const components: Components = {
           </h1>
         );
       case "md-markdown":
-        let ahoj = "Ahoj";
+        const ahoj = "Ahoj";
         return <div>{ahoj}</div>;
       default:
         return <div>{children}</div>;
@@ -58,8 +58,11 @@ const components: Components = {
   ),
   p: ({ children }) => <p className="my-2">{children}</p>,
 
-  code: ({ node, className, children }) => {
-    const text = String(children);
+  code: ({ className, children }) => {
+    const text = React.Children.toArray(children)
+      .map((child) => (typeof child === "string" ? child : ""))
+      .join("");
+
     const isBlock = text.includes("\n");
 
     if (isBlock) {
@@ -74,9 +77,12 @@ const components: Components = {
   },
 };
 
-export default function MarkdownViewer({ content }: MarkdownViewerProps) {
+export default function MarkdownViewer({
+  content,
+  className,
+}: MarkdownViewerProps) {
   return (
-    <div className="prose prose-invert max-w-none">
+    <div className={`prose prose-invert max-w-none ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkDirective, customDirectives]}
         rehypePlugins={[rehypeRaw]}

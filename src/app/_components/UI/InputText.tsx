@@ -21,23 +21,25 @@ function InputText(props: InputTextProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const distinctId = useId();
 
-  let formType = null;
-
   useEffect(() => {
     const inputEl = document.getElementById(distinctId);
-    if (inputEl) {
-      const closestForm = inputEl.closest("form") as HTMLFormElement | null;
-      if (closestForm) {
-        formType = closestForm.dataset.formType;
+    if (!inputEl) return;
 
-        if (formType === "create") {
-          setTextValue((props.defaultValue?.createDefault as string) ?? "");
-        } else if (formType === "update") {
-          setTextValue((props.defaultValue?.editDefault as string) ?? "");
-        }
+    const closestForm = inputEl.closest("form");
+
+    const defaults = props.defaultValue;
+    if (!defaults) return;
+
+    if (closestForm instanceof HTMLFormElement) {
+      const formType = closestForm.dataset.formType;
+
+      if (formType === "create" && defaults.createDefault !== undefined) {
+        setTextValue(defaults.createDefault);
+      } else if (formType === "update" && defaults.editDefault !== undefined) {
+        setTextValue(defaults.editDefault);
       }
     }
-  }, []);
+  }, [distinctId, props.defaultValue]);
 
   useEffect(() => {
     if (props.focus) {
@@ -54,7 +56,7 @@ function InputText(props: InputTextProps) {
   return (
     <div className="w-full">
       <label htmlFor={distinctId} className="text mb-0.5 block text-sm">
-        {props.label ? props.label : "\u2003"}
+        {props.label ?? "\u2003"}
       </label>
       <input
         id={distinctId}

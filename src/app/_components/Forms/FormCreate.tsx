@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-import Modal, { type ModalHandle } from "../Modal";
+import React, { useRef } from "react";
+import Modal, { type ModalHandle } from "../Modals/Modal";
 import { FiPlusSquare } from "react-icons/fi";
 
 interface FormCreateProps {
   buttonTitle?: string;
   children: React.ReactNode;
-  apiCreate: (data: Record<string, any>) => void;
+  apiCreate: (data: Record<string, unknown>) => void;
 }
 
 function FormCreate(props: FormCreateProps) {
@@ -16,7 +16,7 @@ function FormCreate(props: FormCreateProps) {
       onSubmit={(e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        const obj: Record<string, any> = {};
+        const obj: Record<string, unknown> = {};
         data.forEach((value, key) => {
           obj[key] = value;
         });
@@ -25,7 +25,7 @@ function FormCreate(props: FormCreateProps) {
         modalRef.current?.close();
       }}
     >
-      <Modal ref={modalRef} title="Create">
+      <Modal ref={modalRef} title="Create" autoWidth={true}>
         {props.children}
         <button
           className="w-36 cursor-pointer self-end rounded-lg bg-blue-500 py-4 text-white"
@@ -42,7 +42,7 @@ function FormCreate(props: FormCreateProps) {
           modalRef.current?.open();
         }}
       >
-        {props.buttonTitle ? props.buttonTitle : <FiPlusSquare />}
+        {props.buttonTitle ?? <FiPlusSquare />}
       </button>
     </form>
   );

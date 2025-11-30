@@ -7,7 +7,7 @@ interface ButtonProps {
   redirectTo?: string;
   className?: string;
   children: React.ReactNode;
-  click?: (...args: any[]) => any;
+  click?: (...args: unknown[]) => unknown;
 }
 
 function Button(props: ButtonProps) {

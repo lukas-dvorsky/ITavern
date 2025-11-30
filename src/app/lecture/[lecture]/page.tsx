@@ -1,14 +1,19 @@
 import { api } from "~/trpc/server";
 import { requireLoggedIn } from "~/server/utils/auth";
 import MarkdownList from "~/app/_components/Lectures/Markdown/MarkdownList";
+import GridLayout from "~/app/_components/Layout/GridLayout";
 
 interface PageProps {
-  params: { lecture: string };
+  params: Promise<{
+    lecture: string;
+  }>;
 }
 
 export default async function LecturePage({ params }: PageProps) {
   const session = await requireLoggedIn();
-  const lectureId = Number(params.lecture);
+
+  const { lecture: lectureParam } = await params;
+  const lectureId = Number(lectureParam);
 
   if (isNaN(lectureId)) {
     return <span>Neplatné ID předmětu</span>;
@@ -26,7 +31,9 @@ export default async function LecturePage({ params }: PageProps) {
     return <span>Předmět nenalezen</span>;
   }
 
-  const orderArray: number[] = lecture.order ? JSON.parse(lecture.order) : [];
+  const orderArray: number[] = lecture.order
+    ? (JSON.parse(lecture.order) as number[])
+    : [];
 
   let markdownBlocks;
   try {
@@ -39,16 +46,19 @@ export default async function LecturePage({ params }: PageProps) {
   }
 
   return (
-    <main className="bg-background flex min-h-screen flex-col items-center gap-6">
-      <h1 className="my-12 text-6xl font-bold">{lecture.name}</h1>
+    <GridLayout>
+      <h1 className="col-span-6 col-start-4 my-12 text-center text-6xl font-bold">
+        {lecture.name}
+      </h1>
 
-      <div className="w-4/5">
+      <div className="col-span-10 col-start-2">
         <MarkdownList
+          userId={session.user.id}
           blocks={markdownBlocks}
           lectureId={lectureId}
           isAdmin={session.user.role === "ADMIN"}
         />
       </div>
-    </main>
+    </GridLayout>
   );
 }

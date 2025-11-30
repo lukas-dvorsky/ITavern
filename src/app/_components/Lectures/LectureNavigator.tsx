@@ -6,6 +6,7 @@ import type { LectureHierarchy, Roles } from "generated/prisma";
 
 interface LectureNavigatorProps {
   userRole: Roles;
+  userId: string;
 }
 
 type LectureHierarchyExtended = LectureHierarchy & {
@@ -47,6 +48,7 @@ async function LectureNavigator(props: LectureNavigatorProps) {
   const renderLectureTree = (nodes: typeof buildedHierarchies) => {
     return nodes.map((lecture) => (
       <LectureNavigatorLecture
+        userId={props.userId}
         key={lecture.id}
         id={lecture.id}
         name={lecture.name}

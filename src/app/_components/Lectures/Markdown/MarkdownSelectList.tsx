@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import { api } from "~/trpc/react";
 import MarkdownSelectItem from "./MarkdownSelectItem";
-import SearchBar from "../../SearchBar";
 import MarkdownViewer from "./MarkdownViewer";
 import type { MarkdownAddButtonProps } from "./MarkdownAddButton";
+import SearchBar from "../../Navigation/SearchBar";
 
 function MarkdownSelectList(props: MarkdownAddButtonProps) {
   const markdownBlocks = api.lectures.getMarkdownBlocks.useQuery();
