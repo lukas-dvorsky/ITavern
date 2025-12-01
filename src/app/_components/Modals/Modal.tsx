@@ -2,6 +2,7 @@
 
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { TfiClose } from "react-icons/tfi";
+import GridLayout from "../Layout/GridLayout";
 
 export interface ModalHandle {
   open: () => void;
@@ -26,26 +27,26 @@ const Modal = forwardRef<ModalHandle, ModalProps>(
     if (!open) return null;
 
     return (
-      <div
-        className="fixed inset-0 z-50 flex cursor-auto items-center justify-center bg-black/20 text-xl"
+      <GridLayout
+        className="fixed inset-0 z-50 cursor-auto bg-black/20 text-xl"
         onClick={() => setOpen(false)}
       >
-        <div
-          className={`text-text relative z-50 flex flex-col justify-center gap-12 overflow-y-scroll bg-white p-4 ${!autoWidth && "w-4/5"}`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button
-            className="absolute top-2 right-2 cursor-pointer"
-            onClick={() => setOpen(false)}
+        <GridLayout className="col-span-8 col-start-3">
+          <div
+            className={`text-text relative z-50 col-span-12 my-4 overflow-y-scroll bg-white p-4 ${autoWidth ?? ""}`}
+            onClick={(e) => e.stopPropagation()}
           >
-            <TfiClose size={32} />
-          </button>
-          {title && <span className="text-2xl">{title}</span>}
-          <div className="flex w-full flex-col justify-between gap-12 p-5">
-            {children}
+            <button
+              className="absolute top-3 right-3 cursor-pointer"
+              onClick={() => setOpen(false)}
+            >
+              <TfiClose size={32} />
+            </button>
+            {title && <span className="text-4xl font-bold">{title}</span>}
+            <GridLayout className="w-full">{children}</GridLayout>
           </div>
-        </div>
-      </div>
+        </GridLayout>
+      </GridLayout>
     );
   },
 );

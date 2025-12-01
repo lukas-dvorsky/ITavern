@@ -78,7 +78,11 @@ export default function MarkdownList({
               className="col-span-12"
             >
               {isAdmin && editModeEnabled && items.length === 0 && (
-                <MarkdownAddButton addToIndex={0} lectureId={lectureId} />
+                <MarkdownAddButton
+                  addToIndex={0}
+                  lectureId={lectureId}
+                  userId={userId}
+                />
               )}
               {items.map((mdb, index) => (
                 <Draggable
@@ -96,6 +100,7 @@ export default function MarkdownList({
                         <MarkdownAddButton
                           addToIndex={0}
                           lectureId={lectureId}
+                          userId={userId}
                         />
                       )}
                       <MarkdownBlockView
@@ -113,6 +118,7 @@ export default function MarkdownList({
                         <MarkdownAddButton
                           addToIndex={index + 1}
                           lectureId={lectureId}
+                          userId={userId}
                         />
                       )}
                     </div>

@@ -13,6 +13,7 @@ interface InputTextProps {
   focus?: boolean;
   required?: boolean;
   onChange?: (value: string) => void;
+  className?: string;
 }
 
 function InputText(props: InputTextProps) {
@@ -54,7 +55,7 @@ function InputText(props: InputTextProps) {
   };
 
   return (
-    <div className="w-full">
+    <div className={`w-full ${props.className}`}>
       <label htmlFor={distinctId} className="text mb-0.5 block text-sm">
         {props.label ?? "\u2003"}
       </label>

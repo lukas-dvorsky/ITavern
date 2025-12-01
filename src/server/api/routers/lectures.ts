@@ -190,6 +190,28 @@ export const lectureRouter = createTRPCRouter({
       return updatedLecture;
     }),
 
+  createMarkdownBlock: roleProcedure(["ADMIN"])
+    .input(
+      z.object({
+        content: z.string().optional(),
+        name: z.string(),
+        userId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.markdownBlock.create({
+        data: {
+          content: input.content,
+          name: input.name,
+          createdById: input.userId,
+          updatedById: input.userId,
+        },
+        select: {
+          id: true,
+        },
+      });
+    }),
+
   getLectureOrder: roleProcedure(["ADMIN"])
     .input(z.number())
     .query(async ({ ctx, input }) => {

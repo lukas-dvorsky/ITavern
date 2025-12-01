@@ -29,6 +29,8 @@
     "@trpc/client": "^11.0.0",
     "@trpc/react-query": "^11.0.0",
     "@trpc/server": "^11.0.0",
+    "axios": "^1.13.2",
+    "bcryptjs": "^3.0.3",
     "framer-motion": "^12.23.24",
     "next": "^15.2.3",
     "next-auth": "5.0.0-beta.25",
@@ -49,6 +51,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.0.15",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.14.10",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
@@ -61,7 +64,8 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "prisma": "^6.6.0",
     "tailwindcss": "^4.1.17",
-    "typescript": "^5.8.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.27.0"
   },
   "ct3aMetadata": {

@@ -18,6 +18,7 @@ function SearchBar({ children, filterFunction }: SearchBarProps) {
         dbKey=""
         onChange={(e: string) => setSearchFor(e)}
         placeholder="Hledat..."
+        className="mt-5 mb-0"
       />
       <div className="max-h-60 overflow-y-scroll">
         {filterFunction ? filterFunction(searchFor) : children}

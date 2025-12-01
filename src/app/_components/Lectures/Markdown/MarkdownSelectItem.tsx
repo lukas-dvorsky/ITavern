@@ -9,6 +9,7 @@ import { api } from "~/trpc/react";
 
 interface MarkdownSelectItemProps {
   mdb: MarkdownBlock;
+  userId: string;
   setViewerContent: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -24,6 +25,8 @@ function MarkdownSelectItem(
       window.location.reload();
     },
   });
+
+  const copyMarkdownBlock = api.lectures.createMarkdownBlock.useMutation();
 
   const handleAdd = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -48,6 +51,35 @@ function MarkdownSelectItem(
     }
   };
 
+  const handleCopy = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (!lectureOrderQuery.data) return;
+
+    const currentOrder: number[] = JSON.parse(
+      lectureOrderQuery.data.order,
+    ) as number[];
+
+    const index = props.addToIndex ?? currentOrder.length;
+
+    try {
+      const newBlock = await copyMarkdownBlock.mutateAsync({
+        content: props.mdb.content ?? undefined,
+        name: `${props.mdb.name}_copy`,
+        userId: props.userId,
+      });
+
+      currentOrder.splice(index, 0, newBlock.id);
+
+      await updateOrderMutation.mutateAsync({
+        lectureId: props.lectureId,
+        order: currentOrder,
+      });
+    } catch (err) {
+      console.error("Chyba při kopírování blocku:", err);
+    }
+  };
+
   return (
     <div
       className="hover:bg-background flex cursor-pointer justify-between p-4"
@@ -61,7 +93,10 @@ function MarkdownSelectItem(
           className="hover:bg-background-card h-6 w-6"
           onClick={handleAdd}
         />
-        <MdCopyAll className="hover:bg-background h-6 w-6" />
+        <MdCopyAll
+          className="hover:bg-background h-6 w-6"
+          onClick={handleCopy}
+        />
       </div>
     </div>
   );
