@@ -8,6 +8,7 @@ interface ToggleButtonProps {
   actionActive: (...args: unknown[]) => unknown;
   actionDisabled: (...args: unknown[]) => unknown;
   defaultActive?: boolean;
+  className?: string;
 }
 
 function ToggleButton(props: ToggleButtonProps) {
@@ -15,7 +16,7 @@ function ToggleButton(props: ToggleButtonProps) {
 
   return (
     <div
-      className={`flex items-center gap-4 rounded-sm border px-2 py-1 ${active ? "bg-primary-light text-background" : "border-gray-400"}`}
+      className={`${props.className} flex items-center justify-center gap-4 rounded-sm border px-2 py-1 ${active ? "bg-primary-light text-background" : "border-gray-400"}`}
       onClick={() => {
         if (active) {
           props.actionDisabled();

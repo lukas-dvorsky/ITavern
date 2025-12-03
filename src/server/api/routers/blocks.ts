@@ -89,6 +89,7 @@ export const blockRouter = createTRPCRouter({
   //==================
   //    [UPDATE]
   //==================
+
   updateBlock: roleProcedure(["ADMIN"])
     .input(
       z.object({
@@ -153,6 +154,40 @@ export const blockRouter = createTRPCRouter({
       });
 
       return ctx.db.$transaction([updateBlocks, updateMovedBlock]);
+    }),
+
+  connectBlockToLecture: roleProcedure(["ADMIN"])
+    .input(
+      z.object({
+        lectureId: z.number(),
+        blockId: z.number(),
+        order: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const result = await ctx.db.$transaction(async (tx) => {
+        await tx.lectureMarkdown.updateMany({
+          where: {
+            lectureId: input.lectureId,
+            order: {
+              gte: input.order,
+            },
+          },
+          data: {
+            order: {
+              increment: 1,
+            },
+          },
+        });
+
+        await tx.lectureMarkdown.create({
+          data: {
+            lectureId: input.lectureId,
+            blockId: input.blockId,
+            order: input.order,
+          },
+        });
+      });
     }),
 
   //==================

@@ -61,6 +61,23 @@ export const lectureRouter = createTRPCRouter({
     return data;
   }),
 
+  setLecturePublic: roleProcedure(["ADMIN"])
+    .input(
+      z.object({
+        lectureId: z.number(),
+        isPublic: z.boolean(),
+        userId: z.string(),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.db.lectureHierarchy.update({
+        where: {
+          id: input.lectureId,
+        },
+        data: { updatedById: input.userId, isPublic: input.isPublic },
+      });
+    }),
+
   updateLecture: roleProcedure(["ADMIN"])
     .input(
       z.object({

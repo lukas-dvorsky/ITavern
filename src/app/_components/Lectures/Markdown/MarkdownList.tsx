@@ -1,4 +1,3 @@
-// MarkdownList.tsx
 "use client";
 
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
@@ -11,11 +10,12 @@ import ToggleButton from "../../UI/ToggleButton";
 import MarkdownBlockView from "./MarkdownBlockView";
 import { MdEdit } from "react-icons/md";
 import type { LectureMarkdown, MarkdownBlock } from "generated/prisma";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import type {
   QueryObserverResult,
   RefetchOptions,
 } from "@tanstack/react-query";
+import InputCheckbox from "../../UI/InputCheckbox";
 
 export interface LectureBlockItem extends LectureMarkdown {
   block: MarkdownBlock;
@@ -37,12 +37,14 @@ interface MarkdownListProps {
   lectureId: number;
   isAdmin: boolean;
   userId: string;
+  isLecturePublic: boolean;
 }
 
 export default function MarkdownList({
   lectureId,
   isAdmin,
   userId,
+  isLecturePublic,
 }: MarkdownListProps) {
   // ==== [ API ] ====
   const LecturesMdBlocks = api.block.getLectureBlocks.useQuery(lectureId);
@@ -57,10 +59,24 @@ export default function MarkdownList({
       setWait(true);
     },
   });
+  const updateLecturePublic = api.lectures.setLecturePublic.useMutation({
+    onSuccess: async () => {
+      if (lecturePublic) {
+        toast.success("Lekce byla úspěšně schována.");
+      } else {
+        toast.success("Lekce je viditelná pro všechny.");
+      }
+      setLecturePublic(!lecturePublic);
+    },
+    onError: async () => {
+      toast.error("Chyba nastavování viditelnosti lekce.");
+    },
+  });
 
   // ==== [ STATES ] ====
   const [editModeEnabled, setEditModeEnabled] = useState(false);
   const [waitToReorder, setWait] = useState(false);
+  const [lecturePublic, setLecturePublic] = useState(isLecturePublic);
 
   // ==== [ FUNCTIONS ] ====
   const onDragEnd = async (result: DropResult) => {
@@ -117,9 +133,22 @@ export default function MarkdownList({
   return (
     <GridLayout>
       {isAdmin && (
-        <div className="col-span-2 col-start-11 mb-4 flex gap-2">
+        <GridLayout className="col-span-12 mb-4 flex gap-2">
+          <InputCheckbox
+            initialValue={lecturePublic}
+            label="Viditelný všem uživatelům?"
+            className="col-span-2"
+            onChange={() => {
+              updateLecturePublic.mutate({
+                isPublic: !lecturePublic,
+                lectureId: lectureId,
+                userId: userId,
+              });
+            }}
+          />
           <ToggleButton
             title="Editační mód"
+            className="col-span-2 col-start-11"
             icon={<MdEdit size={18} />}
             actionActive={() => {
               setEditModeEnabled(true);
@@ -128,7 +157,7 @@ export default function MarkdownList({
               setEditModeEnabled(false);
             }}
           />
-        </div>
+        </GridLayout>
       )}
 
       <DragDropContext onDragEnd={onDragEnd}>
@@ -198,6 +227,7 @@ export default function MarkdownList({
           )}
         </Droppable>
       </DragDropContext>
+      <Toaster />
     </GridLayout>
   );
 }

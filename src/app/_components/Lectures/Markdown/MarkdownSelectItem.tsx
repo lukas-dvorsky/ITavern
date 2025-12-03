@@ -1,61 +1,68 @@
-// MarkdownSelectItem.tsx (Finální verze)
 import type { MarkdownBlock } from "generated/prisma";
 import React from "react";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { MdCopyAll } from "react-icons/md";
 import type { MarkdownAddButtonProps } from "./MarkdownAddButton";
 import type { ModalHandle } from "../../Modals/Modal";
+import { api } from "~/trpc/react";
+import toast, { Toaster } from "react-hot-toast";
+import type { RefetchMarkdownBlocks } from "./MarkdownList";
 
 interface MarkdownSelectItemProps {
   mdb: MarkdownBlock;
-  userId: string;
-  setViewerContent: React.Dispatch<React.SetStateAction<string>>;
   modalRef: React.RefObject<ModalHandle | null>;
+  setViewerContent: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function MarkdownSelectItem(
   props: MarkdownSelectItemProps & MarkdownAddButtonProps,
 ) {
-  // Žádné lokální useQuery pro pořadí!
-  // const updateOrderMutation = api.lectures.updateOrder.useMutation();
-  // const copyMarkdownBlock = api.lectures.createMarkdownBlock.useMutation();
+  // ==== [ API ] ====
+  const connectBlock = api.block.connectBlockToLecture.useMutation({
+    onSuccess: async () => {
+      toast.success("Položka úspěšně přiřazena do lekce.");
+      await props.refetch();
+    },
+    onError: async () => {
+      toast.error("Chyba při přiřazování položky do lekce.");
+    },
+  });
 
+  const createBlockConnectLecture =
+    api.block.createBlockConnectToLecture.useMutation({
+      onSuccess: async () => {
+        toast.success("Položka úspěšně zkopírována a přidána do lekce.");
+        await props.refetch();
+      },
+      onError: () => {
+        toast.error("Chyba při kopírování položky.");
+      },
+    });
+
+  // ==== [ FUNCTIONS ] ====
   const handleAdd = async (e: React.MouseEvent) => {
     e.stopPropagation();
-
-    // try {
-    //   await updateOrderMutation.mutateAsync({
-    //     lectureId: props.lectureId,
-    //     order: currentOrder,
-    //   });
-    //   await props.refetch();
-    //   props.modalRef.current?.close(); // Zavřít modal
-    // } catch (err) {
-    //   console.error("Chyba při přidávání blocku:", err);
-    // }
+    connectBlock.mutate({
+      blockId: props.mdb.id,
+      lectureId: props.lectureId,
+      order: props.addToIndex + 1,
+    });
   };
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
-
-    // try {
-    //   const newBlock = await copyMarkdownBlock.mutateAsync({
-    //     content: props.mdb.content ?? undefined,
-    //     name: `${props.mdb.name}_copy`,
-    //     userId: props.userId,
-    //   });
-
-    //   props.modalRef.current?.close(); // Zavřít modal
-    // } catch (err) {
-    //   console.error("Chyba při kopírování blocku:", err);
-    // }
+    createBlockConnectLecture.mutate({
+      lectureId: props.lectureId,
+      name: props.mdb.name + "_copy",
+      order: props.addToIndex + 1,
+      userId: props.userId,
+    });
   };
 
   return (
     <div
       className="hover:bg-background flex cursor-pointer justify-between p-4"
       onClick={() => {
-        // Zobrazení v prohlížeči (OK)
         props.setViewerContent(String(props.mdb.content));
       }}
     >
@@ -70,6 +77,7 @@ function MarkdownSelectItem(
           onClick={handleCopy}
         />
       </div>
+      <Toaster />
     </div>
   );
 }

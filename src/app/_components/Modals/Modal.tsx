@@ -12,7 +12,7 @@ export interface ModalHandle {
 interface ModalProps {
   title?: string;
   children: React.ReactNode;
-  autoWidth: boolean;
+  autoWidth?: boolean;
   modalHeight?: string;
 }
 
@@ -27,27 +27,36 @@ const Modal = forwardRef<ModalHandle, ModalProps>(
 
     if (!open) return null;
 
+    const widthClass = "col-span-10 col-start-2 lg:col-span-8 lg:col-start-3";
+
     return (
-      <GridLayout
-        className={`fixed inset-0 z-50 h-full w-full cursor-auto place-items-center bg-black/20 text-xl ${modalHeight !== "auto" && "place-items-center"}`}
+      <div
+        className="fixed inset-0 z-50 grid h-full w-full cursor-auto grid-cols-12 place-items-center bg-black/50 text-xl backdrop-blur-sm"
         onClick={() => setOpen(false)}
+        style={{ overflowY: "auto" }}
       >
-        <GridLayout className={`col-span-8 col-start-3 ${modalHeight}`}>
+        <div className={`${widthClass} ${modalHeight} my-8 w-full`}>
           <div
-            className={`text-text relative z-50 col-span-12 my-4 overflow-y-auto bg-white p-4 ${autoWidth ?? ""}`}
+            className="relative z-50 w-full rounded-lg bg-white p-6 shadow-2xl transition-all duration-300"
             onClick={(e) => e.stopPropagation()}
+            style={{ minHeight: "200px" }}
           >
             <button
-              className="absolute top-3 right-3 cursor-pointer"
+              className="absolute top-4 right-4 cursor-pointer text-gray-500 hover:text-gray-900"
               onClick={() => setOpen(false)}
+              aria-label="Zavřít"
             >
-              <TfiClose size={32} />
+              <TfiClose size={24} />
             </button>
-            {title && <span className="text-4xl font-bold">{title}</span>}
+
+            {title && (
+              <span className="text-4xl font-bold text-gray-900">{title}</span>
+            )}
+
             <GridLayout className="mt-4 w-full">{children}</GridLayout>
           </div>
-        </GridLayout>
-      </GridLayout>
+        </div>
+      </div>
     );
   },
 );

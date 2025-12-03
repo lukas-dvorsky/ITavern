@@ -40,6 +40,7 @@ export default async function LecturePage({ params }: PageProps) {
       <div className="col-span-10 col-start-2">
         <MarkdownList
           userId={session.user.id}
+          isLecturePublic={lecture.isPublic}
           lectureId={lectureId}
           isAdmin={session.user.role === "ADMIN"}
         />

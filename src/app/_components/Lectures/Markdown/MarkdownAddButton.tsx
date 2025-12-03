@@ -43,12 +43,7 @@ function MarkdownAddButton(props: MarkdownAddButtonProps) {
       >
         <TfiPlus />
       </div>
-      <Modal
-        ref={modalRef}
-        title="Vyber markdown"
-        autoWidth={false}
-        modalHeight="min-h-11/12"
-      >
+      <Modal ref={modalRef} title="Vyber markdown">
         <div className="col-span-12">
           <FormCreate
             buttonTitle="Vytvorit novy blok"

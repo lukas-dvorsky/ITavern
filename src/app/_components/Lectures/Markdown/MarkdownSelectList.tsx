@@ -1,4 +1,3 @@
-// MarkdownSelectList.tsx (Finální verze)
 "use client";
 
 import React, { useState } from "react";
@@ -25,7 +24,7 @@ function MarkdownSelectList({
 
   return (
     <div {...props}>
-      <div className="bg-background h-96 overflow-y-auto rounded-md pl-2">
+      <div className="bg-background h-96 overflow-y-auto rounded-md px-4 inset-shadow-xs">
         <MarkdownViewer content={viewerContent} />
       </div>
       <SearchBar
@@ -43,7 +42,7 @@ function MarkdownSelectList({
                 setViewerContent={setViewerContent}
                 addToIndex={addToIndex}
                 lectureId={lectureId}
-                modalRef={modalRef} // Předáno
+                modalRef={modalRef}
               />
             ))
         }
