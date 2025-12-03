@@ -13,10 +13,11 @@ interface ModalProps {
   title?: string;
   children: React.ReactNode;
   autoWidth: boolean;
+  modalHeight?: string;
 }
 
 const Modal = forwardRef<ModalHandle, ModalProps>(
-  ({ title, children, autoWidth }, ref) => {
+  ({ title, children, autoWidth, modalHeight = "auto" }, ref) => {
     const [open, setOpen] = useState(false);
 
     useImperativeHandle(ref, () => ({
@@ -28,12 +29,12 @@ const Modal = forwardRef<ModalHandle, ModalProps>(
 
     return (
       <GridLayout
-        className="fixed inset-0 z-50 cursor-auto bg-black/20 text-xl"
+        className={`fixed inset-0 z-50 h-full w-full cursor-auto place-items-center bg-black/20 text-xl ${modalHeight !== "auto" && "place-items-center"}`}
         onClick={() => setOpen(false)}
       >
-        <GridLayout className="col-span-8 col-start-3">
+        <GridLayout className={`col-span-8 col-start-3 ${modalHeight}`}>
           <div
-            className={`text-text relative z-50 col-span-12 my-4 overflow-y-scroll bg-white p-4 ${autoWidth ?? ""}`}
+            className={`text-text relative z-50 col-span-12 my-4 overflow-y-auto bg-white p-4 ${autoWidth ?? ""}`}
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -43,7 +44,7 @@ const Modal = forwardRef<ModalHandle, ModalProps>(
               <TfiClose size={32} />
             </button>
             {title && <span className="text-4xl font-bold">{title}</span>}
-            <GridLayout className="w-full">{children}</GridLayout>
+            <GridLayout className="mt-4 w-full">{children}</GridLayout>
           </div>
         </GridLayout>
       </GridLayout>

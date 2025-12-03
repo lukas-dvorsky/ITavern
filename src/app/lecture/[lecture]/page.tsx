@@ -31,20 +31,6 @@ export default async function LecturePage({ params }: PageProps) {
     return <span>Předmět nenalezen</span>;
   }
 
-  const orderArray: number[] = lecture.order
-    ? (JSON.parse(lecture.order) as number[])
-    : [];
-
-  let markdownBlocks;
-  try {
-    markdownBlocks = await api.lectures.getMarkdownBlocksByOrder(
-      JSON.stringify(orderArray),
-    );
-  } catch (err) {
-    console.error(err);
-    return <span>Chyba při načítání markdownu</span>;
-  }
-
   return (
     <GridLayout>
       <h1 className="col-span-6 col-start-4 my-12 text-center text-6xl font-bold">
@@ -54,7 +40,6 @@ export default async function LecturePage({ params }: PageProps) {
       <div className="col-span-10 col-start-2">
         <MarkdownList
           userId={session.user.id}
-          blocks={markdownBlocks}
           lectureId={lectureId}
           isAdmin={session.user.role === "ADMIN"}
         />

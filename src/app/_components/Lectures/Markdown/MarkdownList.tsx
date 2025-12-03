@@ -1,3 +1,4 @@
+// MarkdownList.tsx
 "use client";
 
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
@@ -9,48 +10,109 @@ import GridLayout from "../../Layout/GridLayout";
 import ToggleButton from "../../UI/ToggleButton";
 import MarkdownBlockView from "./MarkdownBlockView";
 import { MdEdit } from "react-icons/md";
+import type { LectureMarkdown, MarkdownBlock } from "generated/prisma";
+import toast from "react-hot-toast";
+import type {
+  QueryObserverResult,
+  RefetchOptions,
+} from "@tanstack/react-query";
 
-export interface MarkdownBlock {
-  id: number;
-  content: string | null;
-  name: string;
+export interface LectureBlockItem extends LectureMarkdown {
+  block: MarkdownBlock;
+}
+
+type LecturesData = LectureBlockItem[] | undefined;
+export type RefetchMarkdownBlocks = (
+  options?: RefetchOptions,
+) => Promise<QueryObserverResult<LecturesData, unknown>>;
+
+export interface MarkdownAddButtonProps {
+  addToIndex: number;
+  lectureId: number;
+  userId: string;
+  refetch: RefetchMarkdownBlocks;
 }
 
 interface MarkdownListProps {
-  blocks: MarkdownBlock[];
   lectureId: number;
   isAdmin: boolean;
   userId: string;
 }
 
 export default function MarkdownList({
-  blocks,
   lectureId,
   isAdmin,
   userId,
 }: MarkdownListProps) {
-  const [items, setItems] = useState(blocks);
+  // ==== [ API ] ====
+  const LecturesMdBlocks = api.block.getLectureBlocks.useQuery(lectureId);
+  const updateBlockOrder = api.block.reorderBlocks.useMutation({
+    onSuccess: async () => {
+      toast.success("Pořadí bloků bylo změněno.");
+      await LecturesMdBlocks.refetch();
+      setWait(false);
+    },
+    onError: async () => {
+      toast.error("Chyba při změně pořadí.");
+      setWait(true);
+    },
+  });
+
+  // ==== [ STATES ] ====
   const [editModeEnabled, setEditModeEnabled] = useState(false);
+  const [waitToReorder, setWait] = useState(false);
 
-  const updateOrderMutation = api.lectures.updateOrder.useMutation();
-
+  // ==== [ FUNCTIONS ] ====
   const onDragEnd = async (result: DropResult) => {
-    if (!result.destination) return;
+    setWait(true);
+    const { source, destination } = result;
 
-    const newItems = [...items];
-    const [removed] = newItems.splice(result.source.index, 1);
-    if (!removed) return;
-    newItems.splice(result.destination.index, 0, removed);
+    if (!destination || LecturesMdBlocks.data === undefined) {
+      setWait(false);
+      return;
+    }
 
-    setItems(newItems);
+    const sourceIndex = source.index;
+    const destinationIndex = destination.index;
 
-    const newOrder = newItems.map((i) => i.id);
+    const movedItem = LecturesMdBlocks.data[sourceIndex];
 
-    await updateOrderMutation.mutateAsync({
-      lectureId,
-      order: newOrder,
+    if (!movedItem) {
+      setWait(false);
+      return;
+    }
+
+    const newItems = Array.from(LecturesMdBlocks.data);
+    newItems.splice(sourceIndex, 1);
+    newItems.splice(destinationIndex, 0, movedItem);
+
+    updateBlockOrder.mutate({
+      lectureId: movedItem.lectureId,
+      blockId: movedItem.blockId,
+      oldOrder: sourceIndex,
+      newOrder: destinationIndex,
     });
   };
+
+  if (LecturesMdBlocks.isLoading) {
+    return (
+      <GridLayout>
+        <p className="col-span-12 my-20 text-center text-xl">
+          Načítání obsahu...
+        </p>
+      </GridLayout>
+    );
+  }
+
+  if (LecturesMdBlocks.isError) {
+    return (
+      <GridLayout>
+        <p className="col-span-12 my-20 text-center text-xl text-red-600">
+          Chyba při načítání obsahu: {LecturesMdBlocks.error?.message}
+        </p>
+      </GridLayout>
+    );
+  }
 
   return (
     <GridLayout>
@@ -77,18 +139,22 @@ export default function MarkdownList({
               {...provided.droppableProps}
               className="col-span-12"
             >
-              {isAdmin && editModeEnabled && items.length === 0 && (
-                <MarkdownAddButton
-                  addToIndex={0}
-                  lectureId={lectureId}
-                  userId={userId}
-                />
-              )}
-              {items.map((mdb, index) => (
+              {isAdmin &&
+                editModeEnabled &&
+                LecturesMdBlocks.data?.length === 0 && (
+                  <MarkdownAddButton
+                    addToIndex={0}
+                    lectureId={lectureId}
+                    userId={userId}
+                    refetch={LecturesMdBlocks.refetch}
+                  />
+                )}
+              {LecturesMdBlocks.data?.map((mdb, index) => (
                 <Draggable
-                  key={mdb.id}
-                  draggableId={mdb.id.toString()}
+                  key={mdb.block.id}
+                  draggableId={mdb.block.id.toString()}
                   index={index}
+                  isDragDisabled={!isAdmin || !editModeEnabled || waitToReorder}
                 >
                   {(provided) => (
                     <div
@@ -101,17 +167,17 @@ export default function MarkdownList({
                           addToIndex={0}
                           lectureId={lectureId}
                           userId={userId}
+                          refetch={LecturesMdBlocks.refetch}
                         />
                       )}
                       <MarkdownBlockView
-                        mdb={mdb}
+                        mdb={mdb.block}
                         editModeEnabled={editModeEnabled}
                         isAdmin={isAdmin}
-                        items={items}
                         lectureId={lectureId}
                         userId={userId}
                         provided={provided}
-                        setItems={setItems}
+                        refetch={LecturesMdBlocks.refetch}
                       />
 
                       {isAdmin && editModeEnabled && (
@@ -119,6 +185,7 @@ export default function MarkdownList({
                           addToIndex={index + 1}
                           lectureId={lectureId}
                           userId={userId}
+                          refetch={LecturesMdBlocks.refetch}
                         />
                       )}
                     </div>

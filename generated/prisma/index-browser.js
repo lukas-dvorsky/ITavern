@@ -127,10 +127,15 @@ exports.Prisma.LectureHierarchyScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   isPublic: 'isPublic',
-  order: 'order',
   createdById: 'createdById',
   updatedById: 'updatedById',
   HierarchyParentId: 'HierarchyParentId'
+};
+
+exports.Prisma.LectureMarkdownScalarFieldEnum = {
+  order: 'order',
+  lectureId: 'lectureId',
+  blockId: 'blockId'
 };
 
 exports.Prisma.MarkdownBlockScalarFieldEnum = {
@@ -203,6 +208,7 @@ exports.Roles = exports.$Enums.Roles = {
 
 exports.Prisma.ModelName = {
   LectureHierarchy: 'LectureHierarchy',
+  LectureMarkdown: 'LectureMarkdown',
   MarkdownBlock: 'MarkdownBlock',
   Account: 'Account',
   Session: 'Session',

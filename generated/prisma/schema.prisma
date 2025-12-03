@@ -34,18 +34,30 @@ model LectureHierarchy {
   updatedAt DateTime @updatedAt
   isPublic  Boolean  @default(false)
 
-  order String @default("[]")
-
   createdById String
   createdBy   User   @relation("LectureCreatedBy", fields: [createdById], references: [id])
 
   updatedById String
   updatedBy   User   @relation("LectureUpdatedBy", fields: [updatedById], references: [id])
 
+  blocks LectureMarkdown[] @relation("LectureHierarchy")
+
   // hierarchy
   HierarchyParentId Int?
   hierarchyParent   LectureHierarchy?  @relation("LectureHierarchyChildren", fields: [HierarchyParentId], references: [id], onDelete: Cascade)
   hierarchyChildren LectureHierarchy[] @relation("LectureHierarchyChildren")
+}
+
+model LectureMarkdown {
+  order Int
+
+  lectureId Int
+  blockId   Int
+
+  lecture LectureHierarchy @relation("LectureHierarchy", fields: [lectureId], references: [id])
+  block   MarkdownBlock    @relation("MarkdownBlock", fields: [blockId], references: [id])
+
+  @@id([lectureId, blockId])
 }
 
 model MarkdownBlock {
@@ -54,6 +66,8 @@ model MarkdownBlock {
   content   String?  @default("# Nadpis") @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  lectures LectureMarkdown[] @relation("MarkdownBlock")
 
   createdById String
   createdBy   User   @relation("BlockCreatedBy", fields: [createdById], references: [id])

@@ -20,7 +20,7 @@ function SearchBar({ children, filterFunction }: SearchBarProps) {
         placeholder="Hledat..."
         className="mt-5 mb-0"
       />
-      <div className="max-h-60 overflow-y-scroll">
+      <div className="h-96 overflow-y-auto shadow-[inset_0_0_6px_rgba(0,0,0,0.1)]">
         {filterFunction ? filterFunction(searchFor) : children}
       </div>
     </div>

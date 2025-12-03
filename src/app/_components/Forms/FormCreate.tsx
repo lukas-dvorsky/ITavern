@@ -6,6 +6,9 @@ interface FormCreateProps {
   buttonTitle?: string;
   children: React.ReactNode;
   apiCreate: (data: Record<string, unknown>) => void;
+  formTitle?: string;
+  modalHeight?: string;
+  buttonClassName?: string;
 }
 
 function FormCreate(props: FormCreateProps) {
@@ -25,10 +28,15 @@ function FormCreate(props: FormCreateProps) {
         modalRef.current?.close();
       }}
     >
-      <Modal ref={modalRef} title="Create" autoWidth={true}>
+      <Modal
+        ref={modalRef}
+        title={props.formTitle ?? "Create"}
+        autoWidth={true}
+        modalHeight={props.modalHeight}
+      >
         {props.children}
         <button
-          className="w-36 cursor-pointer self-end rounded-lg bg-blue-500 py-4 text-white"
+          className="col-span-2 col-start-11 cursor-pointer self-end rounded-lg bg-blue-500 py-4 text-white"
           type="submit"
         >
           {`Vytvořit ->`}
@@ -36,7 +44,7 @@ function FormCreate(props: FormCreateProps) {
       </Modal>
       <button
         type="button"
-        className="h-full cursor-pointer rounded-md p-2 hover:bg-gray-200"
+        className={`${props.buttonClassName} h-full cursor-pointer rounded-md p-2 hover:bg-gray-200`}
         onClick={(e) => {
           e.stopPropagation();
           modalRef.current?.open();

@@ -1,3 +1,4 @@
+// MarkdownSelectList.tsx (Finální verze)
 "use client";
 
 import React, { useState } from "react";
@@ -6,19 +7,25 @@ import MarkdownSelectItem from "./MarkdownSelectItem";
 import MarkdownViewer from "./MarkdownViewer";
 import type { MarkdownAddButtonProps } from "./MarkdownAddButton";
 import SearchBar from "../../Navigation/SearchBar";
+import type { ModalHandle } from "../../Modals/Modal";
+
+interface MarkdownSelectListProps extends MarkdownAddButtonProps {
+  modalRef: React.RefObject<ModalHandle | null>;
+}
 
 function MarkdownSelectList({
   userId,
   addToIndex,
   lectureId,
+  modalRef,
   ...props
-}: MarkdownAddButtonProps & React.HTMLAttributes<HTMLDivElement>) {
-  const markdownBlocks = api.lectures.getMarkdownBlocks.useQuery();
+}: MarkdownSelectListProps & React.HTMLAttributes<HTMLDivElement>) {
+  const markdownBlocks = api.block.getMarkdownBlocks.useQuery();
   const [viewerContent, setViewerContent] = useState("");
 
   return (
     <div {...props}>
-      <div className="bg-background max-h-96 overflow-y-scroll rounded-md pl-2">
+      <div className="bg-background h-96 overflow-y-auto rounded-md pl-2">
         <MarkdownViewer content={viewerContent} />
       </div>
       <SearchBar
@@ -29,12 +36,14 @@ function MarkdownSelectList({
             )
             .map((mdb) => (
               <MarkdownSelectItem
+                refetch={props.refetch}
                 userId={userId}
                 key={mdb.id}
                 mdb={mdb}
                 setViewerContent={setViewerContent}
                 addToIndex={addToIndex}
                 lectureId={lectureId}
+                modalRef={modalRef} // Předáno
               />
             ))
         }

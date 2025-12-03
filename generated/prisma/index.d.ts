@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type LectureHierarchy = $Result.DefaultSelection<Prisma.$LectureHierarchyPayload>
 /**
+ * Model LectureMarkdown
+ * 
+ */
+export type LectureMarkdown = $Result.DefaultSelection<Prisma.$LectureMarkdownPayload>
+/**
  * Model MarkdownBlock
  * 
  */
@@ -188,6 +193,16 @@ export class PrismaClient<
     * ```
     */
   get lectureHierarchy(): Prisma.LectureHierarchyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.lectureMarkdown`: Exposes CRUD operations for the **LectureMarkdown** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LectureMarkdowns
+    * const lectureMarkdowns = await prisma.lectureMarkdown.findMany()
+    * ```
+    */
+  get lectureMarkdown(): Prisma.LectureMarkdownDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.markdownBlock`: Exposes CRUD operations for the **MarkdownBlock** model.
@@ -680,6 +695,7 @@ export namespace Prisma {
 
   export const ModelName: {
     LectureHierarchy: 'LectureHierarchy',
+    LectureMarkdown: 'LectureMarkdown',
     MarkdownBlock: 'MarkdownBlock',
     Account: 'Account',
     Session: 'Session',
@@ -703,7 +719,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "lectureHierarchy" | "markdownBlock" | "account" | "session" | "user" | "verificationToken"
+      modelProps: "lectureHierarchy" | "lectureMarkdown" | "markdownBlock" | "account" | "session" | "user" | "verificationToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -778,6 +794,80 @@ export namespace Prisma {
           count: {
             args: Prisma.LectureHierarchyCountArgs<ExtArgs>
             result: $Utils.Optional<LectureHierarchyCountAggregateOutputType> | number
+          }
+        }
+      }
+      LectureMarkdown: {
+        payload: Prisma.$LectureMarkdownPayload<ExtArgs>
+        fields: Prisma.LectureMarkdownFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LectureMarkdownFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LectureMarkdownFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload>
+          }
+          findFirst: {
+            args: Prisma.LectureMarkdownFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LectureMarkdownFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload>
+          }
+          findMany: {
+            args: Prisma.LectureMarkdownFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload>[]
+          }
+          create: {
+            args: Prisma.LectureMarkdownCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload>
+          }
+          createMany: {
+            args: Prisma.LectureMarkdownCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LectureMarkdownCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload>[]
+          }
+          delete: {
+            args: Prisma.LectureMarkdownDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload>
+          }
+          update: {
+            args: Prisma.LectureMarkdownUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload>
+          }
+          deleteMany: {
+            args: Prisma.LectureMarkdownDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LectureMarkdownUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LectureMarkdownUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload>[]
+          }
+          upsert: {
+            args: Prisma.LectureMarkdownUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureMarkdownPayload>
+          }
+          aggregate: {
+            args: Prisma.LectureMarkdownAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLectureMarkdown>
+          }
+          groupBy: {
+            args: Prisma.LectureMarkdownGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LectureMarkdownGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LectureMarkdownCountArgs<ExtArgs>
+            result: $Utils.Optional<LectureMarkdownCountAggregateOutputType> | number
           }
         }
       }
@@ -1248,6 +1338,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     lectureHierarchy?: LectureHierarchyOmit
+    lectureMarkdown?: LectureMarkdownOmit
     markdownBlock?: MarkdownBlockOmit
     account?: AccountOmit
     session?: SessionOmit
@@ -1333,10 +1424,12 @@ export namespace Prisma {
    */
 
   export type LectureHierarchyCountOutputType = {
+    blocks: number
     hierarchyChildren: number
   }
 
   export type LectureHierarchyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blocks?: boolean | LectureHierarchyCountOutputTypeCountBlocksArgs
     hierarchyChildren?: boolean | LectureHierarchyCountOutputTypeCountHierarchyChildrenArgs
   }
 
@@ -1354,8 +1447,46 @@ export namespace Prisma {
   /**
    * LectureHierarchyCountOutputType without action
    */
+  export type LectureHierarchyCountOutputTypeCountBlocksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LectureMarkdownWhereInput
+  }
+
+  /**
+   * LectureHierarchyCountOutputType without action
+   */
   export type LectureHierarchyCountOutputTypeCountHierarchyChildrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LectureHierarchyWhereInput
+  }
+
+
+  /**
+   * Count Type MarkdownBlockCountOutputType
+   */
+
+  export type MarkdownBlockCountOutputType = {
+    lectures: number
+  }
+
+  export type MarkdownBlockCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lectures?: boolean | MarkdownBlockCountOutputTypeCountLecturesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MarkdownBlockCountOutputType without action
+   */
+  export type MarkdownBlockCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarkdownBlockCountOutputType
+     */
+    select?: MarkdownBlockCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MarkdownBlockCountOutputType without action
+   */
+  export type MarkdownBlockCountOutputTypeCountLecturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LectureMarkdownWhereInput
   }
 
 
@@ -1467,7 +1598,6 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isPublic: boolean | null
-    order: string | null
     createdById: string | null
     updatedById: string | null
     HierarchyParentId: number | null
@@ -1479,7 +1609,6 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isPublic: boolean | null
-    order: string | null
     createdById: string | null
     updatedById: string | null
     HierarchyParentId: number | null
@@ -1491,7 +1620,6 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     isPublic: number
-    order: number
     createdById: number
     updatedById: number
     HierarchyParentId: number
@@ -1515,7 +1643,6 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isPublic?: true
-    order?: true
     createdById?: true
     updatedById?: true
     HierarchyParentId?: true
@@ -1527,7 +1654,6 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isPublic?: true
-    order?: true
     createdById?: true
     updatedById?: true
     HierarchyParentId?: true
@@ -1539,7 +1665,6 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isPublic?: true
-    order?: true
     createdById?: true
     updatedById?: true
     HierarchyParentId?: true
@@ -1638,7 +1763,6 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     isPublic: boolean
-    order: string
     createdById: string
     updatedById: string
     HierarchyParentId: number | null
@@ -1669,12 +1793,12 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPublic?: boolean
-    order?: boolean
     createdById?: boolean
     updatedById?: boolean
     HierarchyParentId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     updatedBy?: boolean | UserDefaultArgs<ExtArgs>
+    blocks?: boolean | LectureHierarchy$blocksArgs<ExtArgs>
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
     hierarchyChildren?: boolean | LectureHierarchy$hierarchyChildrenArgs<ExtArgs>
     _count?: boolean | LectureHierarchyCountOutputTypeDefaultArgs<ExtArgs>
@@ -1686,7 +1810,6 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPublic?: boolean
-    order?: boolean
     createdById?: boolean
     updatedById?: boolean
     HierarchyParentId?: boolean
@@ -1701,7 +1824,6 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPublic?: boolean
-    order?: boolean
     createdById?: boolean
     updatedById?: boolean
     HierarchyParentId?: boolean
@@ -1716,16 +1838,16 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPublic?: boolean
-    order?: boolean
     createdById?: boolean
     updatedById?: boolean
     HierarchyParentId?: boolean
   }
 
-  export type LectureHierarchyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "isPublic" | "order" | "createdById" | "updatedById" | "HierarchyParentId", ExtArgs["result"]["lectureHierarchy"]>
+  export type LectureHierarchyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "isPublic" | "createdById" | "updatedById" | "HierarchyParentId", ExtArgs["result"]["lectureHierarchy"]>
   export type LectureHierarchyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     updatedBy?: boolean | UserDefaultArgs<ExtArgs>
+    blocks?: boolean | LectureHierarchy$blocksArgs<ExtArgs>
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
     hierarchyChildren?: boolean | LectureHierarchy$hierarchyChildrenArgs<ExtArgs>
     _count?: boolean | LectureHierarchyCountOutputTypeDefaultArgs<ExtArgs>
@@ -1746,6 +1868,7 @@ export namespace Prisma {
     objects: {
       createdBy: Prisma.$UserPayload<ExtArgs>
       updatedBy: Prisma.$UserPayload<ExtArgs>
+      blocks: Prisma.$LectureMarkdownPayload<ExtArgs>[]
       hierarchyParent: Prisma.$LectureHierarchyPayload<ExtArgs> | null
       hierarchyChildren: Prisma.$LectureHierarchyPayload<ExtArgs>[]
     }
@@ -1755,7 +1878,6 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       isPublic: boolean
-      order: string
       createdById: string
       updatedById: string
       HierarchyParentId: number | null
@@ -2155,6 +2277,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     updatedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    blocks<T extends LectureHierarchy$blocksArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$blocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hierarchyParent<T extends LectureHierarchy$hierarchyParentArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$hierarchyParentArgs<ExtArgs>>): Prisma__LectureHierarchyClient<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     hierarchyChildren<T extends LectureHierarchy$hierarchyChildrenArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$hierarchyChildrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -2191,7 +2314,6 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"LectureHierarchy", 'DateTime'>
     readonly updatedAt: FieldRef<"LectureHierarchy", 'DateTime'>
     readonly isPublic: FieldRef<"LectureHierarchy", 'Boolean'>
-    readonly order: FieldRef<"LectureHierarchy", 'String'>
     readonly createdById: FieldRef<"LectureHierarchy", 'String'>
     readonly updatedById: FieldRef<"LectureHierarchy", 'String'>
     readonly HierarchyParentId: FieldRef<"LectureHierarchy", 'Int'>
@@ -2591,6 +2713,30 @@ export namespace Prisma {
   }
 
   /**
+   * LectureHierarchy.blocks
+   */
+  export type LectureHierarchy$blocksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    where?: LectureMarkdownWhereInput
+    orderBy?: LectureMarkdownOrderByWithRelationInput | LectureMarkdownOrderByWithRelationInput[]
+    cursor?: LectureMarkdownWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LectureMarkdownScalarFieldEnum | LectureMarkdownScalarFieldEnum[]
+  }
+
+  /**
    * LectureHierarchy.hierarchyParent
    */
   export type LectureHierarchy$hierarchyParentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2649,6 +2795,1088 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: LectureHierarchyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LectureMarkdown
+   */
+
+  export type AggregateLectureMarkdown = {
+    _count: LectureMarkdownCountAggregateOutputType | null
+    _avg: LectureMarkdownAvgAggregateOutputType | null
+    _sum: LectureMarkdownSumAggregateOutputType | null
+    _min: LectureMarkdownMinAggregateOutputType | null
+    _max: LectureMarkdownMaxAggregateOutputType | null
+  }
+
+  export type LectureMarkdownAvgAggregateOutputType = {
+    order: number | null
+    lectureId: number | null
+    blockId: number | null
+  }
+
+  export type LectureMarkdownSumAggregateOutputType = {
+    order: number | null
+    lectureId: number | null
+    blockId: number | null
+  }
+
+  export type LectureMarkdownMinAggregateOutputType = {
+    order: number | null
+    lectureId: number | null
+    blockId: number | null
+  }
+
+  export type LectureMarkdownMaxAggregateOutputType = {
+    order: number | null
+    lectureId: number | null
+    blockId: number | null
+  }
+
+  export type LectureMarkdownCountAggregateOutputType = {
+    order: number
+    lectureId: number
+    blockId: number
+    _all: number
+  }
+
+
+  export type LectureMarkdownAvgAggregateInputType = {
+    order?: true
+    lectureId?: true
+    blockId?: true
+  }
+
+  export type LectureMarkdownSumAggregateInputType = {
+    order?: true
+    lectureId?: true
+    blockId?: true
+  }
+
+  export type LectureMarkdownMinAggregateInputType = {
+    order?: true
+    lectureId?: true
+    blockId?: true
+  }
+
+  export type LectureMarkdownMaxAggregateInputType = {
+    order?: true
+    lectureId?: true
+    blockId?: true
+  }
+
+  export type LectureMarkdownCountAggregateInputType = {
+    order?: true
+    lectureId?: true
+    blockId?: true
+    _all?: true
+  }
+
+  export type LectureMarkdownAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LectureMarkdown to aggregate.
+     */
+    where?: LectureMarkdownWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureMarkdowns to fetch.
+     */
+    orderBy?: LectureMarkdownOrderByWithRelationInput | LectureMarkdownOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LectureMarkdownWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureMarkdowns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureMarkdowns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LectureMarkdowns
+    **/
+    _count?: true | LectureMarkdownCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LectureMarkdownAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LectureMarkdownSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LectureMarkdownMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LectureMarkdownMaxAggregateInputType
+  }
+
+  export type GetLectureMarkdownAggregateType<T extends LectureMarkdownAggregateArgs> = {
+        [P in keyof T & keyof AggregateLectureMarkdown]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLectureMarkdown[P]>
+      : GetScalarType<T[P], AggregateLectureMarkdown[P]>
+  }
+
+
+
+
+  export type LectureMarkdownGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LectureMarkdownWhereInput
+    orderBy?: LectureMarkdownOrderByWithAggregationInput | LectureMarkdownOrderByWithAggregationInput[]
+    by: LectureMarkdownScalarFieldEnum[] | LectureMarkdownScalarFieldEnum
+    having?: LectureMarkdownScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LectureMarkdownCountAggregateInputType | true
+    _avg?: LectureMarkdownAvgAggregateInputType
+    _sum?: LectureMarkdownSumAggregateInputType
+    _min?: LectureMarkdownMinAggregateInputType
+    _max?: LectureMarkdownMaxAggregateInputType
+  }
+
+  export type LectureMarkdownGroupByOutputType = {
+    order: number
+    lectureId: number
+    blockId: number
+    _count: LectureMarkdownCountAggregateOutputType | null
+    _avg: LectureMarkdownAvgAggregateOutputType | null
+    _sum: LectureMarkdownSumAggregateOutputType | null
+    _min: LectureMarkdownMinAggregateOutputType | null
+    _max: LectureMarkdownMaxAggregateOutputType | null
+  }
+
+  type GetLectureMarkdownGroupByPayload<T extends LectureMarkdownGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LectureMarkdownGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LectureMarkdownGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LectureMarkdownGroupByOutputType[P]>
+            : GetScalarType<T[P], LectureMarkdownGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LectureMarkdownSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    order?: boolean
+    lectureId?: boolean
+    blockId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    block?: boolean | MarkdownBlockDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lectureMarkdown"]>
+
+  export type LectureMarkdownSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    order?: boolean
+    lectureId?: boolean
+    blockId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    block?: boolean | MarkdownBlockDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lectureMarkdown"]>
+
+  export type LectureMarkdownSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    order?: boolean
+    lectureId?: boolean
+    blockId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    block?: boolean | MarkdownBlockDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lectureMarkdown"]>
+
+  export type LectureMarkdownSelectScalar = {
+    order?: boolean
+    lectureId?: boolean
+    blockId?: boolean
+  }
+
+  export type LectureMarkdownOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"order" | "lectureId" | "blockId", ExtArgs["result"]["lectureMarkdown"]>
+  export type LectureMarkdownInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    block?: boolean | MarkdownBlockDefaultArgs<ExtArgs>
+  }
+  export type LectureMarkdownIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    block?: boolean | MarkdownBlockDefaultArgs<ExtArgs>
+  }
+  export type LectureMarkdownIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    block?: boolean | MarkdownBlockDefaultArgs<ExtArgs>
+  }
+
+  export type $LectureMarkdownPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LectureMarkdown"
+    objects: {
+      lecture: Prisma.$LectureHierarchyPayload<ExtArgs>
+      block: Prisma.$MarkdownBlockPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      order: number
+      lectureId: number
+      blockId: number
+    }, ExtArgs["result"]["lectureMarkdown"]>
+    composites: {}
+  }
+
+  type LectureMarkdownGetPayload<S extends boolean | null | undefined | LectureMarkdownDefaultArgs> = $Result.GetResult<Prisma.$LectureMarkdownPayload, S>
+
+  type LectureMarkdownCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LectureMarkdownFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LectureMarkdownCountAggregateInputType | true
+    }
+
+  export interface LectureMarkdownDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LectureMarkdown'], meta: { name: 'LectureMarkdown' } }
+    /**
+     * Find zero or one LectureMarkdown that matches the filter.
+     * @param {LectureMarkdownFindUniqueArgs} args - Arguments to find a LectureMarkdown
+     * @example
+     * // Get one LectureMarkdown
+     * const lectureMarkdown = await prisma.lectureMarkdown.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LectureMarkdownFindUniqueArgs>(args: SelectSubset<T, LectureMarkdownFindUniqueArgs<ExtArgs>>): Prisma__LectureMarkdownClient<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LectureMarkdown that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LectureMarkdownFindUniqueOrThrowArgs} args - Arguments to find a LectureMarkdown
+     * @example
+     * // Get one LectureMarkdown
+     * const lectureMarkdown = await prisma.lectureMarkdown.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LectureMarkdownFindUniqueOrThrowArgs>(args: SelectSubset<T, LectureMarkdownFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LectureMarkdownClient<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LectureMarkdown that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureMarkdownFindFirstArgs} args - Arguments to find a LectureMarkdown
+     * @example
+     * // Get one LectureMarkdown
+     * const lectureMarkdown = await prisma.lectureMarkdown.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LectureMarkdownFindFirstArgs>(args?: SelectSubset<T, LectureMarkdownFindFirstArgs<ExtArgs>>): Prisma__LectureMarkdownClient<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LectureMarkdown that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureMarkdownFindFirstOrThrowArgs} args - Arguments to find a LectureMarkdown
+     * @example
+     * // Get one LectureMarkdown
+     * const lectureMarkdown = await prisma.lectureMarkdown.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LectureMarkdownFindFirstOrThrowArgs>(args?: SelectSubset<T, LectureMarkdownFindFirstOrThrowArgs<ExtArgs>>): Prisma__LectureMarkdownClient<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LectureMarkdowns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureMarkdownFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LectureMarkdowns
+     * const lectureMarkdowns = await prisma.lectureMarkdown.findMany()
+     * 
+     * // Get first 10 LectureMarkdowns
+     * const lectureMarkdowns = await prisma.lectureMarkdown.findMany({ take: 10 })
+     * 
+     * // Only select the `order`
+     * const lectureMarkdownWithOrderOnly = await prisma.lectureMarkdown.findMany({ select: { order: true } })
+     * 
+     */
+    findMany<T extends LectureMarkdownFindManyArgs>(args?: SelectSubset<T, LectureMarkdownFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LectureMarkdown.
+     * @param {LectureMarkdownCreateArgs} args - Arguments to create a LectureMarkdown.
+     * @example
+     * // Create one LectureMarkdown
+     * const LectureMarkdown = await prisma.lectureMarkdown.create({
+     *   data: {
+     *     // ... data to create a LectureMarkdown
+     *   }
+     * })
+     * 
+     */
+    create<T extends LectureMarkdownCreateArgs>(args: SelectSubset<T, LectureMarkdownCreateArgs<ExtArgs>>): Prisma__LectureMarkdownClient<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LectureMarkdowns.
+     * @param {LectureMarkdownCreateManyArgs} args - Arguments to create many LectureMarkdowns.
+     * @example
+     * // Create many LectureMarkdowns
+     * const lectureMarkdown = await prisma.lectureMarkdown.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LectureMarkdownCreateManyArgs>(args?: SelectSubset<T, LectureMarkdownCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LectureMarkdowns and returns the data saved in the database.
+     * @param {LectureMarkdownCreateManyAndReturnArgs} args - Arguments to create many LectureMarkdowns.
+     * @example
+     * // Create many LectureMarkdowns
+     * const lectureMarkdown = await prisma.lectureMarkdown.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LectureMarkdowns and only return the `order`
+     * const lectureMarkdownWithOrderOnly = await prisma.lectureMarkdown.createManyAndReturn({
+     *   select: { order: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LectureMarkdownCreateManyAndReturnArgs>(args?: SelectSubset<T, LectureMarkdownCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LectureMarkdown.
+     * @param {LectureMarkdownDeleteArgs} args - Arguments to delete one LectureMarkdown.
+     * @example
+     * // Delete one LectureMarkdown
+     * const LectureMarkdown = await prisma.lectureMarkdown.delete({
+     *   where: {
+     *     // ... filter to delete one LectureMarkdown
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LectureMarkdownDeleteArgs>(args: SelectSubset<T, LectureMarkdownDeleteArgs<ExtArgs>>): Prisma__LectureMarkdownClient<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LectureMarkdown.
+     * @param {LectureMarkdownUpdateArgs} args - Arguments to update one LectureMarkdown.
+     * @example
+     * // Update one LectureMarkdown
+     * const lectureMarkdown = await prisma.lectureMarkdown.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LectureMarkdownUpdateArgs>(args: SelectSubset<T, LectureMarkdownUpdateArgs<ExtArgs>>): Prisma__LectureMarkdownClient<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LectureMarkdowns.
+     * @param {LectureMarkdownDeleteManyArgs} args - Arguments to filter LectureMarkdowns to delete.
+     * @example
+     * // Delete a few LectureMarkdowns
+     * const { count } = await prisma.lectureMarkdown.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LectureMarkdownDeleteManyArgs>(args?: SelectSubset<T, LectureMarkdownDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LectureMarkdowns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureMarkdownUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LectureMarkdowns
+     * const lectureMarkdown = await prisma.lectureMarkdown.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LectureMarkdownUpdateManyArgs>(args: SelectSubset<T, LectureMarkdownUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LectureMarkdowns and returns the data updated in the database.
+     * @param {LectureMarkdownUpdateManyAndReturnArgs} args - Arguments to update many LectureMarkdowns.
+     * @example
+     * // Update many LectureMarkdowns
+     * const lectureMarkdown = await prisma.lectureMarkdown.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LectureMarkdowns and only return the `order`
+     * const lectureMarkdownWithOrderOnly = await prisma.lectureMarkdown.updateManyAndReturn({
+     *   select: { order: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LectureMarkdownUpdateManyAndReturnArgs>(args: SelectSubset<T, LectureMarkdownUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LectureMarkdown.
+     * @param {LectureMarkdownUpsertArgs} args - Arguments to update or create a LectureMarkdown.
+     * @example
+     * // Update or create a LectureMarkdown
+     * const lectureMarkdown = await prisma.lectureMarkdown.upsert({
+     *   create: {
+     *     // ... data to create a LectureMarkdown
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LectureMarkdown we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LectureMarkdownUpsertArgs>(args: SelectSubset<T, LectureMarkdownUpsertArgs<ExtArgs>>): Prisma__LectureMarkdownClient<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LectureMarkdowns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureMarkdownCountArgs} args - Arguments to filter LectureMarkdowns to count.
+     * @example
+     * // Count the number of LectureMarkdowns
+     * const count = await prisma.lectureMarkdown.count({
+     *   where: {
+     *     // ... the filter for the LectureMarkdowns we want to count
+     *   }
+     * })
+    **/
+    count<T extends LectureMarkdownCountArgs>(
+      args?: Subset<T, LectureMarkdownCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LectureMarkdownCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LectureMarkdown.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureMarkdownAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LectureMarkdownAggregateArgs>(args: Subset<T, LectureMarkdownAggregateArgs>): Prisma.PrismaPromise<GetLectureMarkdownAggregateType<T>>
+
+    /**
+     * Group by LectureMarkdown.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureMarkdownGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LectureMarkdownGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LectureMarkdownGroupByArgs['orderBy'] }
+        : { orderBy?: LectureMarkdownGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LectureMarkdownGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLectureMarkdownGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LectureMarkdown model
+   */
+  readonly fields: LectureMarkdownFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LectureMarkdown.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LectureMarkdownClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lecture<T extends LectureHierarchyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchyDefaultArgs<ExtArgs>>): Prisma__LectureHierarchyClient<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    block<T extends MarkdownBlockDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MarkdownBlockDefaultArgs<ExtArgs>>): Prisma__MarkdownBlockClient<$Result.GetResult<Prisma.$MarkdownBlockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LectureMarkdown model
+   */
+  interface LectureMarkdownFieldRefs {
+    readonly order: FieldRef<"LectureMarkdown", 'Int'>
+    readonly lectureId: FieldRef<"LectureMarkdown", 'Int'>
+    readonly blockId: FieldRef<"LectureMarkdown", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LectureMarkdown findUnique
+   */
+  export type LectureMarkdownFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureMarkdown to fetch.
+     */
+    where: LectureMarkdownWhereUniqueInput
+  }
+
+  /**
+   * LectureMarkdown findUniqueOrThrow
+   */
+  export type LectureMarkdownFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureMarkdown to fetch.
+     */
+    where: LectureMarkdownWhereUniqueInput
+  }
+
+  /**
+   * LectureMarkdown findFirst
+   */
+  export type LectureMarkdownFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureMarkdown to fetch.
+     */
+    where?: LectureMarkdownWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureMarkdowns to fetch.
+     */
+    orderBy?: LectureMarkdownOrderByWithRelationInput | LectureMarkdownOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LectureMarkdowns.
+     */
+    cursor?: LectureMarkdownWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureMarkdowns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureMarkdowns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LectureMarkdowns.
+     */
+    distinct?: LectureMarkdownScalarFieldEnum | LectureMarkdownScalarFieldEnum[]
+  }
+
+  /**
+   * LectureMarkdown findFirstOrThrow
+   */
+  export type LectureMarkdownFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureMarkdown to fetch.
+     */
+    where?: LectureMarkdownWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureMarkdowns to fetch.
+     */
+    orderBy?: LectureMarkdownOrderByWithRelationInput | LectureMarkdownOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LectureMarkdowns.
+     */
+    cursor?: LectureMarkdownWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureMarkdowns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureMarkdowns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LectureMarkdowns.
+     */
+    distinct?: LectureMarkdownScalarFieldEnum | LectureMarkdownScalarFieldEnum[]
+  }
+
+  /**
+   * LectureMarkdown findMany
+   */
+  export type LectureMarkdownFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureMarkdowns to fetch.
+     */
+    where?: LectureMarkdownWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureMarkdowns to fetch.
+     */
+    orderBy?: LectureMarkdownOrderByWithRelationInput | LectureMarkdownOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LectureMarkdowns.
+     */
+    cursor?: LectureMarkdownWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureMarkdowns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureMarkdowns.
+     */
+    skip?: number
+    distinct?: LectureMarkdownScalarFieldEnum | LectureMarkdownScalarFieldEnum[]
+  }
+
+  /**
+   * LectureMarkdown create
+   */
+  export type LectureMarkdownCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LectureMarkdown.
+     */
+    data: XOR<LectureMarkdownCreateInput, LectureMarkdownUncheckedCreateInput>
+  }
+
+  /**
+   * LectureMarkdown createMany
+   */
+  export type LectureMarkdownCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LectureMarkdowns.
+     */
+    data: LectureMarkdownCreateManyInput | LectureMarkdownCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LectureMarkdown createManyAndReturn
+   */
+  export type LectureMarkdownCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * The data used to create many LectureMarkdowns.
+     */
+    data: LectureMarkdownCreateManyInput | LectureMarkdownCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LectureMarkdown update
+   */
+  export type LectureMarkdownUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LectureMarkdown.
+     */
+    data: XOR<LectureMarkdownUpdateInput, LectureMarkdownUncheckedUpdateInput>
+    /**
+     * Choose, which LectureMarkdown to update.
+     */
+    where: LectureMarkdownWhereUniqueInput
+  }
+
+  /**
+   * LectureMarkdown updateMany
+   */
+  export type LectureMarkdownUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LectureMarkdowns.
+     */
+    data: XOR<LectureMarkdownUpdateManyMutationInput, LectureMarkdownUncheckedUpdateManyInput>
+    /**
+     * Filter which LectureMarkdowns to update
+     */
+    where?: LectureMarkdownWhereInput
+    /**
+     * Limit how many LectureMarkdowns to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LectureMarkdown updateManyAndReturn
+   */
+  export type LectureMarkdownUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * The data used to update LectureMarkdowns.
+     */
+    data: XOR<LectureMarkdownUpdateManyMutationInput, LectureMarkdownUncheckedUpdateManyInput>
+    /**
+     * Filter which LectureMarkdowns to update
+     */
+    where?: LectureMarkdownWhereInput
+    /**
+     * Limit how many LectureMarkdowns to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LectureMarkdown upsert
+   */
+  export type LectureMarkdownUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LectureMarkdown to update in case it exists.
+     */
+    where: LectureMarkdownWhereUniqueInput
+    /**
+     * In case the LectureMarkdown found by the `where` argument doesn't exist, create a new LectureMarkdown with this data.
+     */
+    create: XOR<LectureMarkdownCreateInput, LectureMarkdownUncheckedCreateInput>
+    /**
+     * In case the LectureMarkdown was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LectureMarkdownUpdateInput, LectureMarkdownUncheckedUpdateInput>
+  }
+
+  /**
+   * LectureMarkdown delete
+   */
+  export type LectureMarkdownDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    /**
+     * Filter which LectureMarkdown to delete.
+     */
+    where: LectureMarkdownWhereUniqueInput
+  }
+
+  /**
+   * LectureMarkdown deleteMany
+   */
+  export type LectureMarkdownDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LectureMarkdowns to delete
+     */
+    where?: LectureMarkdownWhereInput
+    /**
+     * Limit how many LectureMarkdowns to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LectureMarkdown without action
+   */
+  export type LectureMarkdownDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
   }
 
 
@@ -2866,8 +4094,10 @@ export namespace Prisma {
     updatedAt?: boolean
     createdById?: boolean
     updatedById?: boolean
+    lectures?: boolean | MarkdownBlock$lecturesArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     updatedBy?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | MarkdownBlockCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["markdownBlock"]>
 
   export type MarkdownBlockSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2906,8 +4136,10 @@ export namespace Prisma {
 
   export type MarkdownBlockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "content" | "createdAt" | "updatedAt" | "createdById" | "updatedById", ExtArgs["result"]["markdownBlock"]>
   export type MarkdownBlockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lectures?: boolean | MarkdownBlock$lecturesArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     updatedBy?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | MarkdownBlockCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MarkdownBlockIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
@@ -2921,6 +4153,7 @@ export namespace Prisma {
   export type $MarkdownBlockPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MarkdownBlock"
     objects: {
+      lectures: Prisma.$LectureMarkdownPayload<ExtArgs>[]
       createdBy: Prisma.$UserPayload<ExtArgs>
       updatedBy: Prisma.$UserPayload<ExtArgs>
     }
@@ -3326,6 +4559,7 @@ export namespace Prisma {
    */
   export interface Prisma__MarkdownBlockClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    lectures<T extends MarkdownBlock$lecturesArgs<ExtArgs> = {}>(args?: Subset<T, MarkdownBlock$lecturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     updatedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -3757,6 +4991,30 @@ export namespace Prisma {
      * Limit how many MarkdownBlocks to delete.
      */
     limit?: number
+  }
+
+  /**
+   * MarkdownBlock.lectures
+   */
+  export type MarkdownBlock$lecturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureMarkdown
+     */
+    select?: LectureMarkdownSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureMarkdown
+     */
+    omit?: LectureMarkdownOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureMarkdownInclude<ExtArgs> | null
+    where?: LectureMarkdownWhereInput
+    orderBy?: LectureMarkdownOrderByWithRelationInput | LectureMarkdownOrderByWithRelationInput[]
+    cursor?: LectureMarkdownWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LectureMarkdownScalarFieldEnum | LectureMarkdownScalarFieldEnum[]
   }
 
   /**
@@ -8248,13 +9506,21 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     isPublic: 'isPublic',
-    order: 'order',
     createdById: 'createdById',
     updatedById: 'updatedById',
     HierarchyParentId: 'HierarchyParentId'
   };
 
   export type LectureHierarchyScalarFieldEnum = (typeof LectureHierarchyScalarFieldEnum)[keyof typeof LectureHierarchyScalarFieldEnum]
+
+
+  export const LectureMarkdownScalarFieldEnum: {
+    order: 'order',
+    lectureId: 'lectureId',
+    blockId: 'blockId'
+  };
+
+  export type LectureMarkdownScalarFieldEnum = (typeof LectureMarkdownScalarFieldEnum)[keyof typeof LectureMarkdownScalarFieldEnum]
 
 
   export const MarkdownBlockScalarFieldEnum: {
@@ -8439,12 +9705,12 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     updatedAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     isPublic?: BoolFilter<"LectureHierarchy"> | boolean
-    order?: StringFilter<"LectureHierarchy"> | string
     createdById?: StringFilter<"LectureHierarchy"> | string
     updatedById?: StringFilter<"LectureHierarchy"> | string
     HierarchyParentId?: IntNullableFilter<"LectureHierarchy"> | number | null
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     updatedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    blocks?: LectureMarkdownListRelationFilter
     hierarchyParent?: XOR<LectureHierarchyNullableScalarRelationFilter, LectureHierarchyWhereInput> | null
     hierarchyChildren?: LectureHierarchyListRelationFilter
   }
@@ -8455,12 +9721,12 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
-    order?: SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrderInput | SortOrder
     createdBy?: UserOrderByWithRelationInput
     updatedBy?: UserOrderByWithRelationInput
+    blocks?: LectureMarkdownOrderByRelationAggregateInput
     hierarchyParent?: LectureHierarchyOrderByWithRelationInput
     hierarchyChildren?: LectureHierarchyOrderByRelationAggregateInput
   }
@@ -8474,12 +9740,12 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     updatedAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     isPublic?: BoolFilter<"LectureHierarchy"> | boolean
-    order?: StringFilter<"LectureHierarchy"> | string
     createdById?: StringFilter<"LectureHierarchy"> | string
     updatedById?: StringFilter<"LectureHierarchy"> | string
     HierarchyParentId?: IntNullableFilter<"LectureHierarchy"> | number | null
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     updatedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    blocks?: LectureMarkdownListRelationFilter
     hierarchyParent?: XOR<LectureHierarchyNullableScalarRelationFilter, LectureHierarchyWhereInput> | null
     hierarchyChildren?: LectureHierarchyListRelationFilter
   }, "id">
@@ -8490,7 +9756,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
-    order?: SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrderInput | SortOrder
@@ -8510,10 +9775,60 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"LectureHierarchy"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LectureHierarchy"> | Date | string
     isPublic?: BoolWithAggregatesFilter<"LectureHierarchy"> | boolean
-    order?: StringWithAggregatesFilter<"LectureHierarchy"> | string
     createdById?: StringWithAggregatesFilter<"LectureHierarchy"> | string
     updatedById?: StringWithAggregatesFilter<"LectureHierarchy"> | string
     HierarchyParentId?: IntNullableWithAggregatesFilter<"LectureHierarchy"> | number | null
+  }
+
+  export type LectureMarkdownWhereInput = {
+    AND?: LectureMarkdownWhereInput | LectureMarkdownWhereInput[]
+    OR?: LectureMarkdownWhereInput[]
+    NOT?: LectureMarkdownWhereInput | LectureMarkdownWhereInput[]
+    order?: IntFilter<"LectureMarkdown"> | number
+    lectureId?: IntFilter<"LectureMarkdown"> | number
+    blockId?: IntFilter<"LectureMarkdown"> | number
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    block?: XOR<MarkdownBlockScalarRelationFilter, MarkdownBlockWhereInput>
+  }
+
+  export type LectureMarkdownOrderByWithRelationInput = {
+    order?: SortOrder
+    lectureId?: SortOrder
+    blockId?: SortOrder
+    lecture?: LectureHierarchyOrderByWithRelationInput
+    block?: MarkdownBlockOrderByWithRelationInput
+  }
+
+  export type LectureMarkdownWhereUniqueInput = Prisma.AtLeast<{
+    lectureId_blockId?: LectureMarkdownLectureIdBlockIdCompoundUniqueInput
+    AND?: LectureMarkdownWhereInput | LectureMarkdownWhereInput[]
+    OR?: LectureMarkdownWhereInput[]
+    NOT?: LectureMarkdownWhereInput | LectureMarkdownWhereInput[]
+    order?: IntFilter<"LectureMarkdown"> | number
+    lectureId?: IntFilter<"LectureMarkdown"> | number
+    blockId?: IntFilter<"LectureMarkdown"> | number
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    block?: XOR<MarkdownBlockScalarRelationFilter, MarkdownBlockWhereInput>
+  }, "lectureId_blockId">
+
+  export type LectureMarkdownOrderByWithAggregationInput = {
+    order?: SortOrder
+    lectureId?: SortOrder
+    blockId?: SortOrder
+    _count?: LectureMarkdownCountOrderByAggregateInput
+    _avg?: LectureMarkdownAvgOrderByAggregateInput
+    _max?: LectureMarkdownMaxOrderByAggregateInput
+    _min?: LectureMarkdownMinOrderByAggregateInput
+    _sum?: LectureMarkdownSumOrderByAggregateInput
+  }
+
+  export type LectureMarkdownScalarWhereWithAggregatesInput = {
+    AND?: LectureMarkdownScalarWhereWithAggregatesInput | LectureMarkdownScalarWhereWithAggregatesInput[]
+    OR?: LectureMarkdownScalarWhereWithAggregatesInput[]
+    NOT?: LectureMarkdownScalarWhereWithAggregatesInput | LectureMarkdownScalarWhereWithAggregatesInput[]
+    order?: IntWithAggregatesFilter<"LectureMarkdown"> | number
+    lectureId?: IntWithAggregatesFilter<"LectureMarkdown"> | number
+    blockId?: IntWithAggregatesFilter<"LectureMarkdown"> | number
   }
 
   export type MarkdownBlockWhereInput = {
@@ -8527,6 +9842,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MarkdownBlock"> | Date | string
     createdById?: StringFilter<"MarkdownBlock"> | string
     updatedById?: StringFilter<"MarkdownBlock"> | string
+    lectures?: LectureMarkdownListRelationFilter
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     updatedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -8539,6 +9855,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
+    lectures?: LectureMarkdownOrderByRelationAggregateInput
     createdBy?: UserOrderByWithRelationInput
     updatedBy?: UserOrderByWithRelationInput
   }
@@ -8554,6 +9871,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MarkdownBlock"> | Date | string
     createdById?: StringFilter<"MarkdownBlock"> | string
     updatedById?: StringFilter<"MarkdownBlock"> | string
+    lectures?: LectureMarkdownListRelationFilter
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     updatedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
@@ -8862,9 +10180,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -8875,10 +10193,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdById: string
     updatedById: string
     HierarchyParentId?: number | null
+    blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -8887,9 +10205,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -8900,10 +10218,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -8913,7 +10231,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdById: string
     updatedById: string
     HierarchyParentId?: number | null
@@ -8924,7 +10241,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
   }
 
   export type LectureHierarchyUncheckedUpdateManyInput = {
@@ -8933,10 +10249,49 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type LectureMarkdownCreateInput = {
+    order: number
+    lecture: LectureHierarchyCreateNestedOneWithoutBlocksInput
+    block: MarkdownBlockCreateNestedOneWithoutLecturesInput
+  }
+
+  export type LectureMarkdownUncheckedCreateInput = {
+    order: number
+    lectureId: number
+    blockId: number
+  }
+
+  export type LectureMarkdownUpdateInput = {
+    order?: IntFieldUpdateOperationsInput | number
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutBlocksNestedInput
+    block?: MarkdownBlockUpdateOneRequiredWithoutLecturesNestedInput
+  }
+
+  export type LectureMarkdownUncheckedUpdateInput = {
+    order?: IntFieldUpdateOperationsInput | number
+    lectureId?: IntFieldUpdateOperationsInput | number
+    blockId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureMarkdownCreateManyInput = {
+    order: number
+    lectureId: number
+    blockId: number
+  }
+
+  export type LectureMarkdownUpdateManyMutationInput = {
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureMarkdownUncheckedUpdateManyInput = {
+    order?: IntFieldUpdateOperationsInput | number
+    lectureId?: IntFieldUpdateOperationsInput | number
+    blockId?: IntFieldUpdateOperationsInput | number
   }
 
   export type MarkdownBlockCreateInput = {
@@ -8944,6 +10299,7 @@ export namespace Prisma {
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    lectures?: LectureMarkdownCreateNestedManyWithoutBlockInput
     createdBy: UserCreateNestedOneWithoutBlocksCreatedInput
     updatedBy: UserCreateNestedOneWithoutBlocksUpdatedInput
   }
@@ -8956,6 +10312,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById: string
     updatedById: string
+    lectures?: LectureMarkdownUncheckedCreateNestedManyWithoutBlockInput
   }
 
   export type MarkdownBlockUpdateInput = {
@@ -8963,6 +10320,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lectures?: LectureMarkdownUpdateManyWithoutBlockNestedInput
     createdBy?: UserUpdateOneRequiredWithoutBlocksCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutBlocksUpdatedNestedInput
   }
@@ -8975,6 +10333,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
+    lectures?: LectureMarkdownUncheckedUpdateManyWithoutBlockNestedInput
   }
 
   export type MarkdownBlockCreateManyInput = {
@@ -9357,6 +10716,12 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
+  export type LectureMarkdownListRelationFilter = {
+    every?: LectureMarkdownWhereInput
+    some?: LectureMarkdownWhereInput
+    none?: LectureMarkdownWhereInput
+  }
+
   export type LectureHierarchyNullableScalarRelationFilter = {
     is?: LectureHierarchyWhereInput | null
     isNot?: LectureHierarchyWhereInput | null
@@ -9373,6 +10738,10 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
+  export type LectureMarkdownOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type LectureHierarchyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9383,7 +10752,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
-    order?: SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrder
@@ -9400,7 +10768,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
-    order?: SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrder
@@ -9412,7 +10779,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
-    order?: SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrder
@@ -9493,6 +10859,51 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type LectureHierarchyScalarRelationFilter = {
+    is?: LectureHierarchyWhereInput
+    isNot?: LectureHierarchyWhereInput
+  }
+
+  export type MarkdownBlockScalarRelationFilter = {
+    is?: MarkdownBlockWhereInput
+    isNot?: MarkdownBlockWhereInput
+  }
+
+  export type LectureMarkdownLectureIdBlockIdCompoundUniqueInput = {
+    lectureId: number
+    blockId: number
+  }
+
+  export type LectureMarkdownCountOrderByAggregateInput = {
+    order?: SortOrder
+    lectureId?: SortOrder
+    blockId?: SortOrder
+  }
+
+  export type LectureMarkdownAvgOrderByAggregateInput = {
+    order?: SortOrder
+    lectureId?: SortOrder
+    blockId?: SortOrder
+  }
+
+  export type LectureMarkdownMaxOrderByAggregateInput = {
+    order?: SortOrder
+    lectureId?: SortOrder
+    blockId?: SortOrder
+  }
+
+  export type LectureMarkdownMinOrderByAggregateInput = {
+    order?: SortOrder
+    lectureId?: SortOrder
+    blockId?: SortOrder
+  }
+
+  export type LectureMarkdownSumOrderByAggregateInput = {
+    order?: SortOrder
+    lectureId?: SortOrder
+    blockId?: SortOrder
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -9787,6 +11198,13 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type LectureMarkdownCreateNestedManyWithoutLectureInput = {
+    create?: XOR<LectureMarkdownCreateWithoutLectureInput, LectureMarkdownUncheckedCreateWithoutLectureInput> | LectureMarkdownCreateWithoutLectureInput[] | LectureMarkdownUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureMarkdownCreateOrConnectWithoutLectureInput | LectureMarkdownCreateOrConnectWithoutLectureInput[]
+    createMany?: LectureMarkdownCreateManyLectureInputEnvelope
+    connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+  }
+
   export type LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput = {
     create?: XOR<LectureHierarchyCreateWithoutHierarchyChildrenInput, LectureHierarchyUncheckedCreateWithoutHierarchyChildrenInput>
     connectOrCreate?: LectureHierarchyCreateOrConnectWithoutHierarchyChildrenInput
@@ -9798,6 +11216,13 @@ export namespace Prisma {
     connectOrCreate?: LectureHierarchyCreateOrConnectWithoutHierarchyParentInput | LectureHierarchyCreateOrConnectWithoutHierarchyParentInput[]
     createMany?: LectureHierarchyCreateManyHierarchyParentInputEnvelope
     connect?: LectureHierarchyWhereUniqueInput | LectureHierarchyWhereUniqueInput[]
+  }
+
+  export type LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput = {
+    create?: XOR<LectureMarkdownCreateWithoutLectureInput, LectureMarkdownUncheckedCreateWithoutLectureInput> | LectureMarkdownCreateWithoutLectureInput[] | LectureMarkdownUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureMarkdownCreateOrConnectWithoutLectureInput | LectureMarkdownCreateOrConnectWithoutLectureInput[]
+    createMany?: LectureMarkdownCreateManyLectureInputEnvelope
+    connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
   }
 
   export type LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput = {
@@ -9833,6 +11258,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutLecturesUpdatedInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLecturesUpdatedInput, UserUpdateWithoutLecturesUpdatedInput>, UserUncheckedUpdateWithoutLecturesUpdatedInput>
+  }
+
+  export type LectureMarkdownUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<LectureMarkdownCreateWithoutLectureInput, LectureMarkdownUncheckedCreateWithoutLectureInput> | LectureMarkdownCreateWithoutLectureInput[] | LectureMarkdownUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureMarkdownCreateOrConnectWithoutLectureInput | LectureMarkdownCreateOrConnectWithoutLectureInput[]
+    upsert?: LectureMarkdownUpsertWithWhereUniqueWithoutLectureInput | LectureMarkdownUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: LectureMarkdownCreateManyLectureInputEnvelope
+    set?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    disconnect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    delete?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    update?: LectureMarkdownUpdateWithWhereUniqueWithoutLectureInput | LectureMarkdownUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: LectureMarkdownUpdateManyWithWhereWithoutLectureInput | LectureMarkdownUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: LectureMarkdownScalarWhereInput | LectureMarkdownScalarWhereInput[]
   }
 
   export type LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput = {
@@ -9875,6 +11314,20 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<LectureMarkdownCreateWithoutLectureInput, LectureMarkdownUncheckedCreateWithoutLectureInput> | LectureMarkdownCreateWithoutLectureInput[] | LectureMarkdownUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureMarkdownCreateOrConnectWithoutLectureInput | LectureMarkdownCreateOrConnectWithoutLectureInput[]
+    upsert?: LectureMarkdownUpsertWithWhereUniqueWithoutLectureInput | LectureMarkdownUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: LectureMarkdownCreateManyLectureInputEnvelope
+    set?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    disconnect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    delete?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    update?: LectureMarkdownUpdateWithWhereUniqueWithoutLectureInput | LectureMarkdownUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: LectureMarkdownUpdateManyWithWhereWithoutLectureInput | LectureMarkdownUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: LectureMarkdownScalarWhereInput | LectureMarkdownScalarWhereInput[]
+  }
+
   export type LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput = {
     create?: XOR<LectureHierarchyCreateWithoutHierarchyParentInput, LectureHierarchyUncheckedCreateWithoutHierarchyParentInput> | LectureHierarchyCreateWithoutHierarchyParentInput[] | LectureHierarchyUncheckedCreateWithoutHierarchyParentInput[]
     connectOrCreate?: LectureHierarchyCreateOrConnectWithoutHierarchyParentInput | LectureHierarchyCreateOrConnectWithoutHierarchyParentInput[]
@@ -9889,6 +11342,41 @@ export namespace Prisma {
     deleteMany?: LectureHierarchyScalarWhereInput | LectureHierarchyScalarWhereInput[]
   }
 
+  export type LectureHierarchyCreateNestedOneWithoutBlocksInput = {
+    create?: XOR<LectureHierarchyCreateWithoutBlocksInput, LectureHierarchyUncheckedCreateWithoutBlocksInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutBlocksInput
+    connect?: LectureHierarchyWhereUniqueInput
+  }
+
+  export type MarkdownBlockCreateNestedOneWithoutLecturesInput = {
+    create?: XOR<MarkdownBlockCreateWithoutLecturesInput, MarkdownBlockUncheckedCreateWithoutLecturesInput>
+    connectOrCreate?: MarkdownBlockCreateOrConnectWithoutLecturesInput
+    connect?: MarkdownBlockWhereUniqueInput
+  }
+
+  export type LectureHierarchyUpdateOneRequiredWithoutBlocksNestedInput = {
+    create?: XOR<LectureHierarchyCreateWithoutBlocksInput, LectureHierarchyUncheckedCreateWithoutBlocksInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutBlocksInput
+    upsert?: LectureHierarchyUpsertWithoutBlocksInput
+    connect?: LectureHierarchyWhereUniqueInput
+    update?: XOR<XOR<LectureHierarchyUpdateToOneWithWhereWithoutBlocksInput, LectureHierarchyUpdateWithoutBlocksInput>, LectureHierarchyUncheckedUpdateWithoutBlocksInput>
+  }
+
+  export type MarkdownBlockUpdateOneRequiredWithoutLecturesNestedInput = {
+    create?: XOR<MarkdownBlockCreateWithoutLecturesInput, MarkdownBlockUncheckedCreateWithoutLecturesInput>
+    connectOrCreate?: MarkdownBlockCreateOrConnectWithoutLecturesInput
+    upsert?: MarkdownBlockUpsertWithoutLecturesInput
+    connect?: MarkdownBlockWhereUniqueInput
+    update?: XOR<XOR<MarkdownBlockUpdateToOneWithWhereWithoutLecturesInput, MarkdownBlockUpdateWithoutLecturesInput>, MarkdownBlockUncheckedUpdateWithoutLecturesInput>
+  }
+
+  export type LectureMarkdownCreateNestedManyWithoutBlockInput = {
+    create?: XOR<LectureMarkdownCreateWithoutBlockInput, LectureMarkdownUncheckedCreateWithoutBlockInput> | LectureMarkdownCreateWithoutBlockInput[] | LectureMarkdownUncheckedCreateWithoutBlockInput[]
+    connectOrCreate?: LectureMarkdownCreateOrConnectWithoutBlockInput | LectureMarkdownCreateOrConnectWithoutBlockInput[]
+    createMany?: LectureMarkdownCreateManyBlockInputEnvelope
+    connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+  }
+
   export type UserCreateNestedOneWithoutBlocksCreatedInput = {
     create?: XOR<UserCreateWithoutBlocksCreatedInput, UserUncheckedCreateWithoutBlocksCreatedInput>
     connectOrCreate?: UserCreateOrConnectWithoutBlocksCreatedInput
@@ -9901,8 +11389,29 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type LectureMarkdownUncheckedCreateNestedManyWithoutBlockInput = {
+    create?: XOR<LectureMarkdownCreateWithoutBlockInput, LectureMarkdownUncheckedCreateWithoutBlockInput> | LectureMarkdownCreateWithoutBlockInput[] | LectureMarkdownUncheckedCreateWithoutBlockInput[]
+    connectOrCreate?: LectureMarkdownCreateOrConnectWithoutBlockInput | LectureMarkdownCreateOrConnectWithoutBlockInput[]
+    createMany?: LectureMarkdownCreateManyBlockInputEnvelope
+    connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type LectureMarkdownUpdateManyWithoutBlockNestedInput = {
+    create?: XOR<LectureMarkdownCreateWithoutBlockInput, LectureMarkdownUncheckedCreateWithoutBlockInput> | LectureMarkdownCreateWithoutBlockInput[] | LectureMarkdownUncheckedCreateWithoutBlockInput[]
+    connectOrCreate?: LectureMarkdownCreateOrConnectWithoutBlockInput | LectureMarkdownCreateOrConnectWithoutBlockInput[]
+    upsert?: LectureMarkdownUpsertWithWhereUniqueWithoutBlockInput | LectureMarkdownUpsertWithWhereUniqueWithoutBlockInput[]
+    createMany?: LectureMarkdownCreateManyBlockInputEnvelope
+    set?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    disconnect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    delete?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    update?: LectureMarkdownUpdateWithWhereUniqueWithoutBlockInput | LectureMarkdownUpdateWithWhereUniqueWithoutBlockInput[]
+    updateMany?: LectureMarkdownUpdateManyWithWhereWithoutBlockInput | LectureMarkdownUpdateManyWithWhereWithoutBlockInput[]
+    deleteMany?: LectureMarkdownScalarWhereInput | LectureMarkdownScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutBlocksCreatedNestedInput = {
@@ -9919,6 +11428,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutBlocksUpdatedInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBlocksUpdatedInput, UserUpdateWithoutBlocksUpdatedInput>, UserUncheckedUpdateWithoutBlocksUpdatedInput>
+  }
+
+  export type LectureMarkdownUncheckedUpdateManyWithoutBlockNestedInput = {
+    create?: XOR<LectureMarkdownCreateWithoutBlockInput, LectureMarkdownUncheckedCreateWithoutBlockInput> | LectureMarkdownCreateWithoutBlockInput[] | LectureMarkdownUncheckedCreateWithoutBlockInput[]
+    connectOrCreate?: LectureMarkdownCreateOrConnectWithoutBlockInput | LectureMarkdownCreateOrConnectWithoutBlockInput[]
+    upsert?: LectureMarkdownUpsertWithWhereUniqueWithoutBlockInput | LectureMarkdownUpsertWithWhereUniqueWithoutBlockInput[]
+    createMany?: LectureMarkdownCreateManyBlockInputEnvelope
+    set?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    disconnect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    delete?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+    update?: LectureMarkdownUpdateWithWhereUniqueWithoutBlockInput | LectureMarkdownUpdateWithWhereUniqueWithoutBlockInput[]
+    updateMany?: LectureMarkdownUpdateManyWithWhereWithoutBlockInput | LectureMarkdownUpdateManyWithWhereWithoutBlockInput[]
+    deleteMany?: LectureMarkdownScalarWhereInput | LectureMarkdownScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -10497,14 +12020,34 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutLecturesUpdatedInput, UserUncheckedCreateWithoutLecturesUpdatedInput>
   }
 
+  export type LectureMarkdownCreateWithoutLectureInput = {
+    order: number
+    block: MarkdownBlockCreateNestedOneWithoutLecturesInput
+  }
+
+  export type LectureMarkdownUncheckedCreateWithoutLectureInput = {
+    order: number
+    blockId: number
+  }
+
+  export type LectureMarkdownCreateOrConnectWithoutLectureInput = {
+    where: LectureMarkdownWhereUniqueInput
+    create: XOR<LectureMarkdownCreateWithoutLectureInput, LectureMarkdownUncheckedCreateWithoutLectureInput>
+  }
+
+  export type LectureMarkdownCreateManyLectureInputEnvelope = {
+    data: LectureMarkdownCreateManyLectureInput | LectureMarkdownCreateManyLectureInput[]
+    skipDuplicates?: boolean
+  }
+
   export type LectureHierarchyCreateWithoutHierarchyChildrenInput = {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
   }
 
@@ -10514,10 +12057,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdById: string
     updatedById: string
     HierarchyParentId?: number | null
+    blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
   }
 
   export type LectureHierarchyCreateOrConnectWithoutHierarchyChildrenInput = {
@@ -10530,9 +12073,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -10542,9 +12085,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdById: string
     updatedById: string
+    blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -10640,6 +12183,31 @@ export namespace Prisma {
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
+  export type LectureMarkdownUpsertWithWhereUniqueWithoutLectureInput = {
+    where: LectureMarkdownWhereUniqueInput
+    update: XOR<LectureMarkdownUpdateWithoutLectureInput, LectureMarkdownUncheckedUpdateWithoutLectureInput>
+    create: XOR<LectureMarkdownCreateWithoutLectureInput, LectureMarkdownUncheckedCreateWithoutLectureInput>
+  }
+
+  export type LectureMarkdownUpdateWithWhereUniqueWithoutLectureInput = {
+    where: LectureMarkdownWhereUniqueInput
+    data: XOR<LectureMarkdownUpdateWithoutLectureInput, LectureMarkdownUncheckedUpdateWithoutLectureInput>
+  }
+
+  export type LectureMarkdownUpdateManyWithWhereWithoutLectureInput = {
+    where: LectureMarkdownScalarWhereInput
+    data: XOR<LectureMarkdownUpdateManyMutationInput, LectureMarkdownUncheckedUpdateManyWithoutLectureInput>
+  }
+
+  export type LectureMarkdownScalarWhereInput = {
+    AND?: LectureMarkdownScalarWhereInput | LectureMarkdownScalarWhereInput[]
+    OR?: LectureMarkdownScalarWhereInput[]
+    NOT?: LectureMarkdownScalarWhereInput | LectureMarkdownScalarWhereInput[]
+    order?: IntFilter<"LectureMarkdown"> | number
+    lectureId?: IntFilter<"LectureMarkdown"> | number
+    blockId?: IntFilter<"LectureMarkdown"> | number
+  }
+
   export type LectureHierarchyUpsertWithoutHierarchyChildrenInput = {
     update: XOR<LectureHierarchyUpdateWithoutHierarchyChildrenInput, LectureHierarchyUncheckedUpdateWithoutHierarchyChildrenInput>
     create: XOR<LectureHierarchyCreateWithoutHierarchyChildrenInput, LectureHierarchyUncheckedCreateWithoutHierarchyChildrenInput>
@@ -10656,9 +12224,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
   }
 
@@ -10668,10 +12236,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
   }
 
   export type LectureHierarchyUpsertWithWhereUniqueWithoutHierarchyParentInput = {
@@ -10699,10 +12267,145 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     updatedAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     isPublic?: BoolFilter<"LectureHierarchy"> | boolean
-    order?: StringFilter<"LectureHierarchy"> | string
     createdById?: StringFilter<"LectureHierarchy"> | string
     updatedById?: StringFilter<"LectureHierarchy"> | string
     HierarchyParentId?: IntNullableFilter<"LectureHierarchy"> | number | null
+  }
+
+  export type LectureHierarchyCreateWithoutBlocksInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
+    updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
+    hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyUncheckedCreateWithoutBlocksInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    createdById: string
+    updatedById: string
+    HierarchyParentId?: number | null
+    hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyCreateOrConnectWithoutBlocksInput = {
+    where: LectureHierarchyWhereUniqueInput
+    create: XOR<LectureHierarchyCreateWithoutBlocksInput, LectureHierarchyUncheckedCreateWithoutBlocksInput>
+  }
+
+  export type MarkdownBlockCreateWithoutLecturesInput = {
+    name: string
+    content?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutBlocksCreatedInput
+    updatedBy: UserCreateNestedOneWithoutBlocksUpdatedInput
+  }
+
+  export type MarkdownBlockUncheckedCreateWithoutLecturesInput = {
+    id?: number
+    name: string
+    content?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    updatedById: string
+  }
+
+  export type MarkdownBlockCreateOrConnectWithoutLecturesInput = {
+    where: MarkdownBlockWhereUniqueInput
+    create: XOR<MarkdownBlockCreateWithoutLecturesInput, MarkdownBlockUncheckedCreateWithoutLecturesInput>
+  }
+
+  export type LectureHierarchyUpsertWithoutBlocksInput = {
+    update: XOR<LectureHierarchyUpdateWithoutBlocksInput, LectureHierarchyUncheckedUpdateWithoutBlocksInput>
+    create: XOR<LectureHierarchyCreateWithoutBlocksInput, LectureHierarchyUncheckedCreateWithoutBlocksInput>
+    where?: LectureHierarchyWhereInput
+  }
+
+  export type LectureHierarchyUpdateToOneWithWhereWithoutBlocksInput = {
+    where?: LectureHierarchyWhereInput
+    data: XOR<LectureHierarchyUpdateWithoutBlocksInput, LectureHierarchyUncheckedUpdateWithoutBlocksInput>
+  }
+
+  export type LectureHierarchyUpdateWithoutBlocksInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
+    updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
+    hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type LectureHierarchyUncheckedUpdateWithoutBlocksInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: StringFieldUpdateOperationsInput | string
+    updatedById?: StringFieldUpdateOperationsInput | string
+    HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type MarkdownBlockUpsertWithoutLecturesInput = {
+    update: XOR<MarkdownBlockUpdateWithoutLecturesInput, MarkdownBlockUncheckedUpdateWithoutLecturesInput>
+    create: XOR<MarkdownBlockCreateWithoutLecturesInput, MarkdownBlockUncheckedCreateWithoutLecturesInput>
+    where?: MarkdownBlockWhereInput
+  }
+
+  export type MarkdownBlockUpdateToOneWithWhereWithoutLecturesInput = {
+    where?: MarkdownBlockWhereInput
+    data: XOR<MarkdownBlockUpdateWithoutLecturesInput, MarkdownBlockUncheckedUpdateWithoutLecturesInput>
+  }
+
+  export type MarkdownBlockUpdateWithoutLecturesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutBlocksCreatedNestedInput
+    updatedBy?: UserUpdateOneRequiredWithoutBlocksUpdatedNestedInput
+  }
+
+  export type MarkdownBlockUncheckedUpdateWithoutLecturesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    updatedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LectureMarkdownCreateWithoutBlockInput = {
+    order: number
+    lecture: LectureHierarchyCreateNestedOneWithoutBlocksInput
+  }
+
+  export type LectureMarkdownUncheckedCreateWithoutBlockInput = {
+    order: number
+    lectureId: number
+  }
+
+  export type LectureMarkdownCreateOrConnectWithoutBlockInput = {
+    where: LectureMarkdownWhereUniqueInput
+    create: XOR<LectureMarkdownCreateWithoutBlockInput, LectureMarkdownUncheckedCreateWithoutBlockInput>
+  }
+
+  export type LectureMarkdownCreateManyBlockInputEnvelope = {
+    data: LectureMarkdownCreateManyBlockInput | LectureMarkdownCreateManyBlockInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserCreateWithoutBlocksCreatedInput = {
@@ -10773,6 +12476,22 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutBlocksUpdatedInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutBlocksUpdatedInput, UserUncheckedCreateWithoutBlocksUpdatedInput>
+  }
+
+  export type LectureMarkdownUpsertWithWhereUniqueWithoutBlockInput = {
+    where: LectureMarkdownWhereUniqueInput
+    update: XOR<LectureMarkdownUpdateWithoutBlockInput, LectureMarkdownUncheckedUpdateWithoutBlockInput>
+    create: XOR<LectureMarkdownCreateWithoutBlockInput, LectureMarkdownUncheckedCreateWithoutBlockInput>
+  }
+
+  export type LectureMarkdownUpdateWithWhereUniqueWithoutBlockInput = {
+    where: LectureMarkdownWhereUniqueInput
+    data: XOR<LectureMarkdownUpdateWithoutBlockInput, LectureMarkdownUncheckedUpdateWithoutBlockInput>
+  }
+
+  export type LectureMarkdownUpdateManyWithWhereWithoutBlockInput = {
+    where: LectureMarkdownScalarWhereInput
+    data: XOR<LectureMarkdownUpdateManyMutationInput, LectureMarkdownUncheckedUpdateManyWithoutBlockInput>
   }
 
   export type UserUpsertWithoutBlocksCreatedInput = {
@@ -11076,8 +12795,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -11088,9 +12807,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     updatedById: string
     HierarchyParentId?: number | null
+    blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -11109,8 +12828,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
+    blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -11121,9 +12840,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdById: string
     HierarchyParentId?: number | null
+    blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -11142,6 +12861,7 @@ export namespace Prisma {
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    lectures?: LectureMarkdownCreateNestedManyWithoutBlockInput
     updatedBy: UserCreateNestedOneWithoutBlocksUpdatedInput
   }
 
@@ -11152,6 +12872,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedById: string
+    lectures?: LectureMarkdownUncheckedCreateNestedManyWithoutBlockInput
   }
 
   export type MarkdownBlockCreateOrConnectWithoutCreatedByInput = {
@@ -11169,6 +12890,7 @@ export namespace Prisma {
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    lectures?: LectureMarkdownCreateNestedManyWithoutBlockInput
     createdBy: UserCreateNestedOneWithoutBlocksCreatedInput
   }
 
@@ -11179,6 +12901,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
+    lectures?: LectureMarkdownUncheckedCreateNestedManyWithoutBlockInput
   }
 
   export type MarkdownBlockCreateOrConnectWithoutUpdatedByInput = {
@@ -11329,15 +13052,34 @@ export namespace Prisma {
     data: XOR<MarkdownBlockUpdateManyMutationInput, MarkdownBlockUncheckedUpdateManyWithoutUpdatedByInput>
   }
 
+  export type LectureMarkdownCreateManyLectureInput = {
+    order: number
+    blockId: number
+  }
+
   export type LectureHierarchyCreateManyHierarchyParentInput = {
     id?: number
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdById: string
     updatedById: string
+  }
+
+  export type LectureMarkdownUpdateWithoutLectureInput = {
+    order?: IntFieldUpdateOperationsInput | number
+    block?: MarkdownBlockUpdateOneRequiredWithoutLecturesNestedInput
+  }
+
+  export type LectureMarkdownUncheckedUpdateWithoutLectureInput = {
+    order?: IntFieldUpdateOperationsInput | number
+    blockId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureMarkdownUncheckedUpdateManyWithoutLectureInput = {
+    order?: IntFieldUpdateOperationsInput | number
+    blockId?: IntFieldUpdateOperationsInput | number
   }
 
   export type LectureHierarchyUpdateWithoutHierarchyParentInput = {
@@ -11345,9 +13087,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -11357,9 +13099,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
+    blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -11369,9 +13111,28 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LectureMarkdownCreateManyBlockInput = {
+    order: number
+    lectureId: number
+  }
+
+  export type LectureMarkdownUpdateWithoutBlockInput = {
+    order?: IntFieldUpdateOperationsInput | number
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutBlocksNestedInput
+  }
+
+  export type LectureMarkdownUncheckedUpdateWithoutBlockInput = {
+    order?: IntFieldUpdateOperationsInput | number
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureMarkdownUncheckedUpdateManyWithoutBlockInput = {
+    order?: IntFieldUpdateOperationsInput | number
+    lectureId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AccountCreateManyUserInput = {
@@ -11401,7 +13162,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     updatedById: string
     HierarchyParentId?: number | null
   }
@@ -11412,7 +13172,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
-    order?: string
     createdById: string
     HierarchyParentId?: number | null
   }
@@ -11503,8 +13262,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -11515,9 +13274,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -11527,7 +13286,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -11537,8 +13295,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
+    blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -11549,9 +13307,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -11561,7 +13319,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
-    order?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -11571,6 +13328,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lectures?: LectureMarkdownUpdateManyWithoutBlockNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutBlocksUpdatedNestedInput
   }
 
@@ -11581,6 +13339,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedById?: StringFieldUpdateOperationsInput | string
+    lectures?: LectureMarkdownUncheckedUpdateManyWithoutBlockNestedInput
   }
 
   export type MarkdownBlockUncheckedUpdateManyWithoutCreatedByInput = {
@@ -11597,6 +13356,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lectures?: LectureMarkdownUpdateManyWithoutBlockNestedInput
     createdBy?: UserUpdateOneRequiredWithoutBlocksCreatedNestedInput
   }
 
@@ -11607,6 +13367,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
+    lectures?: LectureMarkdownUncheckedUpdateManyWithoutBlockNestedInput
   }
 
   export type MarkdownBlockUncheckedUpdateManyWithoutUpdatedByInput = {

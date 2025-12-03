@@ -1,89 +1,61 @@
-"use client";
-
+// MarkdownSelectItem.tsx (Finální verze)
 import type { MarkdownBlock } from "generated/prisma";
 import React from "react";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { MdCopyAll } from "react-icons/md";
 import type { MarkdownAddButtonProps } from "./MarkdownAddButton";
-import { api } from "~/trpc/react";
+import type { ModalHandle } from "../../Modals/Modal";
 
 interface MarkdownSelectItemProps {
   mdb: MarkdownBlock;
   userId: string;
   setViewerContent: React.Dispatch<React.SetStateAction<string>>;
+  modalRef: React.RefObject<ModalHandle | null>;
 }
 
 function MarkdownSelectItem(
   props: MarkdownSelectItemProps & MarkdownAddButtonProps,
 ) {
-  const lectureOrderQuery = api.lectures.getLectureOrder.useQuery(
-    props.lectureId,
-  );
-
-  const updateOrderMutation = api.lectures.updateOrder.useMutation({
-    onSuccess: () => {
-      window.location.reload();
-    },
-  });
-
-  const copyMarkdownBlock = api.lectures.createMarkdownBlock.useMutation();
+  // Žádné lokální useQuery pro pořadí!
+  // const updateOrderMutation = api.lectures.updateOrder.useMutation();
+  // const copyMarkdownBlock = api.lectures.createMarkdownBlock.useMutation();
 
   const handleAdd = async (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (!lectureOrderQuery.data) return;
-
-    const currentOrder: number[] = JSON.parse(
-      lectureOrderQuery.data.order,
-    ) as number[];
-
-    const index = props.addToIndex ?? currentOrder.length;
-
-    currentOrder.splice(index, 0, props.mdb.id);
-
-    try {
-      await updateOrderMutation.mutateAsync({
-        lectureId: props.lectureId,
-        order: currentOrder,
-      });
-    } catch (err) {
-      console.error("Chyba při přidávání blocku:", err);
-    }
+    // try {
+    //   await updateOrderMutation.mutateAsync({
+    //     lectureId: props.lectureId,
+    //     order: currentOrder,
+    //   });
+    //   await props.refetch();
+    //   props.modalRef.current?.close(); // Zavřít modal
+    // } catch (err) {
+    //   console.error("Chyba při přidávání blocku:", err);
+    // }
   };
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (!lectureOrderQuery.data) return;
+    // try {
+    //   const newBlock = await copyMarkdownBlock.mutateAsync({
+    //     content: props.mdb.content ?? undefined,
+    //     name: `${props.mdb.name}_copy`,
+    //     userId: props.userId,
+    //   });
 
-    const currentOrder: number[] = JSON.parse(
-      lectureOrderQuery.data.order,
-    ) as number[];
-
-    const index = props.addToIndex ?? currentOrder.length;
-
-    try {
-      const newBlock = await copyMarkdownBlock.mutateAsync({
-        content: props.mdb.content ?? undefined,
-        name: `${props.mdb.name}_copy`,
-        userId: props.userId,
-      });
-
-      currentOrder.splice(index, 0, newBlock.id);
-
-      await updateOrderMutation.mutateAsync({
-        lectureId: props.lectureId,
-        order: currentOrder,
-      });
-    } catch (err) {
-      console.error("Chyba při kopírování blocku:", err);
-    }
+    //   props.modalRef.current?.close(); // Zavřít modal
+    // } catch (err) {
+    //   console.error("Chyba při kopírování blocku:", err);
+    // }
   };
 
   return (
     <div
       className="hover:bg-background flex cursor-pointer justify-between p-4"
       onClick={() => {
+        // Zobrazení v prohlížeči (OK)
         props.setViewerContent(String(props.mdb.content));
       }}
     >
