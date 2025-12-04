@@ -24,7 +24,7 @@ function MarkdownSelectList({
 
   return (
     <div {...props}>
-      <div className="bg-background h-96 overflow-y-auto rounded-md px-4 inset-shadow-xs">
+      <div className="bg-background dark:bg-background-dark-subtle h-96 overflow-y-auto rounded-md px-4 inset-shadow-xs">
         <MarkdownViewer content={viewerContent} />
       </div>
       <SearchBar

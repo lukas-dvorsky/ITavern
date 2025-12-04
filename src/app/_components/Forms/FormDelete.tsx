@@ -25,10 +25,10 @@ function FormDelete(props: FormDeleteProps) {
         modalRef.current?.close();
       }}
     >
-      <Modal ref={modalRef} autoWidth={true}>
+      <Modal ref={modalRef}>
         {props.children}
         <button
-          className="bg-danger w-36 cursor-pointer self-center rounded-lg py-4 text-white"
+          className="bg-danger col-span-3 col-start-6 w-full cursor-pointer rounded-lg py-4 text-white"
           type="submit"
         >
           {`SMAZAT`}
@@ -36,7 +36,7 @@ function FormDelete(props: FormDeleteProps) {
       </Modal>
       <button
         type="button"
-        className="cursor-pointer rounded-md p-2 hover:bg-gray-200"
+        className="dark:hover:bg-background-dark cursor-pointer rounded-md p-2 hover:bg-gray-200"
         onClick={(e) => {
           e.stopPropagation();
           modalRef.current?.open();

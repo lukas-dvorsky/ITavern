@@ -54,7 +54,7 @@ model LectureMarkdown {
   lectureId Int
   blockId   Int
 
-  lecture LectureHierarchy @relation("LectureHierarchy", fields: [lectureId], references: [id])
+  lecture LectureHierarchy @relation("LectureHierarchy", fields: [lectureId], references: [id], onDelete: Cascade)
   block   MarkdownBlock    @relation("MarkdownBlock", fields: [blockId], references: [id])
 
   @@id([lectureId, blockId])

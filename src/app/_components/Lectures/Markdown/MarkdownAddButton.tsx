@@ -34,7 +34,7 @@ function MarkdownAddButton(props: MarkdownAddButtonProps) {
   const modalRef = useRef<ModalHandle>(null);
 
   return (
-    <div className="bg-accent hover:bg-accent-light relative my-2 h-1 w-full cursor-pointer rounded-full">
+    <div className="bg-accent dark:bg-accent-dark dark:hover:bg-accent hover:bg-accent-light relative my-2 h-1 w-full cursor-pointer rounded-full">
       <div
         className="text-background absolute top-1/2 left-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-inherit"
         onClick={() => {
@@ -48,7 +48,7 @@ function MarkdownAddButton(props: MarkdownAddButtonProps) {
           <FormCreate
             buttonTitle="Vytvorit novy blok"
             formTitle="Novy blok"
-            buttonClassName="bg-primary-light text-background hover:bg-primary"
+            buttonClassName="bg-primary-light dark:bg-primary-dark text-background hover:bg-primary"
             apiCreate={(formData) => {
               createBlockConnectLecture.mutate({
                 order: props.addToIndex,

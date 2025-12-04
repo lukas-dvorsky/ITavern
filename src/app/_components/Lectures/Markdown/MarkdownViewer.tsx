@@ -67,12 +67,16 @@ const components: Components = {
 
     if (isBlock) {
       return (
-        <pre className="my-2 rounded bg-gray-100 p-3">
+        <pre className="dark:bg-background-dark-card my-2 rounded bg-gray-100 p-3">
           <code className={className}>{text}</code>
         </pre>
       );
     } else {
-      return <code className="rounded bg-gray-200 p-1">{text}</code>;
+      return (
+        <code className="dark:bg-background-dark-card rounded bg-gray-200 p-1">
+          {text}
+        </code>
+      );
     }
   },
 };

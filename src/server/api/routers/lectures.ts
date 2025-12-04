@@ -10,9 +10,9 @@ import {
 export const lectureRouter = createTRPCRouter({
   getLectureHierarchiesBuilded: protectedProcedure.query(async ({ ctx }) => {
     const flat = await ctx.db.lectureHierarchy.findMany({
-      where: {
-        isPublic: true,
-      },
+      // where: {
+      //   isPublic: true,
+      // },
     });
 
     return flat;

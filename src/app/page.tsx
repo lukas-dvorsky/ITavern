@@ -5,8 +5,8 @@ import Link from "next/link";
 export default async function Home() {
   const session = await requireLoggedIn();
   return (
-    <main className="bg-background text-text flex min-h-screen flex-col items-center">
-      <div className="bg-background-card mt-36 max-h-screen w-2/3 flex-col">
+    <main className="text-text dark:text-text-dark-mode flex min-h-screen flex-col items-center">
+      <div className="bg-background-card dark:bg-background-dark-card mt-36 max-h-screen w-2/3 flex-col">
         <LectureNavigator
           userRole={session.user.role}
           userId={session.user.id}

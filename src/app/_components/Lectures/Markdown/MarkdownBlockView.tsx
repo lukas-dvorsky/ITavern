@@ -178,7 +178,6 @@ function MarkdownBlockView(props: MarkdownBlockProps) {
               }
             }}
           />
-          <Toaster />
         </div>
       )}
     </GridLayout>

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary: #1e73be;
   --color-primary-light: #4a95d9;
@@ -13,9 +15,17 @@
   --color-text-soft: #4f4f4f;
   --color-text-muted: #6e6e6e;
 
+  --color-text-dark-mode: #f0f0f0;
+  --color-text-dark-mode-soft: #cccccc;
+  --color-text-dark-mode-muted: #aaaaaa;
+
   --color-background: #f7f9fb;
   --color-background-card: #ffffff;
   --color-background-subtle: #fafafa;
+
+  --color-background-dark: #121212;
+  --color-background-dark-card: #1f1f1f;
+  --color-background-dark-subtle: #2d2d2d;
 
   --color-code-keyword: #c678dd;
   --color-code-string: #98c379;
@@ -23,12 +33,41 @@
 
   --color-danger: #e74c3c;
   --color-warning: #f1c40f;
-}
 
-@theme {
   --font-sans:
     var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+:root {
+  --color-primary: #1e73be;
+  --color-text: #2d2d2d;
+  --color-background: #f7f9fb;
+  --color-background-card: #ffffff;
+
+  --color-text-dark-mode: #f0f0f0;
+  --color-background-dark: #121212;
+  --color-background-dark-card: #1f1f1f;
+  /* ... atd. ... */
+}
+
+/* -------------------------------------- */
+/* 2. Přepsání pro Tmavý Režim            */
+/* -------------------------------------- */
+
+/* Všechny prvky uvnitř <html> s třídou .dark-mode-active se přepnou */
+html.dark-mode-active {
+  /* Přepíšeme ZÁKLADNÍ proměnné tmavými hodnotami */
+  --color-text: var(--color-text-dark-mode);
+  --color-text-soft: var(--color-text-dark-mode-soft);
+  --color-text-muted: var(--color-text-dark-mode-muted);
+
+  --color-background: var(--color-background-dark);
+  --color-background-card: var(--color-background-dark-card);
+  --color-background-subtle: var(--color-background-dark-subtle);
+
+  /* Můžete také přepsat kódové barvy pro lepší kontrast */
+  /* --color-code-keyword: #d787ff; */
 }
 
 /* Custom scrollbar */
@@ -42,16 +81,27 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #555;
+  background: #2d2d2d;
   border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #777;
+  background: #2d2d2d;
 }
 
 /* Firefox */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #555 transparent;
+  scrollbar-color: #2d2d2d transparent;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  /* Skryje scrollbar ve Firefoxu */
+  scrollbar-width: none;
+  /* Pro IE a starší Edge */
+  -ms-overflow-style: none;
 }

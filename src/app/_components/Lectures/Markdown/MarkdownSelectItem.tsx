@@ -6,7 +6,6 @@ import type { MarkdownAddButtonProps } from "./MarkdownAddButton";
 import type { ModalHandle } from "../../Modals/Modal";
 import { api } from "~/trpc/react";
 import toast, { Toaster } from "react-hot-toast";
-import type { RefetchMarkdownBlocks } from "./MarkdownList";
 
 interface MarkdownSelectItemProps {
   mdb: MarkdownBlock;
@@ -61,7 +60,7 @@ function MarkdownSelectItem(
 
   return (
     <div
-      className="hover:bg-background flex cursor-pointer justify-between p-4"
+      className="hover:bg-background dark:hover:bg-background-dark-subtle flex cursor-pointer justify-between p-4"
       onClick={() => {
         props.setViewerContent(String(props.mdb.content));
       }}
@@ -69,15 +68,14 @@ function MarkdownSelectItem(
       <span>{props.mdb.name}</span>
       <div className="flex items-center justify-center gap-4">
         <FaArrowAltCircleRight
-          className="hover:bg-background-card h-6 w-6"
+          className="hover:bg-background-card dark:hover:bg-background-dark-subtle h-6 w-6"
           onClick={handleAdd}
         />
         <MdCopyAll
-          className="hover:bg-background h-6 w-6"
+          className="hover:bg-background dark:hover:bg-background-dark-subtle h-6 w-6"
           onClick={handleCopy}
         />
       </div>
-      <Toaster />
     </div>
   );
 }

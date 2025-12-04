@@ -13,6 +13,7 @@ interface LectureNavigatorLectureProps {
   name: string;
   children?: React.ReactNode;
   userRole: Roles;
+  isPublic: boolean;
 }
 
 const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
@@ -21,6 +22,7 @@ const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
   name,
   children,
   userRole,
+  isPublic,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = !!children;
@@ -28,7 +30,7 @@ const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
   return (
     <>
       <div
-        className={`flex items-center space-x-2 py-4 pl-4 ${hasChildren ? "cursor-pointer font-semibold" : "pl-8"} hover:bg-gray-100`}
+        className={`${!isPublic && "opacity-40"} flex items-center space-x-2 py-4 pl-4 ${hasChildren ? "cursor-pointer font-semibold" : "pl-8"} dark:hover:bg-background-dark/40 hover:bg-gray-100`}
         onClick={() => hasChildren && setIsOpen(!isOpen)}
       >
         {hasChildren && (
@@ -43,7 +45,7 @@ const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
 
           {/* IF ADMIN */}
           {userRole === "ADMIN" && (
-            <div className="flex h-full items-center justify-center gap-8">
+            <div className="flex h-full items-center justify-center gap-8 opacity-100">
               <LectureForms id={id} name={name} userId={userId} />
             </div>
           )}
@@ -57,7 +59,7 @@ const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="ml-8 overflow-hidden border-l-2 border-l-gray-200"
+              className="dark:border-l-background-dark/80 ml-8 overflow-hidden border-l-2 border-l-gray-200"
             >
               {children}
             </motion.div>

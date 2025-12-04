@@ -98,15 +98,14 @@ export default function MarkdownList({
       return;
     }
 
-    const newItems = Array.from(LecturesMdBlocks.data);
-    newItems.splice(sourceIndex, 1);
-    newItems.splice(destinationIndex, 0, movedItem);
+    const oldOrder = sourceIndex + 1;
+    const newOrder = destinationIndex + 1;
 
     updateBlockOrder.mutate({
       lectureId: movedItem.lectureId,
       blockId: movedItem.blockId,
-      oldOrder: sourceIndex,
-      newOrder: destinationIndex,
+      oldOrder: oldOrder,
+      newOrder: newOrder,
     });
   };
 
@@ -189,7 +188,7 @@ export default function MarkdownList({
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className="flex flex-col items-center gap-4 border-b border-gray-200 py-3"
+                      className="dark:border-background-dark/80 flex flex-col items-center gap-4 border-b border-gray-200 py-3"
                     >
                       {isAdmin && editModeEnabled && index === 0 && (
                         <MarkdownAddButton
@@ -227,7 +226,6 @@ export default function MarkdownList({
           )}
         </Droppable>
       </DragDropContext>
-      <Toaster />
     </GridLayout>
   );
 }

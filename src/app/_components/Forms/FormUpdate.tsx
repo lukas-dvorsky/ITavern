@@ -28,7 +28,7 @@ function FormUpdate(props: FormUpdateProps) {
       <Modal ref={modalRef} title="Update" autoWidth={true}>
         {props.children}
         <button
-          className="w-36 cursor-pointer self-end rounded-lg bg-blue-500 py-4 text-white"
+          className="col-span-2 col-start-11 cursor-pointer self-end rounded-lg bg-blue-500 py-4 text-white"
           type="submit"
         >
           {`Upravit ->`}
@@ -36,7 +36,7 @@ function FormUpdate(props: FormUpdateProps) {
       </Modal>
       <button
         type="button"
-        className="cursor-pointer rounded-md p-2 hover:bg-gray-200"
+        className="dark:hover:bg-background-dark cursor-pointer rounded-md p-2 hover:bg-gray-200"
         onClick={(e) => {
           e.stopPropagation();
           modalRef.current?.open();

@@ -16,7 +16,7 @@ function ToggleButton(props: ToggleButtonProps) {
 
   return (
     <div
-      className={`${props.className} flex items-center justify-center gap-4 rounded-sm border px-2 py-1 ${active ? "bg-primary-light text-background" : "border-gray-400"}`}
+      className={`${props.className} flex items-center justify-center gap-4 rounded-sm border px-2 py-1 ${active ? "bg-primary-light dark:bg-primary-dark text-text-dark-mode dark:border-primary-dark" : "bg-background-card dark:border-background-dark dark:bg-background-dark-card border-gray-400"}`}
       onClick={() => {
         if (active) {
           props.actionDisabled();
@@ -27,7 +27,9 @@ function ToggleButton(props: ToggleButtonProps) {
       }}
     >
       {props.icon}
-      <span className="select-none">{props.title}</span>
+      <span className="dark:text-text-dark-mode select-none">
+        {props.title}
+      </span>
     </div>
   );
 }

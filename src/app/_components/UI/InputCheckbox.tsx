@@ -90,7 +90,7 @@ function InputCheckbox(props: InputCheckboxProps) {
 
         <label
           htmlFor={distinctId}
-          className="cursor-pointer text-sm text-gray-700 select-none"
+          className="dark:text-text-dark-mode cursor-pointer text-sm text-gray-700 select-none"
         >
           {props.label ?? "Zaškrtávací pole"}
         </label>

@@ -44,7 +44,7 @@ function FormCreate(props: FormCreateProps) {
       </Modal>
       <button
         type="button"
-        className={`${props.buttonClassName} h-full cursor-pointer rounded-md p-2 hover:bg-gray-200`}
+        className={`${props.buttonClassName} dark:hover:bg-background-dark h-full cursor-pointer rounded-md p-2 hover:bg-gray-200`}
         onClick={(e) => {
           e.stopPropagation();
           modalRef.current?.open();
