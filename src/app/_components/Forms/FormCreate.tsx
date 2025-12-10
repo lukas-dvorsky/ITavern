@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef } from "react";
 import Modal, { type ModalHandle } from "../Modals/Modal";
 import { FiPlusSquare } from "react-icons/fi";

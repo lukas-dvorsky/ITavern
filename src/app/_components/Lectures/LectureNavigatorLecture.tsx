@@ -14,15 +14,16 @@ interface LectureNavigatorLectureProps {
   children?: React.ReactNode;
   userRole: Roles;
   isPublic: boolean;
+  canEdit: boolean;
 }
 
 const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
   id,
-  userId,
   name,
   children,
   userRole,
   isPublic,
+  canEdit,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = !!children;
@@ -37,16 +38,13 @@ const LectureNavigatorLecture: React.FC<LectureNavigatorLectureProps> = ({
           <span>{isOpen ? <IoIosArrowDown /> : <IoIosArrowForward />}</span>
         )}
         <div className="flex h-full w-full items-center justify-between pr-10">
-          {!hasChildren ? (
-            <a href={`lecture/${id}`}>{name}</a>
-          ) : (
-            <span>{name}</span>
-          )}
-
+          <a href={`lecture/${id}`} className="hover:underline">
+            {name}
+          </a>
           {/* IF ADMIN */}
-          {userRole === "ADMIN" && (
+          {userRole === "ADMIN" && canEdit && (
             <div className="flex h-full items-center justify-center gap-8 opacity-100">
-              <LectureForms id={id} name={name} userId={userId} />
+              <LectureForms id={id} name={name} />
             </div>
           )}
         </div>

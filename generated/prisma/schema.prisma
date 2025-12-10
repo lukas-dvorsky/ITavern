@@ -23,6 +23,11 @@ enum Roles {
   ADMIN
 }
 
+enum Themes {
+  LIGHT
+  DARK
+}
+
 //============================
 //          TABLES
 //===========================
@@ -40,7 +45,8 @@ model LectureHierarchy {
   updatedById String
   updatedBy   User   @relation("LectureUpdatedBy", fields: [updatedById], references: [id])
 
-  blocks LectureMarkdown[] @relation("LectureHierarchy")
+  blocks      LectureMarkdown[]    @relation("LectureHierarchy")
+  permissions LecturePermissions[] @relation("LectureHierarchyPermission")
 
   // hierarchy
   HierarchyParentId Int?
@@ -74,6 +80,16 @@ model MarkdownBlock {
 
   updatedById String
   updatedBy   User   @relation("BlockUpdatedBy", fields: [updatedById], references: [id])
+}
+
+model LecturePermissions {
+  lectureId Int
+  userId    String
+
+  lecture LectureHierarchy @relation("LectureHierarchyPermission", fields: [lectureId], references: [id], onDelete: Cascade)
+  user    User             @relation("UserPermission", fields: [userId], references: [id])
+
+  @@id([userId, lectureId])
 }
 
 // Necessary for Next auth
@@ -117,10 +133,20 @@ model User {
   sessions Session[]
 
   // reverse relations
-  lecturesCreated LectureHierarchy[] @relation("LectureCreatedBy")
-  lecturesUpdated LectureHierarchy[] @relation("LectureUpdatedBy")
-  blocksCreated   MarkdownBlock[]    @relation("BlockCreatedBy")
-  blocksUpdated   MarkdownBlock[]    @relation("BlockUpdatedBy")
+  lecturesCreated   LectureHierarchy[]   @relation("LectureCreatedBy")
+  lecturesUpdated   LectureHierarchy[]   @relation("LectureUpdatedBy")
+  blocksCreated     MarkdownBlock[]      @relation("BlockCreatedBy")
+  blocksUpdated     MarkdownBlock[]      @relation("BlockUpdatedBy")
+  lecturePermission LecturePermissions[] @relation("UserPermission")
+
+  settings UserSettings? @relation("UserSettings")
+}
+
+model UserSettings {
+  userId String @id
+  user   User   @relation("UserSettings", fields: [userId], references: [id], onDelete: Cascade)
+
+  theme Themes @default(LIGHT)
 }
 
 model VerificationToken {

@@ -31,6 +31,10 @@ export default async function LecturePage({ params }: PageProps) {
     return <span>Předmět nenalezen</span>;
   }
 
+  if (!lecture.isPublic && lecture.createdById !== session.user.id) {
+    return <span>Nemáte práva na prohlížení této lekce</span>;
+  }
+
   return (
     <GridLayout>
       <h1 className="col-span-6 col-start-4 my-12 text-center text-6xl font-bold">
@@ -39,6 +43,7 @@ export default async function LecturePage({ params }: PageProps) {
 
       <div className="col-span-10 col-start-2">
         <MarkdownList
+          createdBy={lecture.createdById}
           userId={session.user.id}
           isLecturePublic={lecture.isPublic}
           lectureId={lectureId}

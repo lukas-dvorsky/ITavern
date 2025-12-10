@@ -16,6 +16,7 @@ import type {
   RefetchOptions,
 } from "@tanstack/react-query";
 import InputCheckbox from "../../UI/InputCheckbox";
+import LecturePermissionEdit from "../LecturePermissionEdit";
 
 export interface LectureBlockItem extends LectureMarkdown {
   block: MarkdownBlock;
@@ -38,6 +39,7 @@ interface MarkdownListProps {
   isAdmin: boolean;
   userId: string;
   isLecturePublic: boolean;
+  createdBy: string;
 }
 
 export default function MarkdownList({
@@ -45,9 +47,14 @@ export default function MarkdownList({
   isAdmin,
   userId,
   isLecturePublic,
+  createdBy,
 }: MarkdownListProps) {
   // ==== [ API ] ====
   const LecturesMdBlocks = api.block.getLectureBlocks.useQuery(lectureId);
+  const IsPermitted = api.lectures.getIsPermitted.useQuery({
+    lectureId: lectureId,
+    userId: userId,
+  });
   const updateBlockOrder = api.block.reorderBlocks.useMutation({
     onSuccess: async () => {
       toast.success("Pořadí bloků bylo změněno.");
@@ -137,6 +144,8 @@ export default function MarkdownList({
             initialValue={lecturePublic}
             label="Viditelný všem uživatelům?"
             className="col-span-2"
+            disabled={!IsPermitted.data}
+            disabledMessage="Nemáte právo na editaci této lekce."
             onChange={() => {
               updateLecturePublic.mutate({
                 isPublic: !lecturePublic,
@@ -145,17 +154,22 @@ export default function MarkdownList({
               });
             }}
           />
-          <ToggleButton
-            title="Editační mód"
-            className="col-span-2 col-start-11"
-            icon={<MdEdit size={18} />}
-            actionActive={() => {
-              setEditModeEnabled(true);
-            }}
-            actionDisabled={() => {
-              setEditModeEnabled(false);
-            }}
-          />
+          {createdBy === userId && (
+            <LecturePermissionEdit lectureId={lectureId} />
+          )}
+          {IsPermitted.data && (
+            <ToggleButton
+              title="Editační mód"
+              className="col-span-2 col-start-11"
+              icon={<MdEdit size={18} />}
+              actionActive={() => {
+                setEditModeEnabled(true);
+              }}
+              actionDisabled={() => {
+                setEditModeEnabled(false);
+              }}
+            />
+          )}
         </GridLayout>
       )}
 

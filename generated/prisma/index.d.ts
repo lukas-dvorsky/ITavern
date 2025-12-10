@@ -29,6 +29,11 @@ export type LectureMarkdown = $Result.DefaultSelection<Prisma.$LectureMarkdownPa
  */
 export type MarkdownBlock = $Result.DefaultSelection<Prisma.$MarkdownBlockPayload>
 /**
+ * Model LecturePermissions
+ * 
+ */
+export type LecturePermissions = $Result.DefaultSelection<Prisma.$LecturePermissionsPayload>
+/**
  * Model Account
  * 
  */
@@ -43,6 +48,11 @@ export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model UserSettings
+ * 
+ */
+export type UserSettings = $Result.DefaultSelection<Prisma.$UserSettingsPayload>
 /**
  * Model VerificationToken
  * 
@@ -60,11 +70,23 @@ export namespace $Enums {
 
 export type Roles = (typeof Roles)[keyof typeof Roles]
 
+
+export const Themes: {
+  LIGHT: 'LIGHT',
+  DARK: 'DARK'
+};
+
+export type Themes = (typeof Themes)[keyof typeof Themes]
+
 }
 
 export type Roles = $Enums.Roles
 
 export const Roles: typeof $Enums.Roles
+
+export type Themes = $Enums.Themes
+
+export const Themes: typeof $Enums.Themes
 
 /**
  * ##  Prisma Client ʲˢ
@@ -215,6 +237,16 @@ export class PrismaClient<
   get markdownBlock(): Prisma.MarkdownBlockDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.lecturePermissions`: Exposes CRUD operations for the **LecturePermissions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LecturePermissions
+    * const lecturePermissions = await prisma.lecturePermissions.findMany()
+    * ```
+    */
+  get lecturePermissions(): Prisma.LecturePermissionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.account`: Exposes CRUD operations for the **Account** model.
     * Example usage:
     * ```ts
@@ -243,6 +275,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userSettings`: Exposes CRUD operations for the **UserSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserSettings
+    * const userSettings = await prisma.userSettings.findMany()
+    * ```
+    */
+  get userSettings(): Prisma.UserSettingsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.verificationToken`: Exposes CRUD operations for the **VerificationToken** model.
@@ -697,9 +739,11 @@ export namespace Prisma {
     LectureHierarchy: 'LectureHierarchy',
     LectureMarkdown: 'LectureMarkdown',
     MarkdownBlock: 'MarkdownBlock',
+    LecturePermissions: 'LecturePermissions',
     Account: 'Account',
     Session: 'Session',
     User: 'User',
+    UserSettings: 'UserSettings',
     VerificationToken: 'VerificationToken'
   };
 
@@ -719,7 +763,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "lectureHierarchy" | "lectureMarkdown" | "markdownBlock" | "account" | "session" | "user" | "verificationToken"
+      modelProps: "lectureHierarchy" | "lectureMarkdown" | "markdownBlock" | "lecturePermissions" | "account" | "session" | "user" | "userSettings" | "verificationToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -945,6 +989,80 @@ export namespace Prisma {
           }
         }
       }
+      LecturePermissions: {
+        payload: Prisma.$LecturePermissionsPayload<ExtArgs>
+        fields: Prisma.LecturePermissionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LecturePermissionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LecturePermissionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload>
+          }
+          findFirst: {
+            args: Prisma.LecturePermissionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LecturePermissionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload>
+          }
+          findMany: {
+            args: Prisma.LecturePermissionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload>[]
+          }
+          create: {
+            args: Prisma.LecturePermissionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload>
+          }
+          createMany: {
+            args: Prisma.LecturePermissionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LecturePermissionsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload>[]
+          }
+          delete: {
+            args: Prisma.LecturePermissionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload>
+          }
+          update: {
+            args: Prisma.LecturePermissionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.LecturePermissionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LecturePermissionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LecturePermissionsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload>[]
+          }
+          upsert: {
+            args: Prisma.LecturePermissionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LecturePermissionsPayload>
+          }
+          aggregate: {
+            args: Prisma.LecturePermissionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLecturePermissions>
+          }
+          groupBy: {
+            args: Prisma.LecturePermissionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LecturePermissionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LecturePermissionsCountArgs<ExtArgs>
+            result: $Utils.Optional<LecturePermissionsCountAggregateOutputType> | number
+          }
+        }
+      }
       Account: {
         payload: Prisma.$AccountPayload<ExtArgs>
         fields: Prisma.AccountFieldRefs
@@ -1167,6 +1285,80 @@ export namespace Prisma {
           }
         }
       }
+      UserSettings: {
+        payload: Prisma.$UserSettingsPayload<ExtArgs>
+        fields: Prisma.UserSettingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserSettingsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserSettingsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+          }
+          findFirst: {
+            args: Prisma.UserSettingsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserSettingsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+          }
+          findMany: {
+            args: Prisma.UserSettingsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload>[]
+          }
+          create: {
+            args: Prisma.UserSettingsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+          }
+          createMany: {
+            args: Prisma.UserSettingsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserSettingsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload>[]
+          }
+          delete: {
+            args: Prisma.UserSettingsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+          }
+          update: {
+            args: Prisma.UserSettingsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserSettingsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserSettingsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserSettingsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserSettingsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+          }
+          aggregate: {
+            args: Prisma.UserSettingsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserSettings>
+          }
+          groupBy: {
+            args: Prisma.UserSettingsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserSettingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserSettingsCountArgs<ExtArgs>
+            result: $Utils.Optional<UserSettingsCountAggregateOutputType> | number
+          }
+        }
+      }
       VerificationToken: {
         payload: Prisma.$VerificationTokenPayload<ExtArgs>
         fields: Prisma.VerificationTokenFieldRefs
@@ -1340,9 +1532,11 @@ export namespace Prisma {
     lectureHierarchy?: LectureHierarchyOmit
     lectureMarkdown?: LectureMarkdownOmit
     markdownBlock?: MarkdownBlockOmit
+    lecturePermissions?: LecturePermissionsOmit
     account?: AccountOmit
     session?: SessionOmit
     user?: UserOmit
+    userSettings?: UserSettingsOmit
     verificationToken?: VerificationTokenOmit
   }
 
@@ -1425,11 +1619,13 @@ export namespace Prisma {
 
   export type LectureHierarchyCountOutputType = {
     blocks: number
+    permissions: number
     hierarchyChildren: number
   }
 
   export type LectureHierarchyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     blocks?: boolean | LectureHierarchyCountOutputTypeCountBlocksArgs
+    permissions?: boolean | LectureHierarchyCountOutputTypeCountPermissionsArgs
     hierarchyChildren?: boolean | LectureHierarchyCountOutputTypeCountHierarchyChildrenArgs
   }
 
@@ -1449,6 +1645,13 @@ export namespace Prisma {
    */
   export type LectureHierarchyCountOutputTypeCountBlocksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LectureMarkdownWhereInput
+  }
+
+  /**
+   * LectureHierarchyCountOutputType without action
+   */
+  export type LectureHierarchyCountOutputTypeCountPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LecturePermissionsWhereInput
   }
 
   /**
@@ -1501,6 +1704,7 @@ export namespace Prisma {
     lecturesUpdated: number
     blocksCreated: number
     blocksUpdated: number
+    lecturePermission: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1510,6 +1714,7 @@ export namespace Prisma {
     lecturesUpdated?: boolean | UserCountOutputTypeCountLecturesUpdatedArgs
     blocksCreated?: boolean | UserCountOutputTypeCountBlocksCreatedArgs
     blocksUpdated?: boolean | UserCountOutputTypeCountBlocksUpdatedArgs
+    lecturePermission?: boolean | UserCountOutputTypeCountLecturePermissionArgs
   }
 
   // Custom InputTypes
@@ -1563,6 +1768,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBlocksUpdatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MarkdownBlockWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLecturePermissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LecturePermissionsWhereInput
   }
 
 
@@ -1799,6 +2011,7 @@ export namespace Prisma {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     updatedBy?: boolean | UserDefaultArgs<ExtArgs>
     blocks?: boolean | LectureHierarchy$blocksArgs<ExtArgs>
+    permissions?: boolean | LectureHierarchy$permissionsArgs<ExtArgs>
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
     hierarchyChildren?: boolean | LectureHierarchy$hierarchyChildrenArgs<ExtArgs>
     _count?: boolean | LectureHierarchyCountOutputTypeDefaultArgs<ExtArgs>
@@ -1848,6 +2061,7 @@ export namespace Prisma {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     updatedBy?: boolean | UserDefaultArgs<ExtArgs>
     blocks?: boolean | LectureHierarchy$blocksArgs<ExtArgs>
+    permissions?: boolean | LectureHierarchy$permissionsArgs<ExtArgs>
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
     hierarchyChildren?: boolean | LectureHierarchy$hierarchyChildrenArgs<ExtArgs>
     _count?: boolean | LectureHierarchyCountOutputTypeDefaultArgs<ExtArgs>
@@ -1869,6 +2083,7 @@ export namespace Prisma {
       createdBy: Prisma.$UserPayload<ExtArgs>
       updatedBy: Prisma.$UserPayload<ExtArgs>
       blocks: Prisma.$LectureMarkdownPayload<ExtArgs>[]
+      permissions: Prisma.$LecturePermissionsPayload<ExtArgs>[]
       hierarchyParent: Prisma.$LectureHierarchyPayload<ExtArgs> | null
       hierarchyChildren: Prisma.$LectureHierarchyPayload<ExtArgs>[]
     }
@@ -2278,6 +2493,7 @@ export namespace Prisma {
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     updatedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     blocks<T extends LectureHierarchy$blocksArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$blocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    permissions<T extends LectureHierarchy$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hierarchyParent<T extends LectureHierarchy$hierarchyParentArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$hierarchyParentArgs<ExtArgs>>): Prisma__LectureHierarchyClient<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     hierarchyChildren<T extends LectureHierarchy$hierarchyChildrenArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$hierarchyChildrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -2734,6 +2950,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LectureMarkdownScalarFieldEnum | LectureMarkdownScalarFieldEnum[]
+  }
+
+  /**
+   * LectureHierarchy.permissions
+   */
+  export type LectureHierarchy$permissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    where?: LecturePermissionsWhereInput
+    orderBy?: LecturePermissionsOrderByWithRelationInput | LecturePermissionsOrderByWithRelationInput[]
+    cursor?: LecturePermissionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LecturePermissionsScalarFieldEnum | LecturePermissionsScalarFieldEnum[]
   }
 
   /**
@@ -5033,6 +5273,1067 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MarkdownBlockInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LecturePermissions
+   */
+
+  export type AggregateLecturePermissions = {
+    _count: LecturePermissionsCountAggregateOutputType | null
+    _avg: LecturePermissionsAvgAggregateOutputType | null
+    _sum: LecturePermissionsSumAggregateOutputType | null
+    _min: LecturePermissionsMinAggregateOutputType | null
+    _max: LecturePermissionsMaxAggregateOutputType | null
+  }
+
+  export type LecturePermissionsAvgAggregateOutputType = {
+    lectureId: number | null
+  }
+
+  export type LecturePermissionsSumAggregateOutputType = {
+    lectureId: number | null
+  }
+
+  export type LecturePermissionsMinAggregateOutputType = {
+    lectureId: number | null
+    userId: string | null
+  }
+
+  export type LecturePermissionsMaxAggregateOutputType = {
+    lectureId: number | null
+    userId: string | null
+  }
+
+  export type LecturePermissionsCountAggregateOutputType = {
+    lectureId: number
+    userId: number
+    _all: number
+  }
+
+
+  export type LecturePermissionsAvgAggregateInputType = {
+    lectureId?: true
+  }
+
+  export type LecturePermissionsSumAggregateInputType = {
+    lectureId?: true
+  }
+
+  export type LecturePermissionsMinAggregateInputType = {
+    lectureId?: true
+    userId?: true
+  }
+
+  export type LecturePermissionsMaxAggregateInputType = {
+    lectureId?: true
+    userId?: true
+  }
+
+  export type LecturePermissionsCountAggregateInputType = {
+    lectureId?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type LecturePermissionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LecturePermissions to aggregate.
+     */
+    where?: LecturePermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LecturePermissions to fetch.
+     */
+    orderBy?: LecturePermissionsOrderByWithRelationInput | LecturePermissionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LecturePermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LecturePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LecturePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LecturePermissions
+    **/
+    _count?: true | LecturePermissionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LecturePermissionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LecturePermissionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LecturePermissionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LecturePermissionsMaxAggregateInputType
+  }
+
+  export type GetLecturePermissionsAggregateType<T extends LecturePermissionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateLecturePermissions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLecturePermissions[P]>
+      : GetScalarType<T[P], AggregateLecturePermissions[P]>
+  }
+
+
+
+
+  export type LecturePermissionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LecturePermissionsWhereInput
+    orderBy?: LecturePermissionsOrderByWithAggregationInput | LecturePermissionsOrderByWithAggregationInput[]
+    by: LecturePermissionsScalarFieldEnum[] | LecturePermissionsScalarFieldEnum
+    having?: LecturePermissionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LecturePermissionsCountAggregateInputType | true
+    _avg?: LecturePermissionsAvgAggregateInputType
+    _sum?: LecturePermissionsSumAggregateInputType
+    _min?: LecturePermissionsMinAggregateInputType
+    _max?: LecturePermissionsMaxAggregateInputType
+  }
+
+  export type LecturePermissionsGroupByOutputType = {
+    lectureId: number
+    userId: string
+    _count: LecturePermissionsCountAggregateOutputType | null
+    _avg: LecturePermissionsAvgAggregateOutputType | null
+    _sum: LecturePermissionsSumAggregateOutputType | null
+    _min: LecturePermissionsMinAggregateOutputType | null
+    _max: LecturePermissionsMaxAggregateOutputType | null
+  }
+
+  type GetLecturePermissionsGroupByPayload<T extends LecturePermissionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LecturePermissionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LecturePermissionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LecturePermissionsGroupByOutputType[P]>
+            : GetScalarType<T[P], LecturePermissionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LecturePermissionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    lectureId?: boolean
+    userId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lecturePermissions"]>
+
+  export type LecturePermissionsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    lectureId?: boolean
+    userId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lecturePermissions"]>
+
+  export type LecturePermissionsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    lectureId?: boolean
+    userId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lecturePermissions"]>
+
+  export type LecturePermissionsSelectScalar = {
+    lectureId?: boolean
+    userId?: boolean
+  }
+
+  export type LecturePermissionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"lectureId" | "userId", ExtArgs["result"]["lecturePermissions"]>
+  export type LecturePermissionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LecturePermissionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LecturePermissionsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LecturePermissionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LecturePermissions"
+    objects: {
+      lecture: Prisma.$LectureHierarchyPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      lectureId: number
+      userId: string
+    }, ExtArgs["result"]["lecturePermissions"]>
+    composites: {}
+  }
+
+  type LecturePermissionsGetPayload<S extends boolean | null | undefined | LecturePermissionsDefaultArgs> = $Result.GetResult<Prisma.$LecturePermissionsPayload, S>
+
+  type LecturePermissionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LecturePermissionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LecturePermissionsCountAggregateInputType | true
+    }
+
+  export interface LecturePermissionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LecturePermissions'], meta: { name: 'LecturePermissions' } }
+    /**
+     * Find zero or one LecturePermissions that matches the filter.
+     * @param {LecturePermissionsFindUniqueArgs} args - Arguments to find a LecturePermissions
+     * @example
+     * // Get one LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LecturePermissionsFindUniqueArgs>(args: SelectSubset<T, LecturePermissionsFindUniqueArgs<ExtArgs>>): Prisma__LecturePermissionsClient<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LecturePermissions that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LecturePermissionsFindUniqueOrThrowArgs} args - Arguments to find a LecturePermissions
+     * @example
+     * // Get one LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LecturePermissionsFindUniqueOrThrowArgs>(args: SelectSubset<T, LecturePermissionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LecturePermissionsClient<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LecturePermissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LecturePermissionsFindFirstArgs} args - Arguments to find a LecturePermissions
+     * @example
+     * // Get one LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LecturePermissionsFindFirstArgs>(args?: SelectSubset<T, LecturePermissionsFindFirstArgs<ExtArgs>>): Prisma__LecturePermissionsClient<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LecturePermissions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LecturePermissionsFindFirstOrThrowArgs} args - Arguments to find a LecturePermissions
+     * @example
+     * // Get one LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LecturePermissionsFindFirstOrThrowArgs>(args?: SelectSubset<T, LecturePermissionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__LecturePermissionsClient<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LecturePermissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LecturePermissionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.findMany()
+     * 
+     * // Get first 10 LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.findMany({ take: 10 })
+     * 
+     * // Only select the `lectureId`
+     * const lecturePermissionsWithLectureIdOnly = await prisma.lecturePermissions.findMany({ select: { lectureId: true } })
+     * 
+     */
+    findMany<T extends LecturePermissionsFindManyArgs>(args?: SelectSubset<T, LecturePermissionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LecturePermissions.
+     * @param {LecturePermissionsCreateArgs} args - Arguments to create a LecturePermissions.
+     * @example
+     * // Create one LecturePermissions
+     * const LecturePermissions = await prisma.lecturePermissions.create({
+     *   data: {
+     *     // ... data to create a LecturePermissions
+     *   }
+     * })
+     * 
+     */
+    create<T extends LecturePermissionsCreateArgs>(args: SelectSubset<T, LecturePermissionsCreateArgs<ExtArgs>>): Prisma__LecturePermissionsClient<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LecturePermissions.
+     * @param {LecturePermissionsCreateManyArgs} args - Arguments to create many LecturePermissions.
+     * @example
+     * // Create many LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LecturePermissionsCreateManyArgs>(args?: SelectSubset<T, LecturePermissionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LecturePermissions and returns the data saved in the database.
+     * @param {LecturePermissionsCreateManyAndReturnArgs} args - Arguments to create many LecturePermissions.
+     * @example
+     * // Create many LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LecturePermissions and only return the `lectureId`
+     * const lecturePermissionsWithLectureIdOnly = await prisma.lecturePermissions.createManyAndReturn({
+     *   select: { lectureId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LecturePermissionsCreateManyAndReturnArgs>(args?: SelectSubset<T, LecturePermissionsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LecturePermissions.
+     * @param {LecturePermissionsDeleteArgs} args - Arguments to delete one LecturePermissions.
+     * @example
+     * // Delete one LecturePermissions
+     * const LecturePermissions = await prisma.lecturePermissions.delete({
+     *   where: {
+     *     // ... filter to delete one LecturePermissions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LecturePermissionsDeleteArgs>(args: SelectSubset<T, LecturePermissionsDeleteArgs<ExtArgs>>): Prisma__LecturePermissionsClient<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LecturePermissions.
+     * @param {LecturePermissionsUpdateArgs} args - Arguments to update one LecturePermissions.
+     * @example
+     * // Update one LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LecturePermissionsUpdateArgs>(args: SelectSubset<T, LecturePermissionsUpdateArgs<ExtArgs>>): Prisma__LecturePermissionsClient<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LecturePermissions.
+     * @param {LecturePermissionsDeleteManyArgs} args - Arguments to filter LecturePermissions to delete.
+     * @example
+     * // Delete a few LecturePermissions
+     * const { count } = await prisma.lecturePermissions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LecturePermissionsDeleteManyArgs>(args?: SelectSubset<T, LecturePermissionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LecturePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LecturePermissionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LecturePermissionsUpdateManyArgs>(args: SelectSubset<T, LecturePermissionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LecturePermissions and returns the data updated in the database.
+     * @param {LecturePermissionsUpdateManyAndReturnArgs} args - Arguments to update many LecturePermissions.
+     * @example
+     * // Update many LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LecturePermissions and only return the `lectureId`
+     * const lecturePermissionsWithLectureIdOnly = await prisma.lecturePermissions.updateManyAndReturn({
+     *   select: { lectureId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LecturePermissionsUpdateManyAndReturnArgs>(args: SelectSubset<T, LecturePermissionsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LecturePermissions.
+     * @param {LecturePermissionsUpsertArgs} args - Arguments to update or create a LecturePermissions.
+     * @example
+     * // Update or create a LecturePermissions
+     * const lecturePermissions = await prisma.lecturePermissions.upsert({
+     *   create: {
+     *     // ... data to create a LecturePermissions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LecturePermissions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LecturePermissionsUpsertArgs>(args: SelectSubset<T, LecturePermissionsUpsertArgs<ExtArgs>>): Prisma__LecturePermissionsClient<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LecturePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LecturePermissionsCountArgs} args - Arguments to filter LecturePermissions to count.
+     * @example
+     * // Count the number of LecturePermissions
+     * const count = await prisma.lecturePermissions.count({
+     *   where: {
+     *     // ... the filter for the LecturePermissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends LecturePermissionsCountArgs>(
+      args?: Subset<T, LecturePermissionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LecturePermissionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LecturePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LecturePermissionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LecturePermissionsAggregateArgs>(args: Subset<T, LecturePermissionsAggregateArgs>): Prisma.PrismaPromise<GetLecturePermissionsAggregateType<T>>
+
+    /**
+     * Group by LecturePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LecturePermissionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LecturePermissionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LecturePermissionsGroupByArgs['orderBy'] }
+        : { orderBy?: LecturePermissionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LecturePermissionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLecturePermissionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LecturePermissions model
+   */
+  readonly fields: LecturePermissionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LecturePermissions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LecturePermissionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lecture<T extends LectureHierarchyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchyDefaultArgs<ExtArgs>>): Prisma__LectureHierarchyClient<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LecturePermissions model
+   */
+  interface LecturePermissionsFieldRefs {
+    readonly lectureId: FieldRef<"LecturePermissions", 'Int'>
+    readonly userId: FieldRef<"LecturePermissions", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LecturePermissions findUnique
+   */
+  export type LecturePermissionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    /**
+     * Filter, which LecturePermissions to fetch.
+     */
+    where: LecturePermissionsWhereUniqueInput
+  }
+
+  /**
+   * LecturePermissions findUniqueOrThrow
+   */
+  export type LecturePermissionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    /**
+     * Filter, which LecturePermissions to fetch.
+     */
+    where: LecturePermissionsWhereUniqueInput
+  }
+
+  /**
+   * LecturePermissions findFirst
+   */
+  export type LecturePermissionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    /**
+     * Filter, which LecturePermissions to fetch.
+     */
+    where?: LecturePermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LecturePermissions to fetch.
+     */
+    orderBy?: LecturePermissionsOrderByWithRelationInput | LecturePermissionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LecturePermissions.
+     */
+    cursor?: LecturePermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LecturePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LecturePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LecturePermissions.
+     */
+    distinct?: LecturePermissionsScalarFieldEnum | LecturePermissionsScalarFieldEnum[]
+  }
+
+  /**
+   * LecturePermissions findFirstOrThrow
+   */
+  export type LecturePermissionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    /**
+     * Filter, which LecturePermissions to fetch.
+     */
+    where?: LecturePermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LecturePermissions to fetch.
+     */
+    orderBy?: LecturePermissionsOrderByWithRelationInput | LecturePermissionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LecturePermissions.
+     */
+    cursor?: LecturePermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LecturePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LecturePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LecturePermissions.
+     */
+    distinct?: LecturePermissionsScalarFieldEnum | LecturePermissionsScalarFieldEnum[]
+  }
+
+  /**
+   * LecturePermissions findMany
+   */
+  export type LecturePermissionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    /**
+     * Filter, which LecturePermissions to fetch.
+     */
+    where?: LecturePermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LecturePermissions to fetch.
+     */
+    orderBy?: LecturePermissionsOrderByWithRelationInput | LecturePermissionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LecturePermissions.
+     */
+    cursor?: LecturePermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LecturePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LecturePermissions.
+     */
+    skip?: number
+    distinct?: LecturePermissionsScalarFieldEnum | LecturePermissionsScalarFieldEnum[]
+  }
+
+  /**
+   * LecturePermissions create
+   */
+  export type LecturePermissionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LecturePermissions.
+     */
+    data: XOR<LecturePermissionsCreateInput, LecturePermissionsUncheckedCreateInput>
+  }
+
+  /**
+   * LecturePermissions createMany
+   */
+  export type LecturePermissionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LecturePermissions.
+     */
+    data: LecturePermissionsCreateManyInput | LecturePermissionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LecturePermissions createManyAndReturn
+   */
+  export type LecturePermissionsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * The data used to create many LecturePermissions.
+     */
+    data: LecturePermissionsCreateManyInput | LecturePermissionsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LecturePermissions update
+   */
+  export type LecturePermissionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LecturePermissions.
+     */
+    data: XOR<LecturePermissionsUpdateInput, LecturePermissionsUncheckedUpdateInput>
+    /**
+     * Choose, which LecturePermissions to update.
+     */
+    where: LecturePermissionsWhereUniqueInput
+  }
+
+  /**
+   * LecturePermissions updateMany
+   */
+  export type LecturePermissionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LecturePermissions.
+     */
+    data: XOR<LecturePermissionsUpdateManyMutationInput, LecturePermissionsUncheckedUpdateManyInput>
+    /**
+     * Filter which LecturePermissions to update
+     */
+    where?: LecturePermissionsWhereInput
+    /**
+     * Limit how many LecturePermissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LecturePermissions updateManyAndReturn
+   */
+  export type LecturePermissionsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * The data used to update LecturePermissions.
+     */
+    data: XOR<LecturePermissionsUpdateManyMutationInput, LecturePermissionsUncheckedUpdateManyInput>
+    /**
+     * Filter which LecturePermissions to update
+     */
+    where?: LecturePermissionsWhereInput
+    /**
+     * Limit how many LecturePermissions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LecturePermissions upsert
+   */
+  export type LecturePermissionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LecturePermissions to update in case it exists.
+     */
+    where: LecturePermissionsWhereUniqueInput
+    /**
+     * In case the LecturePermissions found by the `where` argument doesn't exist, create a new LecturePermissions with this data.
+     */
+    create: XOR<LecturePermissionsCreateInput, LecturePermissionsUncheckedCreateInput>
+    /**
+     * In case the LecturePermissions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LecturePermissionsUpdateInput, LecturePermissionsUncheckedUpdateInput>
+  }
+
+  /**
+   * LecturePermissions delete
+   */
+  export type LecturePermissionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    /**
+     * Filter which LecturePermissions to delete.
+     */
+    where: LecturePermissionsWhereUniqueInput
+  }
+
+  /**
+   * LecturePermissions deleteMany
+   */
+  export type LecturePermissionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LecturePermissions to delete
+     */
+    where?: LecturePermissionsWhereInput
+    /**
+     * Limit how many LecturePermissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LecturePermissions without action
+   */
+  export type LecturePermissionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
   }
 
 
@@ -7467,6 +8768,8 @@ export namespace Prisma {
     lecturesUpdated?: boolean | User$lecturesUpdatedArgs<ExtArgs>
     blocksCreated?: boolean | User$blocksCreatedArgs<ExtArgs>
     blocksUpdated?: boolean | User$blocksUpdatedArgs<ExtArgs>
+    lecturePermission?: boolean | User$lecturePermissionArgs<ExtArgs>
+    settings?: boolean | User$settingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -7508,6 +8811,8 @@ export namespace Prisma {
     lecturesUpdated?: boolean | User$lecturesUpdatedArgs<ExtArgs>
     blocksCreated?: boolean | User$blocksCreatedArgs<ExtArgs>
     blocksUpdated?: boolean | User$blocksUpdatedArgs<ExtArgs>
+    lecturePermission?: boolean | User$lecturePermissionArgs<ExtArgs>
+    settings?: boolean | User$settingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7522,6 +8827,8 @@ export namespace Prisma {
       lecturesUpdated: Prisma.$LectureHierarchyPayload<ExtArgs>[]
       blocksCreated: Prisma.$MarkdownBlockPayload<ExtArgs>[]
       blocksUpdated: Prisma.$MarkdownBlockPayload<ExtArgs>[]
+      lecturePermission: Prisma.$LecturePermissionsPayload<ExtArgs>[]
+      settings: Prisma.$UserSettingsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7931,6 +9238,8 @@ export namespace Prisma {
     lecturesUpdated<T extends User$lecturesUpdatedArgs<ExtArgs> = {}>(args?: Subset<T, User$lecturesUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blocksCreated<T extends User$blocksCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$blocksCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarkdownBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blocksUpdated<T extends User$blocksUpdatedArgs<ExtArgs> = {}>(args?: Subset<T, User$blocksUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarkdownBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lecturePermission<T extends User$lecturePermissionArgs<ExtArgs> = {}>(args?: Subset<T, User$lecturePermissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    settings<T extends User$settingsArgs<ExtArgs> = {}>(args?: Subset<T, User$settingsArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8499,6 +9808,49 @@ export namespace Prisma {
   }
 
   /**
+   * User.lecturePermission
+   */
+  export type User$lecturePermissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LecturePermissions
+     */
+    select?: LecturePermissionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LecturePermissions
+     */
+    omit?: LecturePermissionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LecturePermissionsInclude<ExtArgs> | null
+    where?: LecturePermissionsWhereInput
+    orderBy?: LecturePermissionsOrderByWithRelationInput | LecturePermissionsOrderByWithRelationInput[]
+    cursor?: LecturePermissionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LecturePermissionsScalarFieldEnum | LecturePermissionsScalarFieldEnum[]
+  }
+
+  /**
+   * User.settings
+   */
+  export type User$settingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    where?: UserSettingsWhereInput
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8514,6 +9866,1025 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserSettings
+   */
+
+  export type AggregateUserSettings = {
+    _count: UserSettingsCountAggregateOutputType | null
+    _min: UserSettingsMinAggregateOutputType | null
+    _max: UserSettingsMaxAggregateOutputType | null
+  }
+
+  export type UserSettingsMinAggregateOutputType = {
+    userId: string | null
+    theme: $Enums.Themes | null
+  }
+
+  export type UserSettingsMaxAggregateOutputType = {
+    userId: string | null
+    theme: $Enums.Themes | null
+  }
+
+  export type UserSettingsCountAggregateOutputType = {
+    userId: number
+    theme: number
+    _all: number
+  }
+
+
+  export type UserSettingsMinAggregateInputType = {
+    userId?: true
+    theme?: true
+  }
+
+  export type UserSettingsMaxAggregateInputType = {
+    userId?: true
+    theme?: true
+  }
+
+  export type UserSettingsCountAggregateInputType = {
+    userId?: true
+    theme?: true
+    _all?: true
+  }
+
+  export type UserSettingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserSettings to aggregate.
+     */
+    where?: UserSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserSettings to fetch.
+     */
+    orderBy?: UserSettingsOrderByWithRelationInput | UserSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserSettings
+    **/
+    _count?: true | UserSettingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserSettingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserSettingsMaxAggregateInputType
+  }
+
+  export type GetUserSettingsAggregateType<T extends UserSettingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserSettings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserSettings[P]>
+      : GetScalarType<T[P], AggregateUserSettings[P]>
+  }
+
+
+
+
+  export type UserSettingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserSettingsWhereInput
+    orderBy?: UserSettingsOrderByWithAggregationInput | UserSettingsOrderByWithAggregationInput[]
+    by: UserSettingsScalarFieldEnum[] | UserSettingsScalarFieldEnum
+    having?: UserSettingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserSettingsCountAggregateInputType | true
+    _min?: UserSettingsMinAggregateInputType
+    _max?: UserSettingsMaxAggregateInputType
+  }
+
+  export type UserSettingsGroupByOutputType = {
+    userId: string
+    theme: $Enums.Themes
+    _count: UserSettingsCountAggregateOutputType | null
+    _min: UserSettingsMinAggregateOutputType | null
+    _max: UserSettingsMaxAggregateOutputType | null
+  }
+
+  type GetUserSettingsGroupByPayload<T extends UserSettingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserSettingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserSettingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserSettingsGroupByOutputType[P]>
+            : GetScalarType<T[P], UserSettingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserSettingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    theme?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userSettings"]>
+
+  export type UserSettingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    theme?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userSettings"]>
+
+  export type UserSettingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    theme?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userSettings"]>
+
+  export type UserSettingsSelectScalar = {
+    userId?: boolean
+    theme?: boolean
+  }
+
+  export type UserSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "theme", ExtArgs["result"]["userSettings"]>
+  export type UserSettingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserSettingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserSettingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserSettings"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      theme: $Enums.Themes
+    }, ExtArgs["result"]["userSettings"]>
+    composites: {}
+  }
+
+  type UserSettingsGetPayload<S extends boolean | null | undefined | UserSettingsDefaultArgs> = $Result.GetResult<Prisma.$UserSettingsPayload, S>
+
+  type UserSettingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserSettingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserSettingsCountAggregateInputType | true
+    }
+
+  export interface UserSettingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserSettings'], meta: { name: 'UserSettings' } }
+    /**
+     * Find zero or one UserSettings that matches the filter.
+     * @param {UserSettingsFindUniqueArgs} args - Arguments to find a UserSettings
+     * @example
+     * // Get one UserSettings
+     * const userSettings = await prisma.userSettings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserSettingsFindUniqueArgs>(args: SelectSubset<T, UserSettingsFindUniqueArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserSettings that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserSettingsFindUniqueOrThrowArgs} args - Arguments to find a UserSettings
+     * @example
+     * // Get one UserSettings
+     * const userSettings = await prisma.userSettings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserSettingsFindUniqueOrThrowArgs>(args: SelectSubset<T, UserSettingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSettingsFindFirstArgs} args - Arguments to find a UserSettings
+     * @example
+     * // Get one UserSettings
+     * const userSettings = await prisma.userSettings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserSettingsFindFirstArgs>(args?: SelectSubset<T, UserSettingsFindFirstArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserSettings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSettingsFindFirstOrThrowArgs} args - Arguments to find a UserSettings
+     * @example
+     * // Get one UserSettings
+     * const userSettings = await prisma.userSettings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserSettingsFindFirstOrThrowArgs>(args?: SelectSubset<T, UserSettingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSettingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserSettings
+     * const userSettings = await prisma.userSettings.findMany()
+     * 
+     * // Get first 10 UserSettings
+     * const userSettings = await prisma.userSettings.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const userSettingsWithUserIdOnly = await prisma.userSettings.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends UserSettingsFindManyArgs>(args?: SelectSubset<T, UserSettingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserSettings.
+     * @param {UserSettingsCreateArgs} args - Arguments to create a UserSettings.
+     * @example
+     * // Create one UserSettings
+     * const UserSettings = await prisma.userSettings.create({
+     *   data: {
+     *     // ... data to create a UserSettings
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserSettingsCreateArgs>(args: SelectSubset<T, UserSettingsCreateArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserSettings.
+     * @param {UserSettingsCreateManyArgs} args - Arguments to create many UserSettings.
+     * @example
+     * // Create many UserSettings
+     * const userSettings = await prisma.userSettings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserSettingsCreateManyArgs>(args?: SelectSubset<T, UserSettingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserSettings and returns the data saved in the database.
+     * @param {UserSettingsCreateManyAndReturnArgs} args - Arguments to create many UserSettings.
+     * @example
+     * // Create many UserSettings
+     * const userSettings = await prisma.userSettings.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserSettings and only return the `userId`
+     * const userSettingsWithUserIdOnly = await prisma.userSettings.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserSettingsCreateManyAndReturnArgs>(args?: SelectSubset<T, UserSettingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserSettings.
+     * @param {UserSettingsDeleteArgs} args - Arguments to delete one UserSettings.
+     * @example
+     * // Delete one UserSettings
+     * const UserSettings = await prisma.userSettings.delete({
+     *   where: {
+     *     // ... filter to delete one UserSettings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserSettingsDeleteArgs>(args: SelectSubset<T, UserSettingsDeleteArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserSettings.
+     * @param {UserSettingsUpdateArgs} args - Arguments to update one UserSettings.
+     * @example
+     * // Update one UserSettings
+     * const userSettings = await prisma.userSettings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserSettingsUpdateArgs>(args: SelectSubset<T, UserSettingsUpdateArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserSettings.
+     * @param {UserSettingsDeleteManyArgs} args - Arguments to filter UserSettings to delete.
+     * @example
+     * // Delete a few UserSettings
+     * const { count } = await prisma.userSettings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserSettingsDeleteManyArgs>(args?: SelectSubset<T, UserSettingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSettingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserSettings
+     * const userSettings = await prisma.userSettings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserSettingsUpdateManyArgs>(args: SelectSubset<T, UserSettingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserSettings and returns the data updated in the database.
+     * @param {UserSettingsUpdateManyAndReturnArgs} args - Arguments to update many UserSettings.
+     * @example
+     * // Update many UserSettings
+     * const userSettings = await prisma.userSettings.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserSettings and only return the `userId`
+     * const userSettingsWithUserIdOnly = await prisma.userSettings.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserSettingsUpdateManyAndReturnArgs>(args: SelectSubset<T, UserSettingsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserSettings.
+     * @param {UserSettingsUpsertArgs} args - Arguments to update or create a UserSettings.
+     * @example
+     * // Update or create a UserSettings
+     * const userSettings = await prisma.userSettings.upsert({
+     *   create: {
+     *     // ... data to create a UserSettings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserSettings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserSettingsUpsertArgs>(args: SelectSubset<T, UserSettingsUpsertArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSettingsCountArgs} args - Arguments to filter UserSettings to count.
+     * @example
+     * // Count the number of UserSettings
+     * const count = await prisma.userSettings.count({
+     *   where: {
+     *     // ... the filter for the UserSettings we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserSettingsCountArgs>(
+      args?: Subset<T, UserSettingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserSettingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSettingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserSettingsAggregateArgs>(args: Subset<T, UserSettingsAggregateArgs>): Prisma.PrismaPromise<GetUserSettingsAggregateType<T>>
+
+    /**
+     * Group by UserSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSettingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserSettingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserSettingsGroupByArgs['orderBy'] }
+        : { orderBy?: UserSettingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserSettingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserSettingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserSettings model
+   */
+  readonly fields: UserSettingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserSettings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserSettingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserSettings model
+   */
+  interface UserSettingsFieldRefs {
+    readonly userId: FieldRef<"UserSettings", 'String'>
+    readonly theme: FieldRef<"UserSettings", 'Themes'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserSettings findUnique
+   */
+  export type UserSettingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSettings to fetch.
+     */
+    where: UserSettingsWhereUniqueInput
+  }
+
+  /**
+   * UserSettings findUniqueOrThrow
+   */
+  export type UserSettingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSettings to fetch.
+     */
+    where: UserSettingsWhereUniqueInput
+  }
+
+  /**
+   * UserSettings findFirst
+   */
+  export type UserSettingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSettings to fetch.
+     */
+    where?: UserSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserSettings to fetch.
+     */
+    orderBy?: UserSettingsOrderByWithRelationInput | UserSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserSettings.
+     */
+    cursor?: UserSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserSettings.
+     */
+    distinct?: UserSettingsScalarFieldEnum | UserSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * UserSettings findFirstOrThrow
+   */
+  export type UserSettingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSettings to fetch.
+     */
+    where?: UserSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserSettings to fetch.
+     */
+    orderBy?: UserSettingsOrderByWithRelationInput | UserSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserSettings.
+     */
+    cursor?: UserSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserSettings.
+     */
+    distinct?: UserSettingsScalarFieldEnum | UserSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * UserSettings findMany
+   */
+  export type UserSettingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSettings to fetch.
+     */
+    where?: UserSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserSettings to fetch.
+     */
+    orderBy?: UserSettingsOrderByWithRelationInput | UserSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserSettings.
+     */
+    cursor?: UserSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserSettings.
+     */
+    skip?: number
+    distinct?: UserSettingsScalarFieldEnum | UserSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * UserSettings create
+   */
+  export type UserSettingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserSettings.
+     */
+    data: XOR<UserSettingsCreateInput, UserSettingsUncheckedCreateInput>
+  }
+
+  /**
+   * UserSettings createMany
+   */
+  export type UserSettingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserSettings.
+     */
+    data: UserSettingsCreateManyInput | UserSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserSettings createManyAndReturn
+   */
+  export type UserSettingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserSettings.
+     */
+    data: UserSettingsCreateManyInput | UserSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserSettings update
+   */
+  export type UserSettingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserSettings.
+     */
+    data: XOR<UserSettingsUpdateInput, UserSettingsUncheckedUpdateInput>
+    /**
+     * Choose, which UserSettings to update.
+     */
+    where: UserSettingsWhereUniqueInput
+  }
+
+  /**
+   * UserSettings updateMany
+   */
+  export type UserSettingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserSettings.
+     */
+    data: XOR<UserSettingsUpdateManyMutationInput, UserSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which UserSettings to update
+     */
+    where?: UserSettingsWhereInput
+    /**
+     * Limit how many UserSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserSettings updateManyAndReturn
+   */
+  export type UserSettingsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * The data used to update UserSettings.
+     */
+    data: XOR<UserSettingsUpdateManyMutationInput, UserSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which UserSettings to update
+     */
+    where?: UserSettingsWhereInput
+    /**
+     * Limit how many UserSettings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserSettings upsert
+   */
+  export type UserSettingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserSettings to update in case it exists.
+     */
+    where: UserSettingsWhereUniqueInput
+    /**
+     * In case the UserSettings found by the `where` argument doesn't exist, create a new UserSettings with this data.
+     */
+    create: XOR<UserSettingsCreateInput, UserSettingsUncheckedCreateInput>
+    /**
+     * In case the UserSettings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserSettingsUpdateInput, UserSettingsUncheckedUpdateInput>
+  }
+
+  /**
+   * UserSettings delete
+   */
+  export type UserSettingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
+    /**
+     * Filter which UserSettings to delete.
+     */
+    where: UserSettingsWhereUniqueInput
+  }
+
+  /**
+   * UserSettings deleteMany
+   */
+  export type UserSettingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserSettings to delete
+     */
+    where?: UserSettingsWhereInput
+    /**
+     * Limit how many UserSettings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserSettings without action
+   */
+  export type UserSettingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSettings
+     */
+    select?: UserSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSettings
+     */
+    omit?: UserSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingsInclude<ExtArgs> | null
   }
 
 
@@ -9536,6 +11907,14 @@ export namespace Prisma {
   export type MarkdownBlockScalarFieldEnum = (typeof MarkdownBlockScalarFieldEnum)[keyof typeof MarkdownBlockScalarFieldEnum]
 
 
+  export const LecturePermissionsScalarFieldEnum: {
+    lectureId: 'lectureId',
+    userId: 'userId'
+  };
+
+  export type LecturePermissionsScalarFieldEnum = (typeof LecturePermissionsScalarFieldEnum)[keyof typeof LecturePermissionsScalarFieldEnum]
+
+
   export const AccountScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -9576,6 +11955,14 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const UserSettingsScalarFieldEnum: {
+    userId: 'userId',
+    theme: 'theme'
+  };
+
+  export type UserSettingsScalarFieldEnum = (typeof UserSettingsScalarFieldEnum)[keyof typeof UserSettingsScalarFieldEnum]
 
 
   export const VerificationTokenScalarFieldEnum: {
@@ -9680,6 +12067,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Themes'
+   */
+  export type EnumThemesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Themes'>
+    
+
+
+  /**
+   * Reference to a field of type 'Themes[]'
+   */
+  export type ListEnumThemesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Themes[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -9711,6 +12112,7 @@ export namespace Prisma {
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     updatedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     blocks?: LectureMarkdownListRelationFilter
+    permissions?: LecturePermissionsListRelationFilter
     hierarchyParent?: XOR<LectureHierarchyNullableScalarRelationFilter, LectureHierarchyWhereInput> | null
     hierarchyChildren?: LectureHierarchyListRelationFilter
   }
@@ -9727,6 +12129,7 @@ export namespace Prisma {
     createdBy?: UserOrderByWithRelationInput
     updatedBy?: UserOrderByWithRelationInput
     blocks?: LectureMarkdownOrderByRelationAggregateInput
+    permissions?: LecturePermissionsOrderByRelationAggregateInput
     hierarchyParent?: LectureHierarchyOrderByWithRelationInput
     hierarchyChildren?: LectureHierarchyOrderByRelationAggregateInput
   }
@@ -9746,6 +12149,7 @@ export namespace Prisma {
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     updatedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     blocks?: LectureMarkdownListRelationFilter
+    permissions?: LecturePermissionsListRelationFilter
     hierarchyParent?: XOR<LectureHierarchyNullableScalarRelationFilter, LectureHierarchyWhereInput> | null
     hierarchyChildren?: LectureHierarchyListRelationFilter
   }, "id">
@@ -9902,6 +12306,52 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"MarkdownBlock"> | Date | string
     createdById?: StringWithAggregatesFilter<"MarkdownBlock"> | string
     updatedById?: StringWithAggregatesFilter<"MarkdownBlock"> | string
+  }
+
+  export type LecturePermissionsWhereInput = {
+    AND?: LecturePermissionsWhereInput | LecturePermissionsWhereInput[]
+    OR?: LecturePermissionsWhereInput[]
+    NOT?: LecturePermissionsWhereInput | LecturePermissionsWhereInput[]
+    lectureId?: IntFilter<"LecturePermissions"> | number
+    userId?: StringFilter<"LecturePermissions"> | string
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LecturePermissionsOrderByWithRelationInput = {
+    lectureId?: SortOrder
+    userId?: SortOrder
+    lecture?: LectureHierarchyOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LecturePermissionsWhereUniqueInput = Prisma.AtLeast<{
+    userId_lectureId?: LecturePermissionsUserIdLectureIdCompoundUniqueInput
+    AND?: LecturePermissionsWhereInput | LecturePermissionsWhereInput[]
+    OR?: LecturePermissionsWhereInput[]
+    NOT?: LecturePermissionsWhereInput | LecturePermissionsWhereInput[]
+    lectureId?: IntFilter<"LecturePermissions"> | number
+    userId?: StringFilter<"LecturePermissions"> | string
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "userId_lectureId">
+
+  export type LecturePermissionsOrderByWithAggregationInput = {
+    lectureId?: SortOrder
+    userId?: SortOrder
+    _count?: LecturePermissionsCountOrderByAggregateInput
+    _avg?: LecturePermissionsAvgOrderByAggregateInput
+    _max?: LecturePermissionsMaxOrderByAggregateInput
+    _min?: LecturePermissionsMinOrderByAggregateInput
+    _sum?: LecturePermissionsSumOrderByAggregateInput
+  }
+
+  export type LecturePermissionsScalarWhereWithAggregatesInput = {
+    AND?: LecturePermissionsScalarWhereWithAggregatesInput | LecturePermissionsScalarWhereWithAggregatesInput[]
+    OR?: LecturePermissionsScalarWhereWithAggregatesInput[]
+    NOT?: LecturePermissionsScalarWhereWithAggregatesInput | LecturePermissionsScalarWhereWithAggregatesInput[]
+    lectureId?: IntWithAggregatesFilter<"LecturePermissions"> | number
+    userId?: StringWithAggregatesFilter<"LecturePermissions"> | string
   }
 
   export type AccountWhereInput = {
@@ -10069,6 +12519,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyListRelationFilter
     blocksCreated?: MarkdownBlockListRelationFilter
     blocksUpdated?: MarkdownBlockListRelationFilter
+    lecturePermission?: LecturePermissionsListRelationFilter
+    settings?: XOR<UserSettingsNullableScalarRelationFilter, UserSettingsWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10085,6 +12537,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyOrderByRelationAggregateInput
     blocksCreated?: MarkdownBlockOrderByRelationAggregateInput
     blocksUpdated?: MarkdownBlockOrderByRelationAggregateInput
+    lecturePermission?: LecturePermissionsOrderByRelationAggregateInput
+    settings?: UserSettingsOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10104,6 +12558,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyListRelationFilter
     blocksCreated?: MarkdownBlockListRelationFilter
     blocksUpdated?: MarkdownBlockListRelationFilter
+    lecturePermission?: LecturePermissionsListRelationFilter
+    settings?: XOR<UserSettingsNullableScalarRelationFilter, UserSettingsWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10130,6 +12586,46 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRolesWithAggregatesFilter<"User"> | $Enums.Roles
+  }
+
+  export type UserSettingsWhereInput = {
+    AND?: UserSettingsWhereInput | UserSettingsWhereInput[]
+    OR?: UserSettingsWhereInput[]
+    NOT?: UserSettingsWhereInput | UserSettingsWhereInput[]
+    userId?: StringFilter<"UserSettings"> | string
+    theme?: EnumThemesFilter<"UserSettings"> | $Enums.Themes
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserSettingsOrderByWithRelationInput = {
+    userId?: SortOrder
+    theme?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserSettingsWhereUniqueInput = Prisma.AtLeast<{
+    userId?: string
+    AND?: UserSettingsWhereInput | UserSettingsWhereInput[]
+    OR?: UserSettingsWhereInput[]
+    NOT?: UserSettingsWhereInput | UserSettingsWhereInput[]
+    theme?: EnumThemesFilter<"UserSettings"> | $Enums.Themes
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "userId">
+
+  export type UserSettingsOrderByWithAggregationInput = {
+    userId?: SortOrder
+    theme?: SortOrder
+    _count?: UserSettingsCountOrderByAggregateInput
+    _max?: UserSettingsMaxOrderByAggregateInput
+    _min?: UserSettingsMinOrderByAggregateInput
+  }
+
+  export type UserSettingsScalarWhereWithAggregatesInput = {
+    AND?: UserSettingsScalarWhereWithAggregatesInput | UserSettingsScalarWhereWithAggregatesInput[]
+    OR?: UserSettingsScalarWhereWithAggregatesInput[]
+    NOT?: UserSettingsScalarWhereWithAggregatesInput | UserSettingsScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"UserSettings"> | string
+    theme?: EnumThemesWithAggregatesFilter<"UserSettings"> | $Enums.Themes
   }
 
   export type VerificationTokenWhereInput = {
@@ -10183,6 +12679,7 @@ export namespace Prisma {
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -10197,6 +12694,7 @@ export namespace Prisma {
     updatedById: string
     HierarchyParentId?: number | null
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -10208,6 +12706,7 @@ export namespace Prisma {
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -10222,6 +12721,7 @@ export namespace Prisma {
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -10361,6 +12861,40 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LecturePermissionsCreateInput = {
+    lecture: LectureHierarchyCreateNestedOneWithoutPermissionsInput
+    user: UserCreateNestedOneWithoutLecturePermissionInput
+  }
+
+  export type LecturePermissionsUncheckedCreateInput = {
+    lectureId: number
+    userId: string
+  }
+
+  export type LecturePermissionsUpdateInput = {
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutPermissionsNestedInput
+    user?: UserUpdateOneRequiredWithoutLecturePermissionNestedInput
+  }
+
+  export type LecturePermissionsUncheckedUpdateInput = {
+    lectureId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LecturePermissionsCreateManyInput = {
+    lectureId: number
+    userId: string
+  }
+
+  export type LecturePermissionsUpdateManyMutationInput = {
+
+  }
+
+  export type LecturePermissionsUncheckedUpdateManyInput = {
+    lectureId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AccountCreateInput = {
@@ -10536,6 +13070,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10552,6 +13088,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10568,6 +13106,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10584,6 +13124,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10614,6 +13156,40 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+  }
+
+  export type UserSettingsCreateInput = {
+    theme?: $Enums.Themes
+    user: UserCreateNestedOneWithoutSettingsInput
+  }
+
+  export type UserSettingsUncheckedCreateInput = {
+    userId: string
+    theme?: $Enums.Themes
+  }
+
+  export type UserSettingsUpdateInput = {
+    theme?: EnumThemesFieldUpdateOperationsInput | $Enums.Themes
+    user?: UserUpdateOneRequiredWithoutSettingsNestedInput
+  }
+
+  export type UserSettingsUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    theme?: EnumThemesFieldUpdateOperationsInput | $Enums.Themes
+  }
+
+  export type UserSettingsCreateManyInput = {
+    userId: string
+    theme?: $Enums.Themes
+  }
+
+  export type UserSettingsUpdateManyMutationInput = {
+    theme?: EnumThemesFieldUpdateOperationsInput | $Enums.Themes
+  }
+
+  export type UserSettingsUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    theme?: EnumThemesFieldUpdateOperationsInput | $Enums.Themes
   }
 
   export type VerificationTokenCreateInput = {
@@ -10722,6 +13298,12 @@ export namespace Prisma {
     none?: LectureMarkdownWhereInput
   }
 
+  export type LecturePermissionsListRelationFilter = {
+    every?: LecturePermissionsWhereInput
+    some?: LecturePermissionsWhereInput
+    none?: LecturePermissionsWhereInput
+  }
+
   export type LectureHierarchyNullableScalarRelationFilter = {
     is?: LectureHierarchyWhereInput | null
     isNot?: LectureHierarchyWhereInput | null
@@ -10739,6 +13321,10 @@ export namespace Prisma {
   }
 
   export type LectureMarkdownOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LecturePermissionsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10977,6 +13563,34 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type LecturePermissionsUserIdLectureIdCompoundUniqueInput = {
+    userId: string
+    lectureId: number
+  }
+
+  export type LecturePermissionsCountOrderByAggregateInput = {
+    lectureId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type LecturePermissionsAvgOrderByAggregateInput = {
+    lectureId?: SortOrder
+  }
+
+  export type LecturePermissionsMaxOrderByAggregateInput = {
+    lectureId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type LecturePermissionsMinOrderByAggregateInput = {
+    lectureId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type LecturePermissionsSumOrderByAggregateInput = {
+    lectureId?: SortOrder
+  }
+
   export type AccountProviderProviderAccountIdCompoundUniqueInput = {
     provider: string
     providerAccountId: string
@@ -11097,6 +13711,11 @@ export namespace Prisma {
     none?: MarkdownBlockWhereInput
   }
 
+  export type UserSettingsNullableScalarRelationFilter = {
+    is?: UserSettingsWhereInput | null
+    isNot?: UserSettingsWhereInput | null
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -11163,6 +13782,38 @@ export namespace Prisma {
     _max?: NestedEnumRolesFilter<$PrismaModel>
   }
 
+  export type EnumThemesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Themes | EnumThemesFieldRefInput<$PrismaModel>
+    in?: $Enums.Themes[] | ListEnumThemesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Themes[] | ListEnumThemesFieldRefInput<$PrismaModel>
+    not?: NestedEnumThemesFilter<$PrismaModel> | $Enums.Themes
+  }
+
+  export type UserSettingsCountOrderByAggregateInput = {
+    userId?: SortOrder
+    theme?: SortOrder
+  }
+
+  export type UserSettingsMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    theme?: SortOrder
+  }
+
+  export type UserSettingsMinOrderByAggregateInput = {
+    userId?: SortOrder
+    theme?: SortOrder
+  }
+
+  export type EnumThemesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Themes | EnumThemesFieldRefInput<$PrismaModel>
+    in?: $Enums.Themes[] | ListEnumThemesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Themes[] | ListEnumThemesFieldRefInput<$PrismaModel>
+    not?: NestedEnumThemesWithAggregatesFilter<$PrismaModel> | $Enums.Themes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumThemesFilter<$PrismaModel>
+    _max?: NestedEnumThemesFilter<$PrismaModel>
+  }
+
   export type VerificationTokenIdentifierTokenCompoundUniqueInput = {
     identifier: string
     token: string
@@ -11205,6 +13856,13 @@ export namespace Prisma {
     connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
   }
 
+  export type LecturePermissionsCreateNestedManyWithoutLectureInput = {
+    create?: XOR<LecturePermissionsCreateWithoutLectureInput, LecturePermissionsUncheckedCreateWithoutLectureInput> | LecturePermissionsCreateWithoutLectureInput[] | LecturePermissionsUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LecturePermissionsCreateOrConnectWithoutLectureInput | LecturePermissionsCreateOrConnectWithoutLectureInput[]
+    createMany?: LecturePermissionsCreateManyLectureInputEnvelope
+    connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+  }
+
   export type LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput = {
     create?: XOR<LectureHierarchyCreateWithoutHierarchyChildrenInput, LectureHierarchyUncheckedCreateWithoutHierarchyChildrenInput>
     connectOrCreate?: LectureHierarchyCreateOrConnectWithoutHierarchyChildrenInput
@@ -11223,6 +13881,13 @@ export namespace Prisma {
     connectOrCreate?: LectureMarkdownCreateOrConnectWithoutLectureInput | LectureMarkdownCreateOrConnectWithoutLectureInput[]
     createMany?: LectureMarkdownCreateManyLectureInputEnvelope
     connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
+  }
+
+  export type LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput = {
+    create?: XOR<LecturePermissionsCreateWithoutLectureInput, LecturePermissionsUncheckedCreateWithoutLectureInput> | LecturePermissionsCreateWithoutLectureInput[] | LecturePermissionsUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LecturePermissionsCreateOrConnectWithoutLectureInput | LecturePermissionsCreateOrConnectWithoutLectureInput[]
+    createMany?: LecturePermissionsCreateManyLectureInputEnvelope
+    connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
   }
 
   export type LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput = {
@@ -11272,6 +13937,20 @@ export namespace Prisma {
     update?: LectureMarkdownUpdateWithWhereUniqueWithoutLectureInput | LectureMarkdownUpdateWithWhereUniqueWithoutLectureInput[]
     updateMany?: LectureMarkdownUpdateManyWithWhereWithoutLectureInput | LectureMarkdownUpdateManyWithWhereWithoutLectureInput[]
     deleteMany?: LectureMarkdownScalarWhereInput | LectureMarkdownScalarWhereInput[]
+  }
+
+  export type LecturePermissionsUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<LecturePermissionsCreateWithoutLectureInput, LecturePermissionsUncheckedCreateWithoutLectureInput> | LecturePermissionsCreateWithoutLectureInput[] | LecturePermissionsUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LecturePermissionsCreateOrConnectWithoutLectureInput | LecturePermissionsCreateOrConnectWithoutLectureInput[]
+    upsert?: LecturePermissionsUpsertWithWhereUniqueWithoutLectureInput | LecturePermissionsUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: LecturePermissionsCreateManyLectureInputEnvelope
+    set?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    disconnect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    delete?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    update?: LecturePermissionsUpdateWithWhereUniqueWithoutLectureInput | LecturePermissionsUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: LecturePermissionsUpdateManyWithWhereWithoutLectureInput | LecturePermissionsUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
   }
 
   export type LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput = {
@@ -11326,6 +14005,20 @@ export namespace Prisma {
     update?: LectureMarkdownUpdateWithWhereUniqueWithoutLectureInput | LectureMarkdownUpdateWithWhereUniqueWithoutLectureInput[]
     updateMany?: LectureMarkdownUpdateManyWithWhereWithoutLectureInput | LectureMarkdownUpdateManyWithWhereWithoutLectureInput[]
     deleteMany?: LectureMarkdownScalarWhereInput | LectureMarkdownScalarWhereInput[]
+  }
+
+  export type LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<LecturePermissionsCreateWithoutLectureInput, LecturePermissionsUncheckedCreateWithoutLectureInput> | LecturePermissionsCreateWithoutLectureInput[] | LecturePermissionsUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LecturePermissionsCreateOrConnectWithoutLectureInput | LecturePermissionsCreateOrConnectWithoutLectureInput[]
+    upsert?: LecturePermissionsUpsertWithWhereUniqueWithoutLectureInput | LecturePermissionsUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: LecturePermissionsCreateManyLectureInputEnvelope
+    set?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    disconnect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    delete?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    update?: LecturePermissionsUpdateWithWhereUniqueWithoutLectureInput | LecturePermissionsUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: LecturePermissionsUpdateManyWithWhereWithoutLectureInput | LecturePermissionsUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
   }
 
   export type LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput = {
@@ -11444,6 +14137,34 @@ export namespace Prisma {
     deleteMany?: LectureMarkdownScalarWhereInput | LectureMarkdownScalarWhereInput[]
   }
 
+  export type LectureHierarchyCreateNestedOneWithoutPermissionsInput = {
+    create?: XOR<LectureHierarchyCreateWithoutPermissionsInput, LectureHierarchyUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutPermissionsInput
+    connect?: LectureHierarchyWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLecturePermissionInput = {
+    create?: XOR<UserCreateWithoutLecturePermissionInput, UserUncheckedCreateWithoutLecturePermissionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLecturePermissionInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type LectureHierarchyUpdateOneRequiredWithoutPermissionsNestedInput = {
+    create?: XOR<LectureHierarchyCreateWithoutPermissionsInput, LectureHierarchyUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutPermissionsInput
+    upsert?: LectureHierarchyUpsertWithoutPermissionsInput
+    connect?: LectureHierarchyWhereUniqueInput
+    update?: XOR<XOR<LectureHierarchyUpdateToOneWithWhereWithoutPermissionsInput, LectureHierarchyUpdateWithoutPermissionsInput>, LectureHierarchyUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutLecturePermissionNestedInput = {
+    create?: XOR<UserCreateWithoutLecturePermissionInput, UserUncheckedCreateWithoutLecturePermissionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLecturePermissionInput
+    upsert?: UserUpsertWithoutLecturePermissionInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLecturePermissionInput, UserUpdateWithoutLecturePermissionInput>, UserUncheckedUpdateWithoutLecturePermissionInput>
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -11514,6 +14235,19 @@ export namespace Prisma {
     connect?: MarkdownBlockWhereUniqueInput | MarkdownBlockWhereUniqueInput[]
   }
 
+  export type LecturePermissionsCreateNestedManyWithoutUserInput = {
+    create?: XOR<LecturePermissionsCreateWithoutUserInput, LecturePermissionsUncheckedCreateWithoutUserInput> | LecturePermissionsCreateWithoutUserInput[] | LecturePermissionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LecturePermissionsCreateOrConnectWithoutUserInput | LecturePermissionsCreateOrConnectWithoutUserInput[]
+    createMany?: LecturePermissionsCreateManyUserInputEnvelope
+    connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+  }
+
+  export type UserSettingsCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSettingsCreateOrConnectWithoutUserInput
+    connect?: UserSettingsWhereUniqueInput
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -11554,6 +14288,19 @@ export namespace Prisma {
     connectOrCreate?: MarkdownBlockCreateOrConnectWithoutUpdatedByInput | MarkdownBlockCreateOrConnectWithoutUpdatedByInput[]
     createMany?: MarkdownBlockCreateManyUpdatedByInputEnvelope
     connect?: MarkdownBlockWhereUniqueInput | MarkdownBlockWhereUniqueInput[]
+  }
+
+  export type LecturePermissionsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LecturePermissionsCreateWithoutUserInput, LecturePermissionsUncheckedCreateWithoutUserInput> | LecturePermissionsCreateWithoutUserInput[] | LecturePermissionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LecturePermissionsCreateOrConnectWithoutUserInput | LecturePermissionsCreateOrConnectWithoutUserInput[]
+    createMany?: LecturePermissionsCreateManyUserInputEnvelope
+    connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+  }
+
+  export type UserSettingsUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSettingsCreateOrConnectWithoutUserInput
+    connect?: UserSettingsWhereUniqueInput
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -11648,6 +14395,30 @@ export namespace Prisma {
     deleteMany?: MarkdownBlockScalarWhereInput | MarkdownBlockScalarWhereInput[]
   }
 
+  export type LecturePermissionsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LecturePermissionsCreateWithoutUserInput, LecturePermissionsUncheckedCreateWithoutUserInput> | LecturePermissionsCreateWithoutUserInput[] | LecturePermissionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LecturePermissionsCreateOrConnectWithoutUserInput | LecturePermissionsCreateOrConnectWithoutUserInput[]
+    upsert?: LecturePermissionsUpsertWithWhereUniqueWithoutUserInput | LecturePermissionsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LecturePermissionsCreateManyUserInputEnvelope
+    set?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    disconnect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    delete?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    update?: LecturePermissionsUpdateWithWhereUniqueWithoutUserInput | LecturePermissionsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LecturePermissionsUpdateManyWithWhereWithoutUserInput | LecturePermissionsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
+  }
+
+  export type UserSettingsUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSettingsCreateOrConnectWithoutUserInput
+    upsert?: UserSettingsUpsertWithoutUserInput
+    disconnect?: UserSettingsWhereInput | boolean
+    delete?: UserSettingsWhereInput | boolean
+    connect?: UserSettingsWhereUniqueInput
+    update?: XOR<XOR<UserSettingsUpdateToOneWithWhereWithoutUserInput, UserSettingsUpdateWithoutUserInput>, UserSettingsUncheckedUpdateWithoutUserInput>
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -11730,6 +14501,48 @@ export namespace Prisma {
     update?: MarkdownBlockUpdateWithWhereUniqueWithoutUpdatedByInput | MarkdownBlockUpdateWithWhereUniqueWithoutUpdatedByInput[]
     updateMany?: MarkdownBlockUpdateManyWithWhereWithoutUpdatedByInput | MarkdownBlockUpdateManyWithWhereWithoutUpdatedByInput[]
     deleteMany?: MarkdownBlockScalarWhereInput | MarkdownBlockScalarWhereInput[]
+  }
+
+  export type LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LecturePermissionsCreateWithoutUserInput, LecturePermissionsUncheckedCreateWithoutUserInput> | LecturePermissionsCreateWithoutUserInput[] | LecturePermissionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LecturePermissionsCreateOrConnectWithoutUserInput | LecturePermissionsCreateOrConnectWithoutUserInput[]
+    upsert?: LecturePermissionsUpsertWithWhereUniqueWithoutUserInput | LecturePermissionsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LecturePermissionsCreateManyUserInputEnvelope
+    set?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    disconnect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    delete?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+    update?: LecturePermissionsUpdateWithWhereUniqueWithoutUserInput | LecturePermissionsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LecturePermissionsUpdateManyWithWhereWithoutUserInput | LecturePermissionsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
+  }
+
+  export type UserSettingsUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSettingsCreateOrConnectWithoutUserInput
+    upsert?: UserSettingsUpsertWithoutUserInput
+    disconnect?: UserSettingsWhereInput | boolean
+    delete?: UserSettingsWhereInput | boolean
+    connect?: UserSettingsWhereUniqueInput
+    update?: XOR<XOR<UserSettingsUpdateToOneWithWhereWithoutUserInput, UserSettingsUpdateWithoutUserInput>, UserSettingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserCreateNestedOneWithoutSettingsInput = {
+    create?: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSettingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumThemesFieldUpdateOperationsInput = {
+    set?: $Enums.Themes
+  }
+
+  export type UserUpdateOneRequiredWithoutSettingsNestedInput = {
+    create?: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSettingsInput
+    upsert?: UserUpsertWithoutSettingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSettingsInput, UserUpdateWithoutSettingsInput>, UserUncheckedUpdateWithoutSettingsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -11950,6 +14763,23 @@ export namespace Prisma {
     _max?: NestedEnumRolesFilter<$PrismaModel>
   }
 
+  export type NestedEnumThemesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Themes | EnumThemesFieldRefInput<$PrismaModel>
+    in?: $Enums.Themes[] | ListEnumThemesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Themes[] | ListEnumThemesFieldRefInput<$PrismaModel>
+    not?: NestedEnumThemesFilter<$PrismaModel> | $Enums.Themes
+  }
+
+  export type NestedEnumThemesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Themes | EnumThemesFieldRefInput<$PrismaModel>
+    in?: $Enums.Themes[] | ListEnumThemesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Themes[] | ListEnumThemesFieldRefInput<$PrismaModel>
+    not?: NestedEnumThemesWithAggregatesFilter<$PrismaModel> | $Enums.Themes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumThemesFilter<$PrismaModel>
+    _max?: NestedEnumThemesFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutLecturesCreatedInput = {
     id?: string
     name?: string | null
@@ -11963,6 +14793,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLecturesCreatedInput = {
@@ -11978,6 +14810,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLecturesCreatedInput = {
@@ -11998,6 +14832,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyCreateNestedManyWithoutCreatedByInput
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLecturesUpdatedInput = {
@@ -12013,6 +14849,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyUncheckedCreateNestedManyWithoutCreatedByInput
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLecturesUpdatedInput = {
@@ -12040,6 +14878,24 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LecturePermissionsCreateWithoutLectureInput = {
+    user: UserCreateNestedOneWithoutLecturePermissionInput
+  }
+
+  export type LecturePermissionsUncheckedCreateWithoutLectureInput = {
+    userId: string
+  }
+
+  export type LecturePermissionsCreateOrConnectWithoutLectureInput = {
+    where: LecturePermissionsWhereUniqueInput
+    create: XOR<LecturePermissionsCreateWithoutLectureInput, LecturePermissionsUncheckedCreateWithoutLectureInput>
+  }
+
+  export type LecturePermissionsCreateManyLectureInputEnvelope = {
+    data: LecturePermissionsCreateManyLectureInput | LecturePermissionsCreateManyLectureInput[]
+    skipDuplicates?: boolean
+  }
+
   export type LectureHierarchyCreateWithoutHierarchyChildrenInput = {
     name: string
     createdAt?: Date | string
@@ -12048,6 +14904,7 @@ export namespace Prisma {
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
   }
 
@@ -12061,6 +14918,7 @@ export namespace Prisma {
     updatedById: string
     HierarchyParentId?: number | null
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
   }
 
   export type LectureHierarchyCreateOrConnectWithoutHierarchyChildrenInput = {
@@ -12076,6 +14934,7 @@ export namespace Prisma {
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -12088,6 +14947,7 @@ export namespace Prisma {
     createdById: string
     updatedById: string
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -12125,6 +14985,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLecturesCreatedInput = {
@@ -12140,6 +15002,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutLecturesUpdatedInput = {
@@ -12166,6 +15030,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyUpdateManyWithoutCreatedByNestedInput
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLecturesUpdatedInput = {
@@ -12181,6 +15047,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type LectureMarkdownUpsertWithWhereUniqueWithoutLectureInput = {
@@ -12208,6 +15076,30 @@ export namespace Prisma {
     blockId?: IntFilter<"LectureMarkdown"> | number
   }
 
+  export type LecturePermissionsUpsertWithWhereUniqueWithoutLectureInput = {
+    where: LecturePermissionsWhereUniqueInput
+    update: XOR<LecturePermissionsUpdateWithoutLectureInput, LecturePermissionsUncheckedUpdateWithoutLectureInput>
+    create: XOR<LecturePermissionsCreateWithoutLectureInput, LecturePermissionsUncheckedCreateWithoutLectureInput>
+  }
+
+  export type LecturePermissionsUpdateWithWhereUniqueWithoutLectureInput = {
+    where: LecturePermissionsWhereUniqueInput
+    data: XOR<LecturePermissionsUpdateWithoutLectureInput, LecturePermissionsUncheckedUpdateWithoutLectureInput>
+  }
+
+  export type LecturePermissionsUpdateManyWithWhereWithoutLectureInput = {
+    where: LecturePermissionsScalarWhereInput
+    data: XOR<LecturePermissionsUpdateManyMutationInput, LecturePermissionsUncheckedUpdateManyWithoutLectureInput>
+  }
+
+  export type LecturePermissionsScalarWhereInput = {
+    AND?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
+    OR?: LecturePermissionsScalarWhereInput[]
+    NOT?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
+    lectureId?: IntFilter<"LecturePermissions"> | number
+    userId?: StringFilter<"LecturePermissions"> | string
+  }
+
   export type LectureHierarchyUpsertWithoutHierarchyChildrenInput = {
     update: XOR<LectureHierarchyUpdateWithoutHierarchyChildrenInput, LectureHierarchyUncheckedUpdateWithoutHierarchyChildrenInput>
     create: XOR<LectureHierarchyCreateWithoutHierarchyChildrenInput, LectureHierarchyUncheckedCreateWithoutHierarchyChildrenInput>
@@ -12227,6 +15119,7 @@ export namespace Prisma {
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
   }
 
@@ -12240,6 +15133,7 @@ export namespace Prisma {
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
   }
 
   export type LectureHierarchyUpsertWithWhereUniqueWithoutHierarchyParentInput = {
@@ -12279,6 +15173,7 @@ export namespace Prisma {
     isPublic?: boolean
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -12292,6 +15187,7 @@ export namespace Prisma {
     createdById: string
     updatedById: string
     HierarchyParentId?: number | null
+    permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -12342,6 +15238,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -12355,6 +15252,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -12421,6 +15319,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyCreateNestedManyWithoutCreatedByInput
     lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBlocksCreatedInput = {
@@ -12436,6 +15336,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyUncheckedCreateNestedManyWithoutCreatedByInput
     lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBlocksCreatedInput = {
@@ -12456,6 +15358,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyCreateNestedManyWithoutCreatedByInput
     lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBlocksUpdatedInput = {
@@ -12471,6 +15375,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyUncheckedCreateNestedManyWithoutCreatedByInput
     lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBlocksUpdatedInput = {
@@ -12518,6 +15424,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyUpdateManyWithoutCreatedByNestedInput
     lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlocksCreatedInput = {
@@ -12533,6 +15441,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyUncheckedUpdateManyWithoutCreatedByNestedInput
     lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutBlocksUpdatedInput = {
@@ -12559,6 +15469,8 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyUpdateManyWithoutCreatedByNestedInput
     lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlocksUpdatedInput = {
@@ -12574,6 +15486,158 @@ export namespace Prisma {
     lecturesCreated?: LectureHierarchyUncheckedUpdateManyWithoutCreatedByNestedInput
     lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type LectureHierarchyCreateWithoutPermissionsInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
+    updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
+    hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyUncheckedCreateWithoutPermissionsInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    createdById: string
+    updatedById: string
+    HierarchyParentId?: number | null
+    blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyCreateOrConnectWithoutPermissionsInput = {
+    where: LectureHierarchyWhereUniqueInput
+    create: XOR<LectureHierarchyCreateWithoutPermissionsInput, LectureHierarchyUncheckedCreateWithoutPermissionsInput>
+  }
+
+  export type UserCreateWithoutLecturePermissionInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLecturePermissionInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyUncheckedCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLecturePermissionInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLecturePermissionInput, UserUncheckedCreateWithoutLecturePermissionInput>
+  }
+
+  export type LectureHierarchyUpsertWithoutPermissionsInput = {
+    update: XOR<LectureHierarchyUpdateWithoutPermissionsInput, LectureHierarchyUncheckedUpdateWithoutPermissionsInput>
+    create: XOR<LectureHierarchyCreateWithoutPermissionsInput, LectureHierarchyUncheckedCreateWithoutPermissionsInput>
+    where?: LectureHierarchyWhereInput
+  }
+
+  export type LectureHierarchyUpdateToOneWithWhereWithoutPermissionsInput = {
+    where?: LectureHierarchyWhereInput
+    data: XOR<LectureHierarchyUpdateWithoutPermissionsInput, LectureHierarchyUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type LectureHierarchyUpdateWithoutPermissionsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
+    updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
+    hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type LectureHierarchyUncheckedUpdateWithoutPermissionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: StringFieldUpdateOperationsInput | string
+    updatedById?: StringFieldUpdateOperationsInput | string
+    HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type UserUpsertWithoutLecturePermissionInput = {
+    update: XOR<UserUpdateWithoutLecturePermissionInput, UserUncheckedUpdateWithoutLecturePermissionInput>
+    create: XOR<UserCreateWithoutLecturePermissionInput, UserUncheckedCreateWithoutLecturePermissionInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLecturePermissionInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLecturePermissionInput, UserUncheckedUpdateWithoutLecturePermissionInput>
+  }
+
+  export type UserUpdateWithoutLecturePermissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLecturePermissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUncheckedUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -12589,6 +15653,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -12604,6 +15670,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -12635,6 +15703,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -12650,6 +15720,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -12665,6 +15737,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -12680,6 +15754,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -12711,6 +15787,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -12726,6 +15804,8 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -12797,6 +15877,7 @@ export namespace Prisma {
     isPublic?: boolean
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -12810,6 +15891,7 @@ export namespace Prisma {
     updatedById: string
     HierarchyParentId?: number | null
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -12830,6 +15912,7 @@ export namespace Prisma {
     isPublic?: boolean
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -12843,6 +15926,7 @@ export namespace Prisma {
     createdById: string
     HierarchyParentId?: number | null
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -12912,6 +15996,37 @@ export namespace Prisma {
   export type MarkdownBlockCreateManyUpdatedByInputEnvelope = {
     data: MarkdownBlockCreateManyUpdatedByInput | MarkdownBlockCreateManyUpdatedByInput[]
     skipDuplicates?: boolean
+  }
+
+  export type LecturePermissionsCreateWithoutUserInput = {
+    lecture: LectureHierarchyCreateNestedOneWithoutPermissionsInput
+  }
+
+  export type LecturePermissionsUncheckedCreateWithoutUserInput = {
+    lectureId: number
+  }
+
+  export type LecturePermissionsCreateOrConnectWithoutUserInput = {
+    where: LecturePermissionsWhereUniqueInput
+    create: XOR<LecturePermissionsCreateWithoutUserInput, LecturePermissionsUncheckedCreateWithoutUserInput>
+  }
+
+  export type LecturePermissionsCreateManyUserInputEnvelope = {
+    data: LecturePermissionsCreateManyUserInput | LecturePermissionsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserSettingsCreateWithoutUserInput = {
+    theme?: $Enums.Themes
+  }
+
+  export type UserSettingsUncheckedCreateWithoutUserInput = {
+    theme?: $Enums.Themes
+  }
+
+  export type UserSettingsCreateOrConnectWithoutUserInput = {
+    where: UserSettingsWhereUniqueInput
+    create: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -13052,9 +16167,132 @@ export namespace Prisma {
     data: XOR<MarkdownBlockUpdateManyMutationInput, MarkdownBlockUncheckedUpdateManyWithoutUpdatedByInput>
   }
 
+  export type LecturePermissionsUpsertWithWhereUniqueWithoutUserInput = {
+    where: LecturePermissionsWhereUniqueInput
+    update: XOR<LecturePermissionsUpdateWithoutUserInput, LecturePermissionsUncheckedUpdateWithoutUserInput>
+    create: XOR<LecturePermissionsCreateWithoutUserInput, LecturePermissionsUncheckedCreateWithoutUserInput>
+  }
+
+  export type LecturePermissionsUpdateWithWhereUniqueWithoutUserInput = {
+    where: LecturePermissionsWhereUniqueInput
+    data: XOR<LecturePermissionsUpdateWithoutUserInput, LecturePermissionsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LecturePermissionsUpdateManyWithWhereWithoutUserInput = {
+    where: LecturePermissionsScalarWhereInput
+    data: XOR<LecturePermissionsUpdateManyMutationInput, LecturePermissionsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserSettingsUpsertWithoutUserInput = {
+    update: XOR<UserSettingsUpdateWithoutUserInput, UserSettingsUncheckedUpdateWithoutUserInput>
+    create: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
+    where?: UserSettingsWhereInput
+  }
+
+  export type UserSettingsUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserSettingsWhereInput
+    data: XOR<UserSettingsUpdateWithoutUserInput, UserSettingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserSettingsUpdateWithoutUserInput = {
+    theme?: EnumThemesFieldUpdateOperationsInput | $Enums.Themes
+  }
+
+  export type UserSettingsUncheckedUpdateWithoutUserInput = {
+    theme?: EnumThemesFieldUpdateOperationsInput | $Enums.Themes
+  }
+
+  export type UserCreateWithoutSettingsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSettingsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyUncheckedCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSettingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
+  }
+
+  export type UserUpsertWithoutSettingsInput = {
+    update: XOR<UserUpdateWithoutSettingsInput, UserUncheckedUpdateWithoutSettingsInput>
+    create: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSettingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSettingsInput, UserUncheckedUpdateWithoutSettingsInput>
+  }
+
+  export type UserUpdateWithoutSettingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSettingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUncheckedUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type LectureMarkdownCreateManyLectureInput = {
     order: number
     blockId: number
+  }
+
+  export type LecturePermissionsCreateManyLectureInput = {
+    userId: string
   }
 
   export type LectureHierarchyCreateManyHierarchyParentInput = {
@@ -13082,6 +16320,18 @@ export namespace Prisma {
     blockId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type LecturePermissionsUpdateWithoutLectureInput = {
+    user?: UserUpdateOneRequiredWithoutLecturePermissionNestedInput
+  }
+
+  export type LecturePermissionsUncheckedUpdateWithoutLectureInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LecturePermissionsUncheckedUpdateManyWithoutLectureInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type LectureHierarchyUpdateWithoutHierarchyParentInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13090,6 +16340,7 @@ export namespace Prisma {
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -13102,6 +16353,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -13194,6 +16446,10 @@ export namespace Prisma {
     createdById: string
   }
 
+  export type LecturePermissionsCreateManyUserInput = {
+    lectureId: number
+  }
+
   export type AccountUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
@@ -13264,6 +16520,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -13277,6 +16534,7 @@ export namespace Prisma {
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -13297,6 +16555,7 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -13310,6 +16569,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -13377,6 +16637,18 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LecturePermissionsUpdateWithoutUserInput = {
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutPermissionsNestedInput
+  }
+
+  export type LecturePermissionsUncheckedUpdateWithoutUserInput = {
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LecturePermissionsUncheckedUpdateManyWithoutUserInput = {
+    lectureId?: IntFieldUpdateOperationsInput | number
   }
 
 

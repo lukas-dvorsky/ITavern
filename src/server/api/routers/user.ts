@@ -1,6 +1,13 @@
 import bcrypt from "bcryptjs";
+import { Themes } from "generated/prisma";
 import z from "zod";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
+
+const ThemeEnum = z.enum(Object.values(Themes) as [Themes, ...Themes[]]);
 
 export const userRouter = createTRPCRouter({
   // Endpoint pro vytvoření uživatele
@@ -28,7 +35,44 @@ export const userRouter = createTRPCRouter({
       return user;
     }),
 
-  // Endpoint pro login
+  createUserSettings: publicProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.userSettings.create({
+        data: {
+          userId: input,
+        },
+      });
+    }),
+
+  getUserSettings: protectedProcedure.query(async ({ ctx }) => {
+    let userSettings = await ctx.db.userSettings.findFirst({
+      where: { userId: ctx.session.user.id },
+    });
+
+    if (!userSettings) {
+      userSettings = await ctx.db.userSettings.create({
+        data: {
+          userId: ctx.session.user.id,
+        },
+      });
+    }
+
+    return userSettings;
+  }),
+
+  setTheme: protectedProcedure
+    .input(ThemeEnum)
+    .mutation(async ({ ctx, input }) => {
+      const updated = await ctx.db.userSettings.upsert({
+        where: { userId: ctx.session.user.id },
+        update: { theme: input },
+        create: { userId: ctx.session.user.id, theme: input },
+      });
+
+      return updated;
+    }),
+
   loginUserCredentials: publicProcedure
     .input(z.object({ email: z.string(), password: z.string() }))
     .query(async ({ ctx, input }) => {

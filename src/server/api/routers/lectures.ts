@@ -34,7 +34,6 @@ export const lectureRouter = createTRPCRouter({
       z.object({
         name: z.string(),
         lectureId: z.number().nullable(),
-        userId: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -42,8 +41,8 @@ export const lectureRouter = createTRPCRouter({
         data: {
           name: input.name,
           HierarchyParentId: input.lectureId,
-          createdById: input.userId,
-          updatedById: input.userId,
+          createdById: ctx.session.user.id,
+          updatedById: ctx.session.user.id,
         },
       });
     }),
@@ -112,6 +111,45 @@ export const lectureRouter = createTRPCRouter({
       return await ctx.db.lectureHierarchy.findFirst({
         where: {
           id: input,
+        },
+      });
+    }),
+
+  getIsPermitted: protectedProcedure
+    .input(z.object({ userId: z.string(), lectureId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      const count = await ctx.db.lecturePermissions.count({
+        where: {
+          lectureId: input.lectureId,
+          userId: input.userId,
+        },
+      });
+
+      const isUserLecture = await ctx.db.lectureHierarchy.findFirst({
+        where: {
+          id: input.lectureId,
+        },
+        select: {
+          createdById: true,
+        },
+      });
+
+      return count > 0 || isUserLecture?.createdById === input.userId;
+    }),
+
+  getPermittedUsers: protectedProcedure
+    .input(z.number())
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.lecturePermissions.findMany({
+        where: {
+          lectureId: input,
+        },
+        include: {
+          user: {
+            select: {
+              name: true,
+            },
+          },
         },
       });
     }),

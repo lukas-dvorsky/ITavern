@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useId, useState } from "react";
+import toast from "react-hot-toast";
 import { FaCheck } from "react-icons/fa";
 
 interface InputCheckboxProps {
@@ -13,6 +14,8 @@ interface InputCheckboxProps {
   required?: boolean;
   onChange?: (value: boolean) => void;
   className?: string;
+  disabled?: boolean;
+  disabledMessage?: string;
 }
 
 function InputCheckbox(props: InputCheckboxProps) {
@@ -63,7 +66,14 @@ function InputCheckbox(props: InputCheckboxProps) {
 
   return (
     <div className={`flex w-full flex-col ${props.className}`}>
-      <div className="flex cursor-pointer items-center gap-2">
+      <div
+        className="flex cursor-pointer items-center gap-2"
+        onClick={() => {
+          if (props.disabled && props.disabledMessage) {
+            toast.error(props.disabledMessage);
+          }
+        }}
+      >
         <input
           id={distinctId}
           name={props.dbKey}
@@ -73,6 +83,7 @@ function InputCheckbox(props: InputCheckboxProps) {
           onChange={handleChange}
           onInvalid={handleInvalid}
           className="peer sr-only"
+          disabled={props.disabled ?? false}
         />
 
         <label

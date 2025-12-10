@@ -148,6 +148,11 @@ exports.Prisma.MarkdownBlockScalarFieldEnum = {
   updatedById: 'updatedById'
 };
 
+exports.Prisma.LecturePermissionsScalarFieldEnum = {
+  lectureId: 'lectureId',
+  userId: 'userId'
+};
+
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -181,6 +186,11 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role'
 };
 
+exports.Prisma.UserSettingsScalarFieldEnum = {
+  userId: 'userId',
+  theme: 'theme'
+};
+
 exports.Prisma.VerificationTokenScalarFieldEnum = {
   identifier: 'identifier',
   token: 'token',
@@ -206,13 +216,20 @@ exports.Roles = exports.$Enums.Roles = {
   ADMIN: 'ADMIN'
 };
 
+exports.Themes = exports.$Enums.Themes = {
+  LIGHT: 'LIGHT',
+  DARK: 'DARK'
+};
+
 exports.Prisma.ModelName = {
   LectureHierarchy: 'LectureHierarchy',
   LectureMarkdown: 'LectureMarkdown',
   MarkdownBlock: 'MarkdownBlock',
+  LecturePermissions: 'LecturePermissions',
   Account: 'Account',
   Session: 'Session',
   User: 'User',
+  UserSettings: 'UserSettings',
   VerificationToken: 'VerificationToken'
 };
 

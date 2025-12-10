@@ -8,7 +8,6 @@ import { createOptions } from "~/server/utils/lecture";
 interface LectureFormsProps {
   id: number;
   name: string;
-  userId: string;
 }
 
 function LectureForms(props: LectureFormsProps) {
@@ -41,7 +40,6 @@ function LectureForms(props: LectureFormsProps) {
         createLectureMutation.mutate({
           name: formData.name as string,
           lectureId: formData.parentId ? Number(formData.parentId) : null,
-          userId: props.userId,
         });
       }}
       apiUpdate={(formData) => {
