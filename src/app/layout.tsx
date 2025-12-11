@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import Navbar from "./_components/UI/Navbar/Navbar";
 import { Toaster } from "react-hot-toast";
 import { auth } from "~/server/auth";
+import { LoadingProvider } from "./_components/UI/Navbar/LoadingProvider";
 
 export const metadata: Metadata = {
   title: "ITavern",
@@ -47,8 +48,10 @@ export default async function RootLayout({
       </head>
       <body className="bg-background dark:bg-background-dark-subtle dark:text-text-dark-mode">
         <TRPCReactProvider>
-          <Navbar pagesWithoutBackArrow={["/"]} session={session} />
-          <div className="pt-16 pl-8">{children}</div>
+          <LoadingProvider>
+            <Navbar pagesWithoutBackArrow={["/"]} session={session} />
+            <div className="pt-16 pl-8">{children}</div>
+          </LoadingProvider>
         </TRPCReactProvider>
         <Toaster />
       </body>
