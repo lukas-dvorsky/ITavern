@@ -28,6 +28,7 @@ function MarkdownSelectList({
         <MarkdownViewer content={viewerContent} />
       </div>
       <SearchBar
+        listClassname="h-96"
         filterFunction={(searchFor) =>
           markdownBlocks.data
             ?.filter((mdb) =>

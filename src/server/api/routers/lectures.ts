@@ -153,4 +153,49 @@ export const lectureRouter = createTRPCRouter({
         },
       });
     }),
+
+  gainPermission: protectedProcedure
+    .input(z.object({ userId: z.string(), lectureId: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.lecturePermissions.create({
+        data: {
+          userId: input.userId,
+          lectureId: input.lectureId,
+        },
+      });
+    }),
+
+  removePermission: protectedProcedure
+    .input(z.object({ userId: z.string(), lectureId: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.lecturePermissions.delete({
+        where: {
+          userId_lectureId: {
+            userId: input.userId,
+            lectureId: input.lectureId,
+          },
+        },
+      });
+    }),
+
+  getUnpermittedUsers: protectedProcedure
+    .input(z.object({ lectureId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      const usersWithPermission = await ctx.db.lecturePermissions.findMany({
+        where: { lectureId: input.lectureId },
+        select: { userId: true },
+      });
+
+      const userIdsWithPermission = usersWithPermission.map((u) => u.userId);
+
+      return ctx.db.user.findMany({
+        where: {
+          id: { notIn: userIdsWithPermission },
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+    }),
 });
