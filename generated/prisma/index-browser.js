@@ -127,6 +127,8 @@ exports.Prisma.LectureHierarchyScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   isPublic: 'isPublic',
+  image: 'image',
+  description: 'description',
   createdById: 'createdById',
   updatedById: 'updatedById',
   HierarchyParentId: 'HierarchyParentId'
@@ -150,7 +152,25 @@ exports.Prisma.MarkdownBlockScalarFieldEnum = {
 
 exports.Prisma.LecturePermissionsScalarFieldEnum = {
   lectureId: 'lectureId',
-  userId: 'userId'
+  userId: 'userId',
+  type: 'type'
+};
+
+exports.Prisma.CompletedLecturesScalarFieldEnum = {
+  userId: 'userId',
+  lectureId: 'lectureId'
+};
+
+exports.Prisma.LectureSubscribtionScalarFieldEnum = {
+  userId: 'userId',
+  lectureId: 'lectureId'
+};
+
+exports.Prisma.LectureReportScalarFieldEnum = {
+  id: 'id',
+  reportMessage: 'reportMessage',
+  lectureId: 'lectureId',
+  reportedById: 'reportedById'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -211,9 +231,16 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.PermissionType = exports.$Enums.PermissionType = {
+  MINIMAL: 'MINIMAL',
+  CREATOR: 'CREATOR',
+  ADMIN: 'ADMIN'
+};
+
 exports.Roles = exports.$Enums.Roles = {
   USER: 'USER',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  OWNER: 'OWNER'
 };
 
 exports.Themes = exports.$Enums.Themes = {
@@ -226,6 +253,9 @@ exports.Prisma.ModelName = {
   LectureMarkdown: 'LectureMarkdown',
   MarkdownBlock: 'MarkdownBlock',
   LecturePermissions: 'LecturePermissions',
+  CompletedLectures: 'CompletedLectures',
+  LectureSubscribtion: 'LectureSubscribtion',
+  LectureReport: 'LectureReport',
   Account: 'Account',
   Session: 'Session',
   User: 'User',

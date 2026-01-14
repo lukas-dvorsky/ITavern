@@ -7,10 +7,10 @@ export default async function Home() {
   return (
     <main className="text-text dark:text-text-dark-mode flex min-h-screen flex-col items-center">
       <div className="bg-background-card dark:bg-background-dark-card mt-36 max-h-screen w-2/3 flex-col">
-        <LectureNavigator
+        {/*         <LectureNavigator
           userRole={session.user.role}
           userId={session.user.id}
-        />
+        /> */}
       </div>
 
       <span>prihlaseny jako: {session.user.name}</span>

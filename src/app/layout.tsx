@@ -50,7 +50,7 @@ export default async function RootLayout({
         <TRPCReactProvider>
           <LoadingProvider>
             <Navbar pagesWithoutBackArrow={["/"]} session={session} />
-            <div className="pt-16 pl-8">{children}</div>
+            <div className="pt-16 pl-16">{children}</div>
           </LoadingProvider>
         </TRPCReactProvider>
         <Toaster />

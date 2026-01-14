@@ -1,7 +1,7 @@
-import { lectureRouter } from "~/server/api/routers/lectures";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { userRouter } from "./routers/user";
 import { blockRouter } from "./routers/blocks";
+import { lectureRouter } from "./routers/lecturesBetter";
 
 /**
  * This is the primary router for your server.

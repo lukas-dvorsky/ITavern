@@ -1,6 +1,5 @@
 import React from "react";
 
-// Rozšíříme props o všechny standardní div atributy
 interface GridLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }

@@ -7,7 +7,7 @@ import {
   roleProcedure,
 } from "~/server/api/trpc";
 
-export const lectureRouter = createTRPCRouter({
+export const lectureRouterOld = createTRPCRouter({
   getLectureHierarchiesBuilded: protectedProcedure.query(async ({ ctx }) => {
     const flat = await ctx.db.lectureHierarchy.findMany({
       // where: {

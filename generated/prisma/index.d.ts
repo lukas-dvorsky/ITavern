@@ -34,6 +34,21 @@ export type MarkdownBlock = $Result.DefaultSelection<Prisma.$MarkdownBlockPayloa
  */
 export type LecturePermissions = $Result.DefaultSelection<Prisma.$LecturePermissionsPayload>
 /**
+ * Model CompletedLectures
+ * 
+ */
+export type CompletedLectures = $Result.DefaultSelection<Prisma.$CompletedLecturesPayload>
+/**
+ * Model LectureSubscribtion
+ * 
+ */
+export type LectureSubscribtion = $Result.DefaultSelection<Prisma.$LectureSubscribtionPayload>
+/**
+ * Model LectureReport
+ * 
+ */
+export type LectureReport = $Result.DefaultSelection<Prisma.$LectureReportPayload>
+/**
  * Model Account
  * 
  */
@@ -63,9 +78,27 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  * Enums
  */
 export namespace $Enums {
-  export const Roles: {
-  USER: 'USER',
+  export const ReportType: {
+  REPORT: 'REPORT',
+  SUGGESTION: 'SUGGESTION'
+};
+
+export type ReportType = (typeof ReportType)[keyof typeof ReportType]
+
+
+export const PermissionType: {
+  MINIMAL: 'MINIMAL',
+  CREATOR: 'CREATOR',
   ADMIN: 'ADMIN'
+};
+
+export type PermissionType = (typeof PermissionType)[keyof typeof PermissionType]
+
+
+export const Roles: {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  OWNER: 'OWNER'
 };
 
 export type Roles = (typeof Roles)[keyof typeof Roles]
@@ -79,6 +112,14 @@ export const Themes: {
 export type Themes = (typeof Themes)[keyof typeof Themes]
 
 }
+
+export type ReportType = $Enums.ReportType
+
+export const ReportType: typeof $Enums.ReportType
+
+export type PermissionType = $Enums.PermissionType
+
+export const PermissionType: typeof $Enums.PermissionType
 
 export type Roles = $Enums.Roles
 
@@ -245,6 +286,36 @@ export class PrismaClient<
     * ```
     */
   get lecturePermissions(): Prisma.LecturePermissionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.completedLectures`: Exposes CRUD operations for the **CompletedLectures** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CompletedLectures
+    * const completedLectures = await prisma.completedLectures.findMany()
+    * ```
+    */
+  get completedLectures(): Prisma.CompletedLecturesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.lectureSubscribtion`: Exposes CRUD operations for the **LectureSubscribtion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LectureSubscribtions
+    * const lectureSubscribtions = await prisma.lectureSubscribtion.findMany()
+    * ```
+    */
+  get lectureSubscribtion(): Prisma.LectureSubscribtionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.lectureReport`: Exposes CRUD operations for the **LectureReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LectureReports
+    * const lectureReports = await prisma.lectureReport.findMany()
+    * ```
+    */
+  get lectureReport(): Prisma.LectureReportDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.account`: Exposes CRUD operations for the **Account** model.
@@ -740,6 +811,9 @@ export namespace Prisma {
     LectureMarkdown: 'LectureMarkdown',
     MarkdownBlock: 'MarkdownBlock',
     LecturePermissions: 'LecturePermissions',
+    CompletedLectures: 'CompletedLectures',
+    LectureSubscribtion: 'LectureSubscribtion',
+    LectureReport: 'LectureReport',
     Account: 'Account',
     Session: 'Session',
     User: 'User',
@@ -763,7 +837,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "lectureHierarchy" | "lectureMarkdown" | "markdownBlock" | "lecturePermissions" | "account" | "session" | "user" | "userSettings" | "verificationToken"
+      modelProps: "lectureHierarchy" | "lectureMarkdown" | "markdownBlock" | "lecturePermissions" | "completedLectures" | "lectureSubscribtion" | "lectureReport" | "account" | "session" | "user" | "userSettings" | "verificationToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1060,6 +1134,228 @@ export namespace Prisma {
           count: {
             args: Prisma.LecturePermissionsCountArgs<ExtArgs>
             result: $Utils.Optional<LecturePermissionsCountAggregateOutputType> | number
+          }
+        }
+      }
+      CompletedLectures: {
+        payload: Prisma.$CompletedLecturesPayload<ExtArgs>
+        fields: Prisma.CompletedLecturesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CompletedLecturesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CompletedLecturesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload>
+          }
+          findFirst: {
+            args: Prisma.CompletedLecturesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CompletedLecturesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload>
+          }
+          findMany: {
+            args: Prisma.CompletedLecturesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload>[]
+          }
+          create: {
+            args: Prisma.CompletedLecturesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload>
+          }
+          createMany: {
+            args: Prisma.CompletedLecturesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CompletedLecturesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload>[]
+          }
+          delete: {
+            args: Prisma.CompletedLecturesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload>
+          }
+          update: {
+            args: Prisma.CompletedLecturesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload>
+          }
+          deleteMany: {
+            args: Prisma.CompletedLecturesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CompletedLecturesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CompletedLecturesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload>[]
+          }
+          upsert: {
+            args: Prisma.CompletedLecturesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompletedLecturesPayload>
+          }
+          aggregate: {
+            args: Prisma.CompletedLecturesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCompletedLectures>
+          }
+          groupBy: {
+            args: Prisma.CompletedLecturesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CompletedLecturesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CompletedLecturesCountArgs<ExtArgs>
+            result: $Utils.Optional<CompletedLecturesCountAggregateOutputType> | number
+          }
+        }
+      }
+      LectureSubscribtion: {
+        payload: Prisma.$LectureSubscribtionPayload<ExtArgs>
+        fields: Prisma.LectureSubscribtionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LectureSubscribtionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LectureSubscribtionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload>
+          }
+          findFirst: {
+            args: Prisma.LectureSubscribtionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LectureSubscribtionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload>
+          }
+          findMany: {
+            args: Prisma.LectureSubscribtionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload>[]
+          }
+          create: {
+            args: Prisma.LectureSubscribtionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload>
+          }
+          createMany: {
+            args: Prisma.LectureSubscribtionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LectureSubscribtionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload>[]
+          }
+          delete: {
+            args: Prisma.LectureSubscribtionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload>
+          }
+          update: {
+            args: Prisma.LectureSubscribtionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload>
+          }
+          deleteMany: {
+            args: Prisma.LectureSubscribtionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LectureSubscribtionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LectureSubscribtionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload>[]
+          }
+          upsert: {
+            args: Prisma.LectureSubscribtionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureSubscribtionPayload>
+          }
+          aggregate: {
+            args: Prisma.LectureSubscribtionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLectureSubscribtion>
+          }
+          groupBy: {
+            args: Prisma.LectureSubscribtionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LectureSubscribtionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LectureSubscribtionCountArgs<ExtArgs>
+            result: $Utils.Optional<LectureSubscribtionCountAggregateOutputType> | number
+          }
+        }
+      }
+      LectureReport: {
+        payload: Prisma.$LectureReportPayload<ExtArgs>
+        fields: Prisma.LectureReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LectureReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LectureReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload>
+          }
+          findFirst: {
+            args: Prisma.LectureReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LectureReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload>
+          }
+          findMany: {
+            args: Prisma.LectureReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload>[]
+          }
+          create: {
+            args: Prisma.LectureReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload>
+          }
+          createMany: {
+            args: Prisma.LectureReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LectureReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload>[]
+          }
+          delete: {
+            args: Prisma.LectureReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload>
+          }
+          update: {
+            args: Prisma.LectureReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.LectureReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LectureReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LectureReportUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload>[]
+          }
+          upsert: {
+            args: Prisma.LectureReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LectureReportPayload>
+          }
+          aggregate: {
+            args: Prisma.LectureReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLectureReport>
+          }
+          groupBy: {
+            args: Prisma.LectureReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LectureReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LectureReportCountArgs<ExtArgs>
+            result: $Utils.Optional<LectureReportCountAggregateOutputType> | number
           }
         }
       }
@@ -1533,6 +1829,9 @@ export namespace Prisma {
     lectureMarkdown?: LectureMarkdownOmit
     markdownBlock?: MarkdownBlockOmit
     lecturePermissions?: LecturePermissionsOmit
+    completedLectures?: CompletedLecturesOmit
+    lectureSubscribtion?: LectureSubscribtionOmit
+    lectureReport?: LectureReportOmit
     account?: AccountOmit
     session?: SessionOmit
     user?: UserOmit
@@ -1620,12 +1919,18 @@ export namespace Prisma {
   export type LectureHierarchyCountOutputType = {
     blocks: number
     permissions: number
+    reports: number
+    subscriptions: number
+    completedBy: number
     hierarchyChildren: number
   }
 
   export type LectureHierarchyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     blocks?: boolean | LectureHierarchyCountOutputTypeCountBlocksArgs
     permissions?: boolean | LectureHierarchyCountOutputTypeCountPermissionsArgs
+    reports?: boolean | LectureHierarchyCountOutputTypeCountReportsArgs
+    subscriptions?: boolean | LectureHierarchyCountOutputTypeCountSubscriptionsArgs
+    completedBy?: boolean | LectureHierarchyCountOutputTypeCountCompletedByArgs
     hierarchyChildren?: boolean | LectureHierarchyCountOutputTypeCountHierarchyChildrenArgs
   }
 
@@ -1652,6 +1957,27 @@ export namespace Prisma {
    */
   export type LectureHierarchyCountOutputTypeCountPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LecturePermissionsWhereInput
+  }
+
+  /**
+   * LectureHierarchyCountOutputType without action
+   */
+  export type LectureHierarchyCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LectureReportWhereInput
+  }
+
+  /**
+   * LectureHierarchyCountOutputType without action
+   */
+  export type LectureHierarchyCountOutputTypeCountSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LectureSubscribtionWhereInput
+  }
+
+  /**
+   * LectureHierarchyCountOutputType without action
+   */
+  export type LectureHierarchyCountOutputTypeCountCompletedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompletedLecturesWhereInput
   }
 
   /**
@@ -1705,6 +2031,9 @@ export namespace Prisma {
     blocksCreated: number
     blocksUpdated: number
     lecturePermission: number
+    lectureReports: number
+    lectureSubscriptions: number
+    completedLectures: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1715,6 +2044,9 @@ export namespace Prisma {
     blocksCreated?: boolean | UserCountOutputTypeCountBlocksCreatedArgs
     blocksUpdated?: boolean | UserCountOutputTypeCountBlocksUpdatedArgs
     lecturePermission?: boolean | UserCountOutputTypeCountLecturePermissionArgs
+    lectureReports?: boolean | UserCountOutputTypeCountLectureReportsArgs
+    lectureSubscriptions?: boolean | UserCountOutputTypeCountLectureSubscriptionsArgs
+    completedLectures?: boolean | UserCountOutputTypeCountCompletedLecturesArgs
   }
 
   // Custom InputTypes
@@ -1777,6 +2109,27 @@ export namespace Prisma {
     where?: LecturePermissionsWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLectureReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LectureReportWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLectureSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LectureSubscribtionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCompletedLecturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompletedLecturesWhereInput
+  }
+
 
   /**
    * Models
@@ -1810,6 +2163,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isPublic: boolean | null
+    image: string | null
+    description: string | null
     createdById: string | null
     updatedById: string | null
     HierarchyParentId: number | null
@@ -1821,6 +2176,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isPublic: boolean | null
+    image: string | null
+    description: string | null
     createdById: string | null
     updatedById: string | null
     HierarchyParentId: number | null
@@ -1832,6 +2189,8 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     isPublic: number
+    image: number
+    description: number
     createdById: number
     updatedById: number
     HierarchyParentId: number
@@ -1855,6 +2214,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isPublic?: true
+    image?: true
+    description?: true
     createdById?: true
     updatedById?: true
     HierarchyParentId?: true
@@ -1866,6 +2227,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isPublic?: true
+    image?: true
+    description?: true
     createdById?: true
     updatedById?: true
     HierarchyParentId?: true
@@ -1877,6 +2240,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isPublic?: true
+    image?: true
+    description?: true
     createdById?: true
     updatedById?: true
     HierarchyParentId?: true
@@ -1975,6 +2340,8 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     isPublic: boolean
+    image: string | null
+    description: string | null
     createdById: string
     updatedById: string
     HierarchyParentId: number | null
@@ -2005,6 +2372,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPublic?: boolean
+    image?: boolean
+    description?: boolean
     createdById?: boolean
     updatedById?: boolean
     HierarchyParentId?: boolean
@@ -2012,6 +2381,9 @@ export namespace Prisma {
     updatedBy?: boolean | UserDefaultArgs<ExtArgs>
     blocks?: boolean | LectureHierarchy$blocksArgs<ExtArgs>
     permissions?: boolean | LectureHierarchy$permissionsArgs<ExtArgs>
+    reports?: boolean | LectureHierarchy$reportsArgs<ExtArgs>
+    subscriptions?: boolean | LectureHierarchy$subscriptionsArgs<ExtArgs>
+    completedBy?: boolean | LectureHierarchy$completedByArgs<ExtArgs>
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
     hierarchyChildren?: boolean | LectureHierarchy$hierarchyChildrenArgs<ExtArgs>
     _count?: boolean | LectureHierarchyCountOutputTypeDefaultArgs<ExtArgs>
@@ -2023,6 +2395,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPublic?: boolean
+    image?: boolean
+    description?: boolean
     createdById?: boolean
     updatedById?: boolean
     HierarchyParentId?: boolean
@@ -2037,6 +2411,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPublic?: boolean
+    image?: boolean
+    description?: boolean
     createdById?: boolean
     updatedById?: boolean
     HierarchyParentId?: boolean
@@ -2051,17 +2427,22 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPublic?: boolean
+    image?: boolean
+    description?: boolean
     createdById?: boolean
     updatedById?: boolean
     HierarchyParentId?: boolean
   }
 
-  export type LectureHierarchyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "isPublic" | "createdById" | "updatedById" | "HierarchyParentId", ExtArgs["result"]["lectureHierarchy"]>
+  export type LectureHierarchyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "isPublic" | "image" | "description" | "createdById" | "updatedById" | "HierarchyParentId", ExtArgs["result"]["lectureHierarchy"]>
   export type LectureHierarchyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     updatedBy?: boolean | UserDefaultArgs<ExtArgs>
     blocks?: boolean | LectureHierarchy$blocksArgs<ExtArgs>
     permissions?: boolean | LectureHierarchy$permissionsArgs<ExtArgs>
+    reports?: boolean | LectureHierarchy$reportsArgs<ExtArgs>
+    subscriptions?: boolean | LectureHierarchy$subscriptionsArgs<ExtArgs>
+    completedBy?: boolean | LectureHierarchy$completedByArgs<ExtArgs>
     hierarchyParent?: boolean | LectureHierarchy$hierarchyParentArgs<ExtArgs>
     hierarchyChildren?: boolean | LectureHierarchy$hierarchyChildrenArgs<ExtArgs>
     _count?: boolean | LectureHierarchyCountOutputTypeDefaultArgs<ExtArgs>
@@ -2084,6 +2465,9 @@ export namespace Prisma {
       updatedBy: Prisma.$UserPayload<ExtArgs>
       blocks: Prisma.$LectureMarkdownPayload<ExtArgs>[]
       permissions: Prisma.$LecturePermissionsPayload<ExtArgs>[]
+      reports: Prisma.$LectureReportPayload<ExtArgs>[]
+      subscriptions: Prisma.$LectureSubscribtionPayload<ExtArgs>[]
+      completedBy: Prisma.$CompletedLecturesPayload<ExtArgs>[]
       hierarchyParent: Prisma.$LectureHierarchyPayload<ExtArgs> | null
       hierarchyChildren: Prisma.$LectureHierarchyPayload<ExtArgs>[]
     }
@@ -2093,6 +2477,8 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       isPublic: boolean
+      image: string | null
+      description: string | null
       createdById: string
       updatedById: string
       HierarchyParentId: number | null
@@ -2494,6 +2880,9 @@ export namespace Prisma {
     updatedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     blocks<T extends LectureHierarchy$blocksArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$blocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureMarkdownPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     permissions<T extends LectureHierarchy$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reports<T extends LectureHierarchy$reportsArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    subscriptions<T extends LectureHierarchy$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    completedBy<T extends LectureHierarchy$completedByArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$completedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hierarchyParent<T extends LectureHierarchy$hierarchyParentArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$hierarchyParentArgs<ExtArgs>>): Prisma__LectureHierarchyClient<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     hierarchyChildren<T extends LectureHierarchy$hierarchyChildrenArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchy$hierarchyChildrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -2530,6 +2919,8 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"LectureHierarchy", 'DateTime'>
     readonly updatedAt: FieldRef<"LectureHierarchy", 'DateTime'>
     readonly isPublic: FieldRef<"LectureHierarchy", 'Boolean'>
+    readonly image: FieldRef<"LectureHierarchy", 'String'>
+    readonly description: FieldRef<"LectureHierarchy", 'String'>
     readonly createdById: FieldRef<"LectureHierarchy", 'String'>
     readonly updatedById: FieldRef<"LectureHierarchy", 'String'>
     readonly HierarchyParentId: FieldRef<"LectureHierarchy", 'Int'>
@@ -2974,6 +3365,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LecturePermissionsScalarFieldEnum | LecturePermissionsScalarFieldEnum[]
+  }
+
+  /**
+   * LectureHierarchy.reports
+   */
+  export type LectureHierarchy$reportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    where?: LectureReportWhereInput
+    orderBy?: LectureReportOrderByWithRelationInput | LectureReportOrderByWithRelationInput[]
+    cursor?: LectureReportWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LectureReportScalarFieldEnum | LectureReportScalarFieldEnum[]
+  }
+
+  /**
+   * LectureHierarchy.subscriptions
+   */
+  export type LectureHierarchy$subscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    where?: LectureSubscribtionWhereInput
+    orderBy?: LectureSubscribtionOrderByWithRelationInput | LectureSubscribtionOrderByWithRelationInput[]
+    cursor?: LectureSubscribtionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LectureSubscribtionScalarFieldEnum | LectureSubscribtionScalarFieldEnum[]
+  }
+
+  /**
+   * LectureHierarchy.completedBy
+   */
+  export type LectureHierarchy$completedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    where?: CompletedLecturesWhereInput
+    orderBy?: CompletedLecturesOrderByWithRelationInput | CompletedLecturesOrderByWithRelationInput[]
+    cursor?: CompletedLecturesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CompletedLecturesScalarFieldEnum | CompletedLecturesScalarFieldEnum[]
   }
 
   /**
@@ -5299,16 +5762,19 @@ export namespace Prisma {
   export type LecturePermissionsMinAggregateOutputType = {
     lectureId: number | null
     userId: string | null
+    type: $Enums.PermissionType | null
   }
 
   export type LecturePermissionsMaxAggregateOutputType = {
     lectureId: number | null
     userId: string | null
+    type: $Enums.PermissionType | null
   }
 
   export type LecturePermissionsCountAggregateOutputType = {
     lectureId: number
     userId: number
+    type: number
     _all: number
   }
 
@@ -5324,16 +5790,19 @@ export namespace Prisma {
   export type LecturePermissionsMinAggregateInputType = {
     lectureId?: true
     userId?: true
+    type?: true
   }
 
   export type LecturePermissionsMaxAggregateInputType = {
     lectureId?: true
     userId?: true
+    type?: true
   }
 
   export type LecturePermissionsCountAggregateInputType = {
     lectureId?: true
     userId?: true
+    type?: true
     _all?: true
   }
 
@@ -5426,6 +5895,7 @@ export namespace Prisma {
   export type LecturePermissionsGroupByOutputType = {
     lectureId: number
     userId: string
+    type: $Enums.PermissionType
     _count: LecturePermissionsCountAggregateOutputType | null
     _avg: LecturePermissionsAvgAggregateOutputType | null
     _sum: LecturePermissionsSumAggregateOutputType | null
@@ -5450,6 +5920,7 @@ export namespace Prisma {
   export type LecturePermissionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     lectureId?: boolean
     userId?: boolean
+    type?: boolean
     lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lecturePermissions"]>
@@ -5457,6 +5928,7 @@ export namespace Prisma {
   export type LecturePermissionsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     lectureId?: boolean
     userId?: boolean
+    type?: boolean
     lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lecturePermissions"]>
@@ -5464,6 +5936,7 @@ export namespace Prisma {
   export type LecturePermissionsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     lectureId?: boolean
     userId?: boolean
+    type?: boolean
     lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lecturePermissions"]>
@@ -5471,9 +5944,10 @@ export namespace Prisma {
   export type LecturePermissionsSelectScalar = {
     lectureId?: boolean
     userId?: boolean
+    type?: boolean
   }
 
-  export type LecturePermissionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"lectureId" | "userId", ExtArgs["result"]["lecturePermissions"]>
+  export type LecturePermissionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"lectureId" | "userId" | "type", ExtArgs["result"]["lecturePermissions"]>
   export type LecturePermissionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5496,6 +5970,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       lectureId: number
       userId: string
+      type: $Enums.PermissionType
     }, ExtArgs["result"]["lecturePermissions"]>
     composites: {}
   }
@@ -5923,6 +6398,7 @@ export namespace Prisma {
   interface LecturePermissionsFieldRefs {
     readonly lectureId: FieldRef<"LecturePermissions", 'Int'>
     readonly userId: FieldRef<"LecturePermissions", 'String'>
+    readonly type: FieldRef<"LecturePermissions", 'PermissionType'>
   }
     
 
@@ -6334,6 +6810,3215 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: LecturePermissionsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CompletedLectures
+   */
+
+  export type AggregateCompletedLectures = {
+    _count: CompletedLecturesCountAggregateOutputType | null
+    _avg: CompletedLecturesAvgAggregateOutputType | null
+    _sum: CompletedLecturesSumAggregateOutputType | null
+    _min: CompletedLecturesMinAggregateOutputType | null
+    _max: CompletedLecturesMaxAggregateOutputType | null
+  }
+
+  export type CompletedLecturesAvgAggregateOutputType = {
+    lectureId: number | null
+  }
+
+  export type CompletedLecturesSumAggregateOutputType = {
+    lectureId: number | null
+  }
+
+  export type CompletedLecturesMinAggregateOutputType = {
+    userId: string | null
+    lectureId: number | null
+  }
+
+  export type CompletedLecturesMaxAggregateOutputType = {
+    userId: string | null
+    lectureId: number | null
+  }
+
+  export type CompletedLecturesCountAggregateOutputType = {
+    userId: number
+    lectureId: number
+    _all: number
+  }
+
+
+  export type CompletedLecturesAvgAggregateInputType = {
+    lectureId?: true
+  }
+
+  export type CompletedLecturesSumAggregateInputType = {
+    lectureId?: true
+  }
+
+  export type CompletedLecturesMinAggregateInputType = {
+    userId?: true
+    lectureId?: true
+  }
+
+  export type CompletedLecturesMaxAggregateInputType = {
+    userId?: true
+    lectureId?: true
+  }
+
+  export type CompletedLecturesCountAggregateInputType = {
+    userId?: true
+    lectureId?: true
+    _all?: true
+  }
+
+  export type CompletedLecturesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompletedLectures to aggregate.
+     */
+    where?: CompletedLecturesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompletedLectures to fetch.
+     */
+    orderBy?: CompletedLecturesOrderByWithRelationInput | CompletedLecturesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CompletedLecturesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompletedLectures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompletedLectures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CompletedLectures
+    **/
+    _count?: true | CompletedLecturesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CompletedLecturesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CompletedLecturesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CompletedLecturesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CompletedLecturesMaxAggregateInputType
+  }
+
+  export type GetCompletedLecturesAggregateType<T extends CompletedLecturesAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompletedLectures]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompletedLectures[P]>
+      : GetScalarType<T[P], AggregateCompletedLectures[P]>
+  }
+
+
+
+
+  export type CompletedLecturesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompletedLecturesWhereInput
+    orderBy?: CompletedLecturesOrderByWithAggregationInput | CompletedLecturesOrderByWithAggregationInput[]
+    by: CompletedLecturesScalarFieldEnum[] | CompletedLecturesScalarFieldEnum
+    having?: CompletedLecturesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CompletedLecturesCountAggregateInputType | true
+    _avg?: CompletedLecturesAvgAggregateInputType
+    _sum?: CompletedLecturesSumAggregateInputType
+    _min?: CompletedLecturesMinAggregateInputType
+    _max?: CompletedLecturesMaxAggregateInputType
+  }
+
+  export type CompletedLecturesGroupByOutputType = {
+    userId: string
+    lectureId: number
+    _count: CompletedLecturesCountAggregateOutputType | null
+    _avg: CompletedLecturesAvgAggregateOutputType | null
+    _sum: CompletedLecturesSumAggregateOutputType | null
+    _min: CompletedLecturesMinAggregateOutputType | null
+    _max: CompletedLecturesMaxAggregateOutputType | null
+  }
+
+  type GetCompletedLecturesGroupByPayload<T extends CompletedLecturesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CompletedLecturesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CompletedLecturesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CompletedLecturesGroupByOutputType[P]>
+            : GetScalarType<T[P], CompletedLecturesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CompletedLecturesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    lectureId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["completedLectures"]>
+
+  export type CompletedLecturesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    lectureId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["completedLectures"]>
+
+  export type CompletedLecturesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    lectureId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["completedLectures"]>
+
+  export type CompletedLecturesSelectScalar = {
+    userId?: boolean
+    lectureId?: boolean
+  }
+
+  export type CompletedLecturesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "lectureId", ExtArgs["result"]["completedLectures"]>
+  export type CompletedLecturesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CompletedLecturesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CompletedLecturesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CompletedLecturesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CompletedLectures"
+    objects: {
+      lecture: Prisma.$LectureHierarchyPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      lectureId: number
+    }, ExtArgs["result"]["completedLectures"]>
+    composites: {}
+  }
+
+  type CompletedLecturesGetPayload<S extends boolean | null | undefined | CompletedLecturesDefaultArgs> = $Result.GetResult<Prisma.$CompletedLecturesPayload, S>
+
+  type CompletedLecturesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CompletedLecturesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CompletedLecturesCountAggregateInputType | true
+    }
+
+  export interface CompletedLecturesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CompletedLectures'], meta: { name: 'CompletedLectures' } }
+    /**
+     * Find zero or one CompletedLectures that matches the filter.
+     * @param {CompletedLecturesFindUniqueArgs} args - Arguments to find a CompletedLectures
+     * @example
+     * // Get one CompletedLectures
+     * const completedLectures = await prisma.completedLectures.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CompletedLecturesFindUniqueArgs>(args: SelectSubset<T, CompletedLecturesFindUniqueArgs<ExtArgs>>): Prisma__CompletedLecturesClient<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CompletedLectures that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CompletedLecturesFindUniqueOrThrowArgs} args - Arguments to find a CompletedLectures
+     * @example
+     * // Get one CompletedLectures
+     * const completedLectures = await prisma.completedLectures.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CompletedLecturesFindUniqueOrThrowArgs>(args: SelectSubset<T, CompletedLecturesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CompletedLecturesClient<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CompletedLectures that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompletedLecturesFindFirstArgs} args - Arguments to find a CompletedLectures
+     * @example
+     * // Get one CompletedLectures
+     * const completedLectures = await prisma.completedLectures.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CompletedLecturesFindFirstArgs>(args?: SelectSubset<T, CompletedLecturesFindFirstArgs<ExtArgs>>): Prisma__CompletedLecturesClient<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CompletedLectures that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompletedLecturesFindFirstOrThrowArgs} args - Arguments to find a CompletedLectures
+     * @example
+     * // Get one CompletedLectures
+     * const completedLectures = await prisma.completedLectures.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CompletedLecturesFindFirstOrThrowArgs>(args?: SelectSubset<T, CompletedLecturesFindFirstOrThrowArgs<ExtArgs>>): Prisma__CompletedLecturesClient<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CompletedLectures that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompletedLecturesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CompletedLectures
+     * const completedLectures = await prisma.completedLectures.findMany()
+     * 
+     * // Get first 10 CompletedLectures
+     * const completedLectures = await prisma.completedLectures.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const completedLecturesWithUserIdOnly = await prisma.completedLectures.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends CompletedLecturesFindManyArgs>(args?: SelectSubset<T, CompletedLecturesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CompletedLectures.
+     * @param {CompletedLecturesCreateArgs} args - Arguments to create a CompletedLectures.
+     * @example
+     * // Create one CompletedLectures
+     * const CompletedLectures = await prisma.completedLectures.create({
+     *   data: {
+     *     // ... data to create a CompletedLectures
+     *   }
+     * })
+     * 
+     */
+    create<T extends CompletedLecturesCreateArgs>(args: SelectSubset<T, CompletedLecturesCreateArgs<ExtArgs>>): Prisma__CompletedLecturesClient<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CompletedLectures.
+     * @param {CompletedLecturesCreateManyArgs} args - Arguments to create many CompletedLectures.
+     * @example
+     * // Create many CompletedLectures
+     * const completedLectures = await prisma.completedLectures.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CompletedLecturesCreateManyArgs>(args?: SelectSubset<T, CompletedLecturesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CompletedLectures and returns the data saved in the database.
+     * @param {CompletedLecturesCreateManyAndReturnArgs} args - Arguments to create many CompletedLectures.
+     * @example
+     * // Create many CompletedLectures
+     * const completedLectures = await prisma.completedLectures.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CompletedLectures and only return the `userId`
+     * const completedLecturesWithUserIdOnly = await prisma.completedLectures.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CompletedLecturesCreateManyAndReturnArgs>(args?: SelectSubset<T, CompletedLecturesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CompletedLectures.
+     * @param {CompletedLecturesDeleteArgs} args - Arguments to delete one CompletedLectures.
+     * @example
+     * // Delete one CompletedLectures
+     * const CompletedLectures = await prisma.completedLectures.delete({
+     *   where: {
+     *     // ... filter to delete one CompletedLectures
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CompletedLecturesDeleteArgs>(args: SelectSubset<T, CompletedLecturesDeleteArgs<ExtArgs>>): Prisma__CompletedLecturesClient<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CompletedLectures.
+     * @param {CompletedLecturesUpdateArgs} args - Arguments to update one CompletedLectures.
+     * @example
+     * // Update one CompletedLectures
+     * const completedLectures = await prisma.completedLectures.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CompletedLecturesUpdateArgs>(args: SelectSubset<T, CompletedLecturesUpdateArgs<ExtArgs>>): Prisma__CompletedLecturesClient<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CompletedLectures.
+     * @param {CompletedLecturesDeleteManyArgs} args - Arguments to filter CompletedLectures to delete.
+     * @example
+     * // Delete a few CompletedLectures
+     * const { count } = await prisma.completedLectures.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CompletedLecturesDeleteManyArgs>(args?: SelectSubset<T, CompletedLecturesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CompletedLectures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompletedLecturesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CompletedLectures
+     * const completedLectures = await prisma.completedLectures.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CompletedLecturesUpdateManyArgs>(args: SelectSubset<T, CompletedLecturesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CompletedLectures and returns the data updated in the database.
+     * @param {CompletedLecturesUpdateManyAndReturnArgs} args - Arguments to update many CompletedLectures.
+     * @example
+     * // Update many CompletedLectures
+     * const completedLectures = await prisma.completedLectures.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CompletedLectures and only return the `userId`
+     * const completedLecturesWithUserIdOnly = await prisma.completedLectures.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CompletedLecturesUpdateManyAndReturnArgs>(args: SelectSubset<T, CompletedLecturesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CompletedLectures.
+     * @param {CompletedLecturesUpsertArgs} args - Arguments to update or create a CompletedLectures.
+     * @example
+     * // Update or create a CompletedLectures
+     * const completedLectures = await prisma.completedLectures.upsert({
+     *   create: {
+     *     // ... data to create a CompletedLectures
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CompletedLectures we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CompletedLecturesUpsertArgs>(args: SelectSubset<T, CompletedLecturesUpsertArgs<ExtArgs>>): Prisma__CompletedLecturesClient<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CompletedLectures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompletedLecturesCountArgs} args - Arguments to filter CompletedLectures to count.
+     * @example
+     * // Count the number of CompletedLectures
+     * const count = await prisma.completedLectures.count({
+     *   where: {
+     *     // ... the filter for the CompletedLectures we want to count
+     *   }
+     * })
+    **/
+    count<T extends CompletedLecturesCountArgs>(
+      args?: Subset<T, CompletedLecturesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CompletedLecturesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CompletedLectures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompletedLecturesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CompletedLecturesAggregateArgs>(args: Subset<T, CompletedLecturesAggregateArgs>): Prisma.PrismaPromise<GetCompletedLecturesAggregateType<T>>
+
+    /**
+     * Group by CompletedLectures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompletedLecturesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CompletedLecturesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CompletedLecturesGroupByArgs['orderBy'] }
+        : { orderBy?: CompletedLecturesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CompletedLecturesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompletedLecturesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CompletedLectures model
+   */
+  readonly fields: CompletedLecturesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CompletedLectures.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CompletedLecturesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lecture<T extends LectureHierarchyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchyDefaultArgs<ExtArgs>>): Prisma__LectureHierarchyClient<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CompletedLectures model
+   */
+  interface CompletedLecturesFieldRefs {
+    readonly userId: FieldRef<"CompletedLectures", 'String'>
+    readonly lectureId: FieldRef<"CompletedLectures", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CompletedLectures findUnique
+   */
+  export type CompletedLecturesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    /**
+     * Filter, which CompletedLectures to fetch.
+     */
+    where: CompletedLecturesWhereUniqueInput
+  }
+
+  /**
+   * CompletedLectures findUniqueOrThrow
+   */
+  export type CompletedLecturesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    /**
+     * Filter, which CompletedLectures to fetch.
+     */
+    where: CompletedLecturesWhereUniqueInput
+  }
+
+  /**
+   * CompletedLectures findFirst
+   */
+  export type CompletedLecturesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    /**
+     * Filter, which CompletedLectures to fetch.
+     */
+    where?: CompletedLecturesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompletedLectures to fetch.
+     */
+    orderBy?: CompletedLecturesOrderByWithRelationInput | CompletedLecturesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompletedLectures.
+     */
+    cursor?: CompletedLecturesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompletedLectures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompletedLectures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompletedLectures.
+     */
+    distinct?: CompletedLecturesScalarFieldEnum | CompletedLecturesScalarFieldEnum[]
+  }
+
+  /**
+   * CompletedLectures findFirstOrThrow
+   */
+  export type CompletedLecturesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    /**
+     * Filter, which CompletedLectures to fetch.
+     */
+    where?: CompletedLecturesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompletedLectures to fetch.
+     */
+    orderBy?: CompletedLecturesOrderByWithRelationInput | CompletedLecturesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompletedLectures.
+     */
+    cursor?: CompletedLecturesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompletedLectures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompletedLectures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompletedLectures.
+     */
+    distinct?: CompletedLecturesScalarFieldEnum | CompletedLecturesScalarFieldEnum[]
+  }
+
+  /**
+   * CompletedLectures findMany
+   */
+  export type CompletedLecturesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    /**
+     * Filter, which CompletedLectures to fetch.
+     */
+    where?: CompletedLecturesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompletedLectures to fetch.
+     */
+    orderBy?: CompletedLecturesOrderByWithRelationInput | CompletedLecturesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CompletedLectures.
+     */
+    cursor?: CompletedLecturesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompletedLectures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompletedLectures.
+     */
+    skip?: number
+    distinct?: CompletedLecturesScalarFieldEnum | CompletedLecturesScalarFieldEnum[]
+  }
+
+  /**
+   * CompletedLectures create
+   */
+  export type CompletedLecturesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CompletedLectures.
+     */
+    data: XOR<CompletedLecturesCreateInput, CompletedLecturesUncheckedCreateInput>
+  }
+
+  /**
+   * CompletedLectures createMany
+   */
+  export type CompletedLecturesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CompletedLectures.
+     */
+    data: CompletedLecturesCreateManyInput | CompletedLecturesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CompletedLectures createManyAndReturn
+   */
+  export type CompletedLecturesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * The data used to create many CompletedLectures.
+     */
+    data: CompletedLecturesCreateManyInput | CompletedLecturesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CompletedLectures update
+   */
+  export type CompletedLecturesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CompletedLectures.
+     */
+    data: XOR<CompletedLecturesUpdateInput, CompletedLecturesUncheckedUpdateInput>
+    /**
+     * Choose, which CompletedLectures to update.
+     */
+    where: CompletedLecturesWhereUniqueInput
+  }
+
+  /**
+   * CompletedLectures updateMany
+   */
+  export type CompletedLecturesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CompletedLectures.
+     */
+    data: XOR<CompletedLecturesUpdateManyMutationInput, CompletedLecturesUncheckedUpdateManyInput>
+    /**
+     * Filter which CompletedLectures to update
+     */
+    where?: CompletedLecturesWhereInput
+    /**
+     * Limit how many CompletedLectures to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CompletedLectures updateManyAndReturn
+   */
+  export type CompletedLecturesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * The data used to update CompletedLectures.
+     */
+    data: XOR<CompletedLecturesUpdateManyMutationInput, CompletedLecturesUncheckedUpdateManyInput>
+    /**
+     * Filter which CompletedLectures to update
+     */
+    where?: CompletedLecturesWhereInput
+    /**
+     * Limit how many CompletedLectures to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CompletedLectures upsert
+   */
+  export type CompletedLecturesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CompletedLectures to update in case it exists.
+     */
+    where: CompletedLecturesWhereUniqueInput
+    /**
+     * In case the CompletedLectures found by the `where` argument doesn't exist, create a new CompletedLectures with this data.
+     */
+    create: XOR<CompletedLecturesCreateInput, CompletedLecturesUncheckedCreateInput>
+    /**
+     * In case the CompletedLectures was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CompletedLecturesUpdateInput, CompletedLecturesUncheckedUpdateInput>
+  }
+
+  /**
+   * CompletedLectures delete
+   */
+  export type CompletedLecturesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    /**
+     * Filter which CompletedLectures to delete.
+     */
+    where: CompletedLecturesWhereUniqueInput
+  }
+
+  /**
+   * CompletedLectures deleteMany
+   */
+  export type CompletedLecturesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompletedLectures to delete
+     */
+    where?: CompletedLecturesWhereInput
+    /**
+     * Limit how many CompletedLectures to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CompletedLectures without action
+   */
+  export type CompletedLecturesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LectureSubscribtion
+   */
+
+  export type AggregateLectureSubscribtion = {
+    _count: LectureSubscribtionCountAggregateOutputType | null
+    _avg: LectureSubscribtionAvgAggregateOutputType | null
+    _sum: LectureSubscribtionSumAggregateOutputType | null
+    _min: LectureSubscribtionMinAggregateOutputType | null
+    _max: LectureSubscribtionMaxAggregateOutputType | null
+  }
+
+  export type LectureSubscribtionAvgAggregateOutputType = {
+    lectureId: number | null
+  }
+
+  export type LectureSubscribtionSumAggregateOutputType = {
+    lectureId: number | null
+  }
+
+  export type LectureSubscribtionMinAggregateOutputType = {
+    userId: string | null
+    lectureId: number | null
+  }
+
+  export type LectureSubscribtionMaxAggregateOutputType = {
+    userId: string | null
+    lectureId: number | null
+  }
+
+  export type LectureSubscribtionCountAggregateOutputType = {
+    userId: number
+    lectureId: number
+    _all: number
+  }
+
+
+  export type LectureSubscribtionAvgAggregateInputType = {
+    lectureId?: true
+  }
+
+  export type LectureSubscribtionSumAggregateInputType = {
+    lectureId?: true
+  }
+
+  export type LectureSubscribtionMinAggregateInputType = {
+    userId?: true
+    lectureId?: true
+  }
+
+  export type LectureSubscribtionMaxAggregateInputType = {
+    userId?: true
+    lectureId?: true
+  }
+
+  export type LectureSubscribtionCountAggregateInputType = {
+    userId?: true
+    lectureId?: true
+    _all?: true
+  }
+
+  export type LectureSubscribtionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LectureSubscribtion to aggregate.
+     */
+    where?: LectureSubscribtionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureSubscribtions to fetch.
+     */
+    orderBy?: LectureSubscribtionOrderByWithRelationInput | LectureSubscribtionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LectureSubscribtionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureSubscribtions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureSubscribtions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LectureSubscribtions
+    **/
+    _count?: true | LectureSubscribtionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LectureSubscribtionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LectureSubscribtionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LectureSubscribtionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LectureSubscribtionMaxAggregateInputType
+  }
+
+  export type GetLectureSubscribtionAggregateType<T extends LectureSubscribtionAggregateArgs> = {
+        [P in keyof T & keyof AggregateLectureSubscribtion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLectureSubscribtion[P]>
+      : GetScalarType<T[P], AggregateLectureSubscribtion[P]>
+  }
+
+
+
+
+  export type LectureSubscribtionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LectureSubscribtionWhereInput
+    orderBy?: LectureSubscribtionOrderByWithAggregationInput | LectureSubscribtionOrderByWithAggregationInput[]
+    by: LectureSubscribtionScalarFieldEnum[] | LectureSubscribtionScalarFieldEnum
+    having?: LectureSubscribtionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LectureSubscribtionCountAggregateInputType | true
+    _avg?: LectureSubscribtionAvgAggregateInputType
+    _sum?: LectureSubscribtionSumAggregateInputType
+    _min?: LectureSubscribtionMinAggregateInputType
+    _max?: LectureSubscribtionMaxAggregateInputType
+  }
+
+  export type LectureSubscribtionGroupByOutputType = {
+    userId: string
+    lectureId: number
+    _count: LectureSubscribtionCountAggregateOutputType | null
+    _avg: LectureSubscribtionAvgAggregateOutputType | null
+    _sum: LectureSubscribtionSumAggregateOutputType | null
+    _min: LectureSubscribtionMinAggregateOutputType | null
+    _max: LectureSubscribtionMaxAggregateOutputType | null
+  }
+
+  type GetLectureSubscribtionGroupByPayload<T extends LectureSubscribtionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LectureSubscribtionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LectureSubscribtionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LectureSubscribtionGroupByOutputType[P]>
+            : GetScalarType<T[P], LectureSubscribtionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LectureSubscribtionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    lectureId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lectureSubscribtion"]>
+
+  export type LectureSubscribtionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    lectureId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lectureSubscribtion"]>
+
+  export type LectureSubscribtionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    lectureId?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lectureSubscribtion"]>
+
+  export type LectureSubscribtionSelectScalar = {
+    userId?: boolean
+    lectureId?: boolean
+  }
+
+  export type LectureSubscribtionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "lectureId", ExtArgs["result"]["lectureSubscribtion"]>
+  export type LectureSubscribtionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LectureSubscribtionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LectureSubscribtionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LectureSubscribtionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LectureSubscribtion"
+    objects: {
+      lecture: Prisma.$LectureHierarchyPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      lectureId: number
+    }, ExtArgs["result"]["lectureSubscribtion"]>
+    composites: {}
+  }
+
+  type LectureSubscribtionGetPayload<S extends boolean | null | undefined | LectureSubscribtionDefaultArgs> = $Result.GetResult<Prisma.$LectureSubscribtionPayload, S>
+
+  type LectureSubscribtionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LectureSubscribtionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LectureSubscribtionCountAggregateInputType | true
+    }
+
+  export interface LectureSubscribtionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LectureSubscribtion'], meta: { name: 'LectureSubscribtion' } }
+    /**
+     * Find zero or one LectureSubscribtion that matches the filter.
+     * @param {LectureSubscribtionFindUniqueArgs} args - Arguments to find a LectureSubscribtion
+     * @example
+     * // Get one LectureSubscribtion
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LectureSubscribtionFindUniqueArgs>(args: SelectSubset<T, LectureSubscribtionFindUniqueArgs<ExtArgs>>): Prisma__LectureSubscribtionClient<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LectureSubscribtion that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LectureSubscribtionFindUniqueOrThrowArgs} args - Arguments to find a LectureSubscribtion
+     * @example
+     * // Get one LectureSubscribtion
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LectureSubscribtionFindUniqueOrThrowArgs>(args: SelectSubset<T, LectureSubscribtionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LectureSubscribtionClient<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LectureSubscribtion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureSubscribtionFindFirstArgs} args - Arguments to find a LectureSubscribtion
+     * @example
+     * // Get one LectureSubscribtion
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LectureSubscribtionFindFirstArgs>(args?: SelectSubset<T, LectureSubscribtionFindFirstArgs<ExtArgs>>): Prisma__LectureSubscribtionClient<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LectureSubscribtion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureSubscribtionFindFirstOrThrowArgs} args - Arguments to find a LectureSubscribtion
+     * @example
+     * // Get one LectureSubscribtion
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LectureSubscribtionFindFirstOrThrowArgs>(args?: SelectSubset<T, LectureSubscribtionFindFirstOrThrowArgs<ExtArgs>>): Prisma__LectureSubscribtionClient<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LectureSubscribtions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureSubscribtionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LectureSubscribtions
+     * const lectureSubscribtions = await prisma.lectureSubscribtion.findMany()
+     * 
+     * // Get first 10 LectureSubscribtions
+     * const lectureSubscribtions = await prisma.lectureSubscribtion.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const lectureSubscribtionWithUserIdOnly = await prisma.lectureSubscribtion.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends LectureSubscribtionFindManyArgs>(args?: SelectSubset<T, LectureSubscribtionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LectureSubscribtion.
+     * @param {LectureSubscribtionCreateArgs} args - Arguments to create a LectureSubscribtion.
+     * @example
+     * // Create one LectureSubscribtion
+     * const LectureSubscribtion = await prisma.lectureSubscribtion.create({
+     *   data: {
+     *     // ... data to create a LectureSubscribtion
+     *   }
+     * })
+     * 
+     */
+    create<T extends LectureSubscribtionCreateArgs>(args: SelectSubset<T, LectureSubscribtionCreateArgs<ExtArgs>>): Prisma__LectureSubscribtionClient<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LectureSubscribtions.
+     * @param {LectureSubscribtionCreateManyArgs} args - Arguments to create many LectureSubscribtions.
+     * @example
+     * // Create many LectureSubscribtions
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LectureSubscribtionCreateManyArgs>(args?: SelectSubset<T, LectureSubscribtionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LectureSubscribtions and returns the data saved in the database.
+     * @param {LectureSubscribtionCreateManyAndReturnArgs} args - Arguments to create many LectureSubscribtions.
+     * @example
+     * // Create many LectureSubscribtions
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LectureSubscribtions and only return the `userId`
+     * const lectureSubscribtionWithUserIdOnly = await prisma.lectureSubscribtion.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LectureSubscribtionCreateManyAndReturnArgs>(args?: SelectSubset<T, LectureSubscribtionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LectureSubscribtion.
+     * @param {LectureSubscribtionDeleteArgs} args - Arguments to delete one LectureSubscribtion.
+     * @example
+     * // Delete one LectureSubscribtion
+     * const LectureSubscribtion = await prisma.lectureSubscribtion.delete({
+     *   where: {
+     *     // ... filter to delete one LectureSubscribtion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LectureSubscribtionDeleteArgs>(args: SelectSubset<T, LectureSubscribtionDeleteArgs<ExtArgs>>): Prisma__LectureSubscribtionClient<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LectureSubscribtion.
+     * @param {LectureSubscribtionUpdateArgs} args - Arguments to update one LectureSubscribtion.
+     * @example
+     * // Update one LectureSubscribtion
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LectureSubscribtionUpdateArgs>(args: SelectSubset<T, LectureSubscribtionUpdateArgs<ExtArgs>>): Prisma__LectureSubscribtionClient<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LectureSubscribtions.
+     * @param {LectureSubscribtionDeleteManyArgs} args - Arguments to filter LectureSubscribtions to delete.
+     * @example
+     * // Delete a few LectureSubscribtions
+     * const { count } = await prisma.lectureSubscribtion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LectureSubscribtionDeleteManyArgs>(args?: SelectSubset<T, LectureSubscribtionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LectureSubscribtions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureSubscribtionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LectureSubscribtions
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LectureSubscribtionUpdateManyArgs>(args: SelectSubset<T, LectureSubscribtionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LectureSubscribtions and returns the data updated in the database.
+     * @param {LectureSubscribtionUpdateManyAndReturnArgs} args - Arguments to update many LectureSubscribtions.
+     * @example
+     * // Update many LectureSubscribtions
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LectureSubscribtions and only return the `userId`
+     * const lectureSubscribtionWithUserIdOnly = await prisma.lectureSubscribtion.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LectureSubscribtionUpdateManyAndReturnArgs>(args: SelectSubset<T, LectureSubscribtionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LectureSubscribtion.
+     * @param {LectureSubscribtionUpsertArgs} args - Arguments to update or create a LectureSubscribtion.
+     * @example
+     * // Update or create a LectureSubscribtion
+     * const lectureSubscribtion = await prisma.lectureSubscribtion.upsert({
+     *   create: {
+     *     // ... data to create a LectureSubscribtion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LectureSubscribtion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LectureSubscribtionUpsertArgs>(args: SelectSubset<T, LectureSubscribtionUpsertArgs<ExtArgs>>): Prisma__LectureSubscribtionClient<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LectureSubscribtions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureSubscribtionCountArgs} args - Arguments to filter LectureSubscribtions to count.
+     * @example
+     * // Count the number of LectureSubscribtions
+     * const count = await prisma.lectureSubscribtion.count({
+     *   where: {
+     *     // ... the filter for the LectureSubscribtions we want to count
+     *   }
+     * })
+    **/
+    count<T extends LectureSubscribtionCountArgs>(
+      args?: Subset<T, LectureSubscribtionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LectureSubscribtionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LectureSubscribtion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureSubscribtionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LectureSubscribtionAggregateArgs>(args: Subset<T, LectureSubscribtionAggregateArgs>): Prisma.PrismaPromise<GetLectureSubscribtionAggregateType<T>>
+
+    /**
+     * Group by LectureSubscribtion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureSubscribtionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LectureSubscribtionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LectureSubscribtionGroupByArgs['orderBy'] }
+        : { orderBy?: LectureSubscribtionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LectureSubscribtionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLectureSubscribtionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LectureSubscribtion model
+   */
+  readonly fields: LectureSubscribtionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LectureSubscribtion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LectureSubscribtionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lecture<T extends LectureHierarchyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchyDefaultArgs<ExtArgs>>): Prisma__LectureHierarchyClient<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LectureSubscribtion model
+   */
+  interface LectureSubscribtionFieldRefs {
+    readonly userId: FieldRef<"LectureSubscribtion", 'String'>
+    readonly lectureId: FieldRef<"LectureSubscribtion", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LectureSubscribtion findUnique
+   */
+  export type LectureSubscribtionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureSubscribtion to fetch.
+     */
+    where: LectureSubscribtionWhereUniqueInput
+  }
+
+  /**
+   * LectureSubscribtion findUniqueOrThrow
+   */
+  export type LectureSubscribtionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureSubscribtion to fetch.
+     */
+    where: LectureSubscribtionWhereUniqueInput
+  }
+
+  /**
+   * LectureSubscribtion findFirst
+   */
+  export type LectureSubscribtionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureSubscribtion to fetch.
+     */
+    where?: LectureSubscribtionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureSubscribtions to fetch.
+     */
+    orderBy?: LectureSubscribtionOrderByWithRelationInput | LectureSubscribtionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LectureSubscribtions.
+     */
+    cursor?: LectureSubscribtionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureSubscribtions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureSubscribtions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LectureSubscribtions.
+     */
+    distinct?: LectureSubscribtionScalarFieldEnum | LectureSubscribtionScalarFieldEnum[]
+  }
+
+  /**
+   * LectureSubscribtion findFirstOrThrow
+   */
+  export type LectureSubscribtionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureSubscribtion to fetch.
+     */
+    where?: LectureSubscribtionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureSubscribtions to fetch.
+     */
+    orderBy?: LectureSubscribtionOrderByWithRelationInput | LectureSubscribtionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LectureSubscribtions.
+     */
+    cursor?: LectureSubscribtionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureSubscribtions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureSubscribtions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LectureSubscribtions.
+     */
+    distinct?: LectureSubscribtionScalarFieldEnum | LectureSubscribtionScalarFieldEnum[]
+  }
+
+  /**
+   * LectureSubscribtion findMany
+   */
+  export type LectureSubscribtionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureSubscribtions to fetch.
+     */
+    where?: LectureSubscribtionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureSubscribtions to fetch.
+     */
+    orderBy?: LectureSubscribtionOrderByWithRelationInput | LectureSubscribtionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LectureSubscribtions.
+     */
+    cursor?: LectureSubscribtionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureSubscribtions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureSubscribtions.
+     */
+    skip?: number
+    distinct?: LectureSubscribtionScalarFieldEnum | LectureSubscribtionScalarFieldEnum[]
+  }
+
+  /**
+   * LectureSubscribtion create
+   */
+  export type LectureSubscribtionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LectureSubscribtion.
+     */
+    data: XOR<LectureSubscribtionCreateInput, LectureSubscribtionUncheckedCreateInput>
+  }
+
+  /**
+   * LectureSubscribtion createMany
+   */
+  export type LectureSubscribtionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LectureSubscribtions.
+     */
+    data: LectureSubscribtionCreateManyInput | LectureSubscribtionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LectureSubscribtion createManyAndReturn
+   */
+  export type LectureSubscribtionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * The data used to create many LectureSubscribtions.
+     */
+    data: LectureSubscribtionCreateManyInput | LectureSubscribtionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LectureSubscribtion update
+   */
+  export type LectureSubscribtionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LectureSubscribtion.
+     */
+    data: XOR<LectureSubscribtionUpdateInput, LectureSubscribtionUncheckedUpdateInput>
+    /**
+     * Choose, which LectureSubscribtion to update.
+     */
+    where: LectureSubscribtionWhereUniqueInput
+  }
+
+  /**
+   * LectureSubscribtion updateMany
+   */
+  export type LectureSubscribtionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LectureSubscribtions.
+     */
+    data: XOR<LectureSubscribtionUpdateManyMutationInput, LectureSubscribtionUncheckedUpdateManyInput>
+    /**
+     * Filter which LectureSubscribtions to update
+     */
+    where?: LectureSubscribtionWhereInput
+    /**
+     * Limit how many LectureSubscribtions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LectureSubscribtion updateManyAndReturn
+   */
+  export type LectureSubscribtionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * The data used to update LectureSubscribtions.
+     */
+    data: XOR<LectureSubscribtionUpdateManyMutationInput, LectureSubscribtionUncheckedUpdateManyInput>
+    /**
+     * Filter which LectureSubscribtions to update
+     */
+    where?: LectureSubscribtionWhereInput
+    /**
+     * Limit how many LectureSubscribtions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LectureSubscribtion upsert
+   */
+  export type LectureSubscribtionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LectureSubscribtion to update in case it exists.
+     */
+    where: LectureSubscribtionWhereUniqueInput
+    /**
+     * In case the LectureSubscribtion found by the `where` argument doesn't exist, create a new LectureSubscribtion with this data.
+     */
+    create: XOR<LectureSubscribtionCreateInput, LectureSubscribtionUncheckedCreateInput>
+    /**
+     * In case the LectureSubscribtion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LectureSubscribtionUpdateInput, LectureSubscribtionUncheckedUpdateInput>
+  }
+
+  /**
+   * LectureSubscribtion delete
+   */
+  export type LectureSubscribtionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    /**
+     * Filter which LectureSubscribtion to delete.
+     */
+    where: LectureSubscribtionWhereUniqueInput
+  }
+
+  /**
+   * LectureSubscribtion deleteMany
+   */
+  export type LectureSubscribtionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LectureSubscribtions to delete
+     */
+    where?: LectureSubscribtionWhereInput
+    /**
+     * Limit how many LectureSubscribtions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LectureSubscribtion without action
+   */
+  export type LectureSubscribtionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LectureReport
+   */
+
+  export type AggregateLectureReport = {
+    _count: LectureReportCountAggregateOutputType | null
+    _avg: LectureReportAvgAggregateOutputType | null
+    _sum: LectureReportSumAggregateOutputType | null
+    _min: LectureReportMinAggregateOutputType | null
+    _max: LectureReportMaxAggregateOutputType | null
+  }
+
+  export type LectureReportAvgAggregateOutputType = {
+    lectureId: number | null
+  }
+
+  export type LectureReportSumAggregateOutputType = {
+    lectureId: number | null
+  }
+
+  export type LectureReportMinAggregateOutputType = {
+    id: string | null
+    reportMessage: string | null
+    lectureId: number | null
+    reportedById: string | null
+  }
+
+  export type LectureReportMaxAggregateOutputType = {
+    id: string | null
+    reportMessage: string | null
+    lectureId: number | null
+    reportedById: string | null
+  }
+
+  export type LectureReportCountAggregateOutputType = {
+    id: number
+    reportMessage: number
+    lectureId: number
+    reportedById: number
+    _all: number
+  }
+
+
+  export type LectureReportAvgAggregateInputType = {
+    lectureId?: true
+  }
+
+  export type LectureReportSumAggregateInputType = {
+    lectureId?: true
+  }
+
+  export type LectureReportMinAggregateInputType = {
+    id?: true
+    reportMessage?: true
+    lectureId?: true
+    reportedById?: true
+  }
+
+  export type LectureReportMaxAggregateInputType = {
+    id?: true
+    reportMessage?: true
+    lectureId?: true
+    reportedById?: true
+  }
+
+  export type LectureReportCountAggregateInputType = {
+    id?: true
+    reportMessage?: true
+    lectureId?: true
+    reportedById?: true
+    _all?: true
+  }
+
+  export type LectureReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LectureReport to aggregate.
+     */
+    where?: LectureReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureReports to fetch.
+     */
+    orderBy?: LectureReportOrderByWithRelationInput | LectureReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LectureReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LectureReports
+    **/
+    _count?: true | LectureReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LectureReportAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LectureReportSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LectureReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LectureReportMaxAggregateInputType
+  }
+
+  export type GetLectureReportAggregateType<T extends LectureReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateLectureReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLectureReport[P]>
+      : GetScalarType<T[P], AggregateLectureReport[P]>
+  }
+
+
+
+
+  export type LectureReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LectureReportWhereInput
+    orderBy?: LectureReportOrderByWithAggregationInput | LectureReportOrderByWithAggregationInput[]
+    by: LectureReportScalarFieldEnum[] | LectureReportScalarFieldEnum
+    having?: LectureReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LectureReportCountAggregateInputType | true
+    _avg?: LectureReportAvgAggregateInputType
+    _sum?: LectureReportSumAggregateInputType
+    _min?: LectureReportMinAggregateInputType
+    _max?: LectureReportMaxAggregateInputType
+  }
+
+  export type LectureReportGroupByOutputType = {
+    id: string
+    reportMessage: string
+    lectureId: number
+    reportedById: string
+    _count: LectureReportCountAggregateOutputType | null
+    _avg: LectureReportAvgAggregateOutputType | null
+    _sum: LectureReportSumAggregateOutputType | null
+    _min: LectureReportMinAggregateOutputType | null
+    _max: LectureReportMaxAggregateOutputType | null
+  }
+
+  type GetLectureReportGroupByPayload<T extends LectureReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LectureReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LectureReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LectureReportGroupByOutputType[P]>
+            : GetScalarType<T[P], LectureReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LectureReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reportMessage?: boolean
+    lectureId?: boolean
+    reportedById?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lectureReport"]>
+
+  export type LectureReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reportMessage?: boolean
+    lectureId?: boolean
+    reportedById?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lectureReport"]>
+
+  export type LectureReportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reportMessage?: boolean
+    lectureId?: boolean
+    reportedById?: boolean
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lectureReport"]>
+
+  export type LectureReportSelectScalar = {
+    id?: boolean
+    reportMessage?: boolean
+    lectureId?: boolean
+    reportedById?: boolean
+  }
+
+  export type LectureReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reportMessage" | "lectureId" | "reportedById", ExtArgs["result"]["lectureReport"]>
+  export type LectureReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LectureReportIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LectureReportIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lecture?: boolean | LectureHierarchyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LectureReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LectureReport"
+    objects: {
+      lecture: Prisma.$LectureHierarchyPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      reportMessage: string
+      lectureId: number
+      reportedById: string
+    }, ExtArgs["result"]["lectureReport"]>
+    composites: {}
+  }
+
+  type LectureReportGetPayload<S extends boolean | null | undefined | LectureReportDefaultArgs> = $Result.GetResult<Prisma.$LectureReportPayload, S>
+
+  type LectureReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LectureReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LectureReportCountAggregateInputType | true
+    }
+
+  export interface LectureReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LectureReport'], meta: { name: 'LectureReport' } }
+    /**
+     * Find zero or one LectureReport that matches the filter.
+     * @param {LectureReportFindUniqueArgs} args - Arguments to find a LectureReport
+     * @example
+     * // Get one LectureReport
+     * const lectureReport = await prisma.lectureReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LectureReportFindUniqueArgs>(args: SelectSubset<T, LectureReportFindUniqueArgs<ExtArgs>>): Prisma__LectureReportClient<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LectureReport that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LectureReportFindUniqueOrThrowArgs} args - Arguments to find a LectureReport
+     * @example
+     * // Get one LectureReport
+     * const lectureReport = await prisma.lectureReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LectureReportFindUniqueOrThrowArgs>(args: SelectSubset<T, LectureReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LectureReportClient<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LectureReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureReportFindFirstArgs} args - Arguments to find a LectureReport
+     * @example
+     * // Get one LectureReport
+     * const lectureReport = await prisma.lectureReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LectureReportFindFirstArgs>(args?: SelectSubset<T, LectureReportFindFirstArgs<ExtArgs>>): Prisma__LectureReportClient<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LectureReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureReportFindFirstOrThrowArgs} args - Arguments to find a LectureReport
+     * @example
+     * // Get one LectureReport
+     * const lectureReport = await prisma.lectureReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LectureReportFindFirstOrThrowArgs>(args?: SelectSubset<T, LectureReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__LectureReportClient<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LectureReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LectureReports
+     * const lectureReports = await prisma.lectureReport.findMany()
+     * 
+     * // Get first 10 LectureReports
+     * const lectureReports = await prisma.lectureReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lectureReportWithIdOnly = await prisma.lectureReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LectureReportFindManyArgs>(args?: SelectSubset<T, LectureReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LectureReport.
+     * @param {LectureReportCreateArgs} args - Arguments to create a LectureReport.
+     * @example
+     * // Create one LectureReport
+     * const LectureReport = await prisma.lectureReport.create({
+     *   data: {
+     *     // ... data to create a LectureReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends LectureReportCreateArgs>(args: SelectSubset<T, LectureReportCreateArgs<ExtArgs>>): Prisma__LectureReportClient<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LectureReports.
+     * @param {LectureReportCreateManyArgs} args - Arguments to create many LectureReports.
+     * @example
+     * // Create many LectureReports
+     * const lectureReport = await prisma.lectureReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LectureReportCreateManyArgs>(args?: SelectSubset<T, LectureReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LectureReports and returns the data saved in the database.
+     * @param {LectureReportCreateManyAndReturnArgs} args - Arguments to create many LectureReports.
+     * @example
+     * // Create many LectureReports
+     * const lectureReport = await prisma.lectureReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LectureReports and only return the `id`
+     * const lectureReportWithIdOnly = await prisma.lectureReport.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LectureReportCreateManyAndReturnArgs>(args?: SelectSubset<T, LectureReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LectureReport.
+     * @param {LectureReportDeleteArgs} args - Arguments to delete one LectureReport.
+     * @example
+     * // Delete one LectureReport
+     * const LectureReport = await prisma.lectureReport.delete({
+     *   where: {
+     *     // ... filter to delete one LectureReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LectureReportDeleteArgs>(args: SelectSubset<T, LectureReportDeleteArgs<ExtArgs>>): Prisma__LectureReportClient<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LectureReport.
+     * @param {LectureReportUpdateArgs} args - Arguments to update one LectureReport.
+     * @example
+     * // Update one LectureReport
+     * const lectureReport = await prisma.lectureReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LectureReportUpdateArgs>(args: SelectSubset<T, LectureReportUpdateArgs<ExtArgs>>): Prisma__LectureReportClient<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LectureReports.
+     * @param {LectureReportDeleteManyArgs} args - Arguments to filter LectureReports to delete.
+     * @example
+     * // Delete a few LectureReports
+     * const { count } = await prisma.lectureReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LectureReportDeleteManyArgs>(args?: SelectSubset<T, LectureReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LectureReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LectureReports
+     * const lectureReport = await prisma.lectureReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LectureReportUpdateManyArgs>(args: SelectSubset<T, LectureReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LectureReports and returns the data updated in the database.
+     * @param {LectureReportUpdateManyAndReturnArgs} args - Arguments to update many LectureReports.
+     * @example
+     * // Update many LectureReports
+     * const lectureReport = await prisma.lectureReport.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LectureReports and only return the `id`
+     * const lectureReportWithIdOnly = await prisma.lectureReport.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LectureReportUpdateManyAndReturnArgs>(args: SelectSubset<T, LectureReportUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LectureReport.
+     * @param {LectureReportUpsertArgs} args - Arguments to update or create a LectureReport.
+     * @example
+     * // Update or create a LectureReport
+     * const lectureReport = await prisma.lectureReport.upsert({
+     *   create: {
+     *     // ... data to create a LectureReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LectureReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LectureReportUpsertArgs>(args: SelectSubset<T, LectureReportUpsertArgs<ExtArgs>>): Prisma__LectureReportClient<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LectureReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureReportCountArgs} args - Arguments to filter LectureReports to count.
+     * @example
+     * // Count the number of LectureReports
+     * const count = await prisma.lectureReport.count({
+     *   where: {
+     *     // ... the filter for the LectureReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends LectureReportCountArgs>(
+      args?: Subset<T, LectureReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LectureReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LectureReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LectureReportAggregateArgs>(args: Subset<T, LectureReportAggregateArgs>): Prisma.PrismaPromise<GetLectureReportAggregateType<T>>
+
+    /**
+     * Group by LectureReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LectureReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LectureReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LectureReportGroupByArgs['orderBy'] }
+        : { orderBy?: LectureReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LectureReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLectureReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LectureReport model
+   */
+  readonly fields: LectureReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LectureReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LectureReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lecture<T extends LectureHierarchyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LectureHierarchyDefaultArgs<ExtArgs>>): Prisma__LectureHierarchyClient<$Result.GetResult<Prisma.$LectureHierarchyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LectureReport model
+   */
+  interface LectureReportFieldRefs {
+    readonly id: FieldRef<"LectureReport", 'String'>
+    readonly reportMessage: FieldRef<"LectureReport", 'String'>
+    readonly lectureId: FieldRef<"LectureReport", 'Int'>
+    readonly reportedById: FieldRef<"LectureReport", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LectureReport findUnique
+   */
+  export type LectureReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureReport to fetch.
+     */
+    where: LectureReportWhereUniqueInput
+  }
+
+  /**
+   * LectureReport findUniqueOrThrow
+   */
+  export type LectureReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureReport to fetch.
+     */
+    where: LectureReportWhereUniqueInput
+  }
+
+  /**
+   * LectureReport findFirst
+   */
+  export type LectureReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureReport to fetch.
+     */
+    where?: LectureReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureReports to fetch.
+     */
+    orderBy?: LectureReportOrderByWithRelationInput | LectureReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LectureReports.
+     */
+    cursor?: LectureReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LectureReports.
+     */
+    distinct?: LectureReportScalarFieldEnum | LectureReportScalarFieldEnum[]
+  }
+
+  /**
+   * LectureReport findFirstOrThrow
+   */
+  export type LectureReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureReport to fetch.
+     */
+    where?: LectureReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureReports to fetch.
+     */
+    orderBy?: LectureReportOrderByWithRelationInput | LectureReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LectureReports.
+     */
+    cursor?: LectureReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LectureReports.
+     */
+    distinct?: LectureReportScalarFieldEnum | LectureReportScalarFieldEnum[]
+  }
+
+  /**
+   * LectureReport findMany
+   */
+  export type LectureReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    /**
+     * Filter, which LectureReports to fetch.
+     */
+    where?: LectureReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LectureReports to fetch.
+     */
+    orderBy?: LectureReportOrderByWithRelationInput | LectureReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LectureReports.
+     */
+    cursor?: LectureReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LectureReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LectureReports.
+     */
+    skip?: number
+    distinct?: LectureReportScalarFieldEnum | LectureReportScalarFieldEnum[]
+  }
+
+  /**
+   * LectureReport create
+   */
+  export type LectureReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LectureReport.
+     */
+    data: XOR<LectureReportCreateInput, LectureReportUncheckedCreateInput>
+  }
+
+  /**
+   * LectureReport createMany
+   */
+  export type LectureReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LectureReports.
+     */
+    data: LectureReportCreateManyInput | LectureReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LectureReport createManyAndReturn
+   */
+  export type LectureReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * The data used to create many LectureReports.
+     */
+    data: LectureReportCreateManyInput | LectureReportCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LectureReport update
+   */
+  export type LectureReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LectureReport.
+     */
+    data: XOR<LectureReportUpdateInput, LectureReportUncheckedUpdateInput>
+    /**
+     * Choose, which LectureReport to update.
+     */
+    where: LectureReportWhereUniqueInput
+  }
+
+  /**
+   * LectureReport updateMany
+   */
+  export type LectureReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LectureReports.
+     */
+    data: XOR<LectureReportUpdateManyMutationInput, LectureReportUncheckedUpdateManyInput>
+    /**
+     * Filter which LectureReports to update
+     */
+    where?: LectureReportWhereInput
+    /**
+     * Limit how many LectureReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LectureReport updateManyAndReturn
+   */
+  export type LectureReportUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * The data used to update LectureReports.
+     */
+    data: XOR<LectureReportUpdateManyMutationInput, LectureReportUncheckedUpdateManyInput>
+    /**
+     * Filter which LectureReports to update
+     */
+    where?: LectureReportWhereInput
+    /**
+     * Limit how many LectureReports to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LectureReport upsert
+   */
+  export type LectureReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LectureReport to update in case it exists.
+     */
+    where: LectureReportWhereUniqueInput
+    /**
+     * In case the LectureReport found by the `where` argument doesn't exist, create a new LectureReport with this data.
+     */
+    create: XOR<LectureReportCreateInput, LectureReportUncheckedCreateInput>
+    /**
+     * In case the LectureReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LectureReportUpdateInput, LectureReportUncheckedUpdateInput>
+  }
+
+  /**
+   * LectureReport delete
+   */
+  export type LectureReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    /**
+     * Filter which LectureReport to delete.
+     */
+    where: LectureReportWhereUniqueInput
+  }
+
+  /**
+   * LectureReport deleteMany
+   */
+  export type LectureReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LectureReports to delete
+     */
+    where?: LectureReportWhereInput
+    /**
+     * Limit how many LectureReports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LectureReport without action
+   */
+  export type LectureReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
   }
 
 
@@ -8769,6 +12454,9 @@ export namespace Prisma {
     blocksCreated?: boolean | User$blocksCreatedArgs<ExtArgs>
     blocksUpdated?: boolean | User$blocksUpdatedArgs<ExtArgs>
     lecturePermission?: boolean | User$lecturePermissionArgs<ExtArgs>
+    lectureReports?: boolean | User$lectureReportsArgs<ExtArgs>
+    lectureSubscriptions?: boolean | User$lectureSubscriptionsArgs<ExtArgs>
+    completedLectures?: boolean | User$completedLecturesArgs<ExtArgs>
     settings?: boolean | User$settingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -8812,6 +12500,9 @@ export namespace Prisma {
     blocksCreated?: boolean | User$blocksCreatedArgs<ExtArgs>
     blocksUpdated?: boolean | User$blocksUpdatedArgs<ExtArgs>
     lecturePermission?: boolean | User$lecturePermissionArgs<ExtArgs>
+    lectureReports?: boolean | User$lectureReportsArgs<ExtArgs>
+    lectureSubscriptions?: boolean | User$lectureSubscriptionsArgs<ExtArgs>
+    completedLectures?: boolean | User$completedLecturesArgs<ExtArgs>
     settings?: boolean | User$settingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -8828,6 +12519,9 @@ export namespace Prisma {
       blocksCreated: Prisma.$MarkdownBlockPayload<ExtArgs>[]
       blocksUpdated: Prisma.$MarkdownBlockPayload<ExtArgs>[]
       lecturePermission: Prisma.$LecturePermissionsPayload<ExtArgs>[]
+      lectureReports: Prisma.$LectureReportPayload<ExtArgs>[]
+      lectureSubscriptions: Prisma.$LectureSubscribtionPayload<ExtArgs>[]
+      completedLectures: Prisma.$CompletedLecturesPayload<ExtArgs>[]
       settings: Prisma.$UserSettingsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -9239,6 +12933,9 @@ export namespace Prisma {
     blocksCreated<T extends User$blocksCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$blocksCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarkdownBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blocksUpdated<T extends User$blocksUpdatedArgs<ExtArgs> = {}>(args?: Subset<T, User$blocksUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarkdownBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     lecturePermission<T extends User$lecturePermissionArgs<ExtArgs> = {}>(args?: Subset<T, User$lecturePermissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LecturePermissionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lectureReports<T extends User$lectureReportsArgs<ExtArgs> = {}>(args?: Subset<T, User$lectureReportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lectureSubscriptions<T extends User$lectureSubscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$lectureSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LectureSubscribtionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    completedLectures<T extends User$completedLecturesArgs<ExtArgs> = {}>(args?: Subset<T, User$completedLecturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompletedLecturesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     settings<T extends User$settingsArgs<ExtArgs> = {}>(args?: Subset<T, User$settingsArgs<ExtArgs>>): Prisma__UserSettingsClient<$Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9829,6 +13526,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LecturePermissionsScalarFieldEnum | LecturePermissionsScalarFieldEnum[]
+  }
+
+  /**
+   * User.lectureReports
+   */
+  export type User$lectureReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureReport
+     */
+    select?: LectureReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureReport
+     */
+    omit?: LectureReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureReportInclude<ExtArgs> | null
+    where?: LectureReportWhereInput
+    orderBy?: LectureReportOrderByWithRelationInput | LectureReportOrderByWithRelationInput[]
+    cursor?: LectureReportWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LectureReportScalarFieldEnum | LectureReportScalarFieldEnum[]
+  }
+
+  /**
+   * User.lectureSubscriptions
+   */
+  export type User$lectureSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LectureSubscribtion
+     */
+    select?: LectureSubscribtionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LectureSubscribtion
+     */
+    omit?: LectureSubscribtionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LectureSubscribtionInclude<ExtArgs> | null
+    where?: LectureSubscribtionWhereInput
+    orderBy?: LectureSubscribtionOrderByWithRelationInput | LectureSubscribtionOrderByWithRelationInput[]
+    cursor?: LectureSubscribtionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LectureSubscribtionScalarFieldEnum | LectureSubscribtionScalarFieldEnum[]
+  }
+
+  /**
+   * User.completedLectures
+   */
+  export type User$completedLecturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompletedLectures
+     */
+    select?: CompletedLecturesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompletedLectures
+     */
+    omit?: CompletedLecturesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompletedLecturesInclude<ExtArgs> | null
+    where?: CompletedLecturesWhereInput
+    orderBy?: CompletedLecturesOrderByWithRelationInput | CompletedLecturesOrderByWithRelationInput[]
+    cursor?: CompletedLecturesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CompletedLecturesScalarFieldEnum | CompletedLecturesScalarFieldEnum[]
   }
 
   /**
@@ -11877,6 +15646,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     isPublic: 'isPublic',
+    image: 'image',
+    description: 'description',
     createdById: 'createdById',
     updatedById: 'updatedById',
     HierarchyParentId: 'HierarchyParentId'
@@ -11909,10 +15680,37 @@ export namespace Prisma {
 
   export const LecturePermissionsScalarFieldEnum: {
     lectureId: 'lectureId',
-    userId: 'userId'
+    userId: 'userId',
+    type: 'type'
   };
 
   export type LecturePermissionsScalarFieldEnum = (typeof LecturePermissionsScalarFieldEnum)[keyof typeof LecturePermissionsScalarFieldEnum]
+
+
+  export const CompletedLecturesScalarFieldEnum: {
+    userId: 'userId',
+    lectureId: 'lectureId'
+  };
+
+  export type CompletedLecturesScalarFieldEnum = (typeof CompletedLecturesScalarFieldEnum)[keyof typeof CompletedLecturesScalarFieldEnum]
+
+
+  export const LectureSubscribtionScalarFieldEnum: {
+    userId: 'userId',
+    lectureId: 'lectureId'
+  };
+
+  export type LectureSubscribtionScalarFieldEnum = (typeof LectureSubscribtionScalarFieldEnum)[keyof typeof LectureSubscribtionScalarFieldEnum]
+
+
+  export const LectureReportScalarFieldEnum: {
+    id: 'id',
+    reportMessage: 'reportMessage',
+    lectureId: 'lectureId',
+    reportedById: 'reportedById'
+  };
+
+  export type LectureReportScalarFieldEnum = (typeof LectureReportScalarFieldEnum)[keyof typeof LectureReportScalarFieldEnum]
 
 
   export const AccountScalarFieldEnum: {
@@ -12053,6 +15851,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'PermissionType'
+   */
+  export type EnumPermissionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'PermissionType[]'
+   */
+  export type ListEnumPermissionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Roles'
    */
   export type EnumRolesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Roles'>
@@ -12106,6 +15918,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     updatedAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     isPublic?: BoolFilter<"LectureHierarchy"> | boolean
+    image?: StringNullableFilter<"LectureHierarchy"> | string | null
+    description?: StringNullableFilter<"LectureHierarchy"> | string | null
     createdById?: StringFilter<"LectureHierarchy"> | string
     updatedById?: StringFilter<"LectureHierarchy"> | string
     HierarchyParentId?: IntNullableFilter<"LectureHierarchy"> | number | null
@@ -12113,6 +15927,9 @@ export namespace Prisma {
     updatedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     blocks?: LectureMarkdownListRelationFilter
     permissions?: LecturePermissionsListRelationFilter
+    reports?: LectureReportListRelationFilter
+    subscriptions?: LectureSubscribtionListRelationFilter
+    completedBy?: CompletedLecturesListRelationFilter
     hierarchyParent?: XOR<LectureHierarchyNullableScalarRelationFilter, LectureHierarchyWhereInput> | null
     hierarchyChildren?: LectureHierarchyListRelationFilter
   }
@@ -12123,6 +15940,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
+    image?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrderInput | SortOrder
@@ -12130,6 +15949,9 @@ export namespace Prisma {
     updatedBy?: UserOrderByWithRelationInput
     blocks?: LectureMarkdownOrderByRelationAggregateInput
     permissions?: LecturePermissionsOrderByRelationAggregateInput
+    reports?: LectureReportOrderByRelationAggregateInput
+    subscriptions?: LectureSubscribtionOrderByRelationAggregateInput
+    completedBy?: CompletedLecturesOrderByRelationAggregateInput
     hierarchyParent?: LectureHierarchyOrderByWithRelationInput
     hierarchyChildren?: LectureHierarchyOrderByRelationAggregateInput
   }
@@ -12143,6 +15965,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     updatedAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     isPublic?: BoolFilter<"LectureHierarchy"> | boolean
+    image?: StringNullableFilter<"LectureHierarchy"> | string | null
+    description?: StringNullableFilter<"LectureHierarchy"> | string | null
     createdById?: StringFilter<"LectureHierarchy"> | string
     updatedById?: StringFilter<"LectureHierarchy"> | string
     HierarchyParentId?: IntNullableFilter<"LectureHierarchy"> | number | null
@@ -12150,6 +15974,9 @@ export namespace Prisma {
     updatedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     blocks?: LectureMarkdownListRelationFilter
     permissions?: LecturePermissionsListRelationFilter
+    reports?: LectureReportListRelationFilter
+    subscriptions?: LectureSubscribtionListRelationFilter
+    completedBy?: CompletedLecturesListRelationFilter
     hierarchyParent?: XOR<LectureHierarchyNullableScalarRelationFilter, LectureHierarchyWhereInput> | null
     hierarchyChildren?: LectureHierarchyListRelationFilter
   }, "id">
@@ -12160,6 +15987,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
+    image?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrderInput | SortOrder
@@ -12179,6 +16008,8 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"LectureHierarchy"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LectureHierarchy"> | Date | string
     isPublic?: BoolWithAggregatesFilter<"LectureHierarchy"> | boolean
+    image?: StringNullableWithAggregatesFilter<"LectureHierarchy"> | string | null
+    description?: StringNullableWithAggregatesFilter<"LectureHierarchy"> | string | null
     createdById?: StringWithAggregatesFilter<"LectureHierarchy"> | string
     updatedById?: StringWithAggregatesFilter<"LectureHierarchy"> | string
     HierarchyParentId?: IntNullableWithAggregatesFilter<"LectureHierarchy"> | number | null
@@ -12314,6 +16145,7 @@ export namespace Prisma {
     NOT?: LecturePermissionsWhereInput | LecturePermissionsWhereInput[]
     lectureId?: IntFilter<"LecturePermissions"> | number
     userId?: StringFilter<"LecturePermissions"> | string
+    type?: EnumPermissionTypeFilter<"LecturePermissions"> | $Enums.PermissionType
     lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -12321,6 +16153,7 @@ export namespace Prisma {
   export type LecturePermissionsOrderByWithRelationInput = {
     lectureId?: SortOrder
     userId?: SortOrder
+    type?: SortOrder
     lecture?: LectureHierarchyOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
@@ -12332,6 +16165,7 @@ export namespace Prisma {
     NOT?: LecturePermissionsWhereInput | LecturePermissionsWhereInput[]
     lectureId?: IntFilter<"LecturePermissions"> | number
     userId?: StringFilter<"LecturePermissions"> | string
+    type?: EnumPermissionTypeFilter<"LecturePermissions"> | $Enums.PermissionType
     lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "userId_lectureId">
@@ -12339,6 +16173,7 @@ export namespace Prisma {
   export type LecturePermissionsOrderByWithAggregationInput = {
     lectureId?: SortOrder
     userId?: SortOrder
+    type?: SortOrder
     _count?: LecturePermissionsCountOrderByAggregateInput
     _avg?: LecturePermissionsAvgOrderByAggregateInput
     _max?: LecturePermissionsMaxOrderByAggregateInput
@@ -12352,6 +16187,154 @@ export namespace Prisma {
     NOT?: LecturePermissionsScalarWhereWithAggregatesInput | LecturePermissionsScalarWhereWithAggregatesInput[]
     lectureId?: IntWithAggregatesFilter<"LecturePermissions"> | number
     userId?: StringWithAggregatesFilter<"LecturePermissions"> | string
+    type?: EnumPermissionTypeWithAggregatesFilter<"LecturePermissions"> | $Enums.PermissionType
+  }
+
+  export type CompletedLecturesWhereInput = {
+    AND?: CompletedLecturesWhereInput | CompletedLecturesWhereInput[]
+    OR?: CompletedLecturesWhereInput[]
+    NOT?: CompletedLecturesWhereInput | CompletedLecturesWhereInput[]
+    userId?: StringFilter<"CompletedLectures"> | string
+    lectureId?: IntFilter<"CompletedLectures"> | number
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type CompletedLecturesOrderByWithRelationInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+    lecture?: LectureHierarchyOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type CompletedLecturesWhereUniqueInput = Prisma.AtLeast<{
+    userId_lectureId?: CompletedLecturesUserIdLectureIdCompoundUniqueInput
+    AND?: CompletedLecturesWhereInput | CompletedLecturesWhereInput[]
+    OR?: CompletedLecturesWhereInput[]
+    NOT?: CompletedLecturesWhereInput | CompletedLecturesWhereInput[]
+    userId?: StringFilter<"CompletedLectures"> | string
+    lectureId?: IntFilter<"CompletedLectures"> | number
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "userId_lectureId">
+
+  export type CompletedLecturesOrderByWithAggregationInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+    _count?: CompletedLecturesCountOrderByAggregateInput
+    _avg?: CompletedLecturesAvgOrderByAggregateInput
+    _max?: CompletedLecturesMaxOrderByAggregateInput
+    _min?: CompletedLecturesMinOrderByAggregateInput
+    _sum?: CompletedLecturesSumOrderByAggregateInput
+  }
+
+  export type CompletedLecturesScalarWhereWithAggregatesInput = {
+    AND?: CompletedLecturesScalarWhereWithAggregatesInput | CompletedLecturesScalarWhereWithAggregatesInput[]
+    OR?: CompletedLecturesScalarWhereWithAggregatesInput[]
+    NOT?: CompletedLecturesScalarWhereWithAggregatesInput | CompletedLecturesScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"CompletedLectures"> | string
+    lectureId?: IntWithAggregatesFilter<"CompletedLectures"> | number
+  }
+
+  export type LectureSubscribtionWhereInput = {
+    AND?: LectureSubscribtionWhereInput | LectureSubscribtionWhereInput[]
+    OR?: LectureSubscribtionWhereInput[]
+    NOT?: LectureSubscribtionWhereInput | LectureSubscribtionWhereInput[]
+    userId?: StringFilter<"LectureSubscribtion"> | string
+    lectureId?: IntFilter<"LectureSubscribtion"> | number
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LectureSubscribtionOrderByWithRelationInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+    lecture?: LectureHierarchyOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LectureSubscribtionWhereUniqueInput = Prisma.AtLeast<{
+    userId_lectureId?: LectureSubscribtionUserIdLectureIdCompoundUniqueInput
+    AND?: LectureSubscribtionWhereInput | LectureSubscribtionWhereInput[]
+    OR?: LectureSubscribtionWhereInput[]
+    NOT?: LectureSubscribtionWhereInput | LectureSubscribtionWhereInput[]
+    userId?: StringFilter<"LectureSubscribtion"> | string
+    lectureId?: IntFilter<"LectureSubscribtion"> | number
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "userId_lectureId">
+
+  export type LectureSubscribtionOrderByWithAggregationInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+    _count?: LectureSubscribtionCountOrderByAggregateInput
+    _avg?: LectureSubscribtionAvgOrderByAggregateInput
+    _max?: LectureSubscribtionMaxOrderByAggregateInput
+    _min?: LectureSubscribtionMinOrderByAggregateInput
+    _sum?: LectureSubscribtionSumOrderByAggregateInput
+  }
+
+  export type LectureSubscribtionScalarWhereWithAggregatesInput = {
+    AND?: LectureSubscribtionScalarWhereWithAggregatesInput | LectureSubscribtionScalarWhereWithAggregatesInput[]
+    OR?: LectureSubscribtionScalarWhereWithAggregatesInput[]
+    NOT?: LectureSubscribtionScalarWhereWithAggregatesInput | LectureSubscribtionScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"LectureSubscribtion"> | string
+    lectureId?: IntWithAggregatesFilter<"LectureSubscribtion"> | number
+  }
+
+  export type LectureReportWhereInput = {
+    AND?: LectureReportWhereInput | LectureReportWhereInput[]
+    OR?: LectureReportWhereInput[]
+    NOT?: LectureReportWhereInput | LectureReportWhereInput[]
+    id?: StringFilter<"LectureReport"> | string
+    reportMessage?: StringFilter<"LectureReport"> | string
+    lectureId?: IntFilter<"LectureReport"> | number
+    reportedById?: StringFilter<"LectureReport"> | string
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LectureReportOrderByWithRelationInput = {
+    id?: SortOrder
+    reportMessage?: SortOrder
+    lectureId?: SortOrder
+    reportedById?: SortOrder
+    lecture?: LectureHierarchyOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LectureReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LectureReportWhereInput | LectureReportWhereInput[]
+    OR?: LectureReportWhereInput[]
+    NOT?: LectureReportWhereInput | LectureReportWhereInput[]
+    reportMessage?: StringFilter<"LectureReport"> | string
+    lectureId?: IntFilter<"LectureReport"> | number
+    reportedById?: StringFilter<"LectureReport"> | string
+    lecture?: XOR<LectureHierarchyScalarRelationFilter, LectureHierarchyWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type LectureReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    reportMessage?: SortOrder
+    lectureId?: SortOrder
+    reportedById?: SortOrder
+    _count?: LectureReportCountOrderByAggregateInput
+    _avg?: LectureReportAvgOrderByAggregateInput
+    _max?: LectureReportMaxOrderByAggregateInput
+    _min?: LectureReportMinOrderByAggregateInput
+    _sum?: LectureReportSumOrderByAggregateInput
+  }
+
+  export type LectureReportScalarWhereWithAggregatesInput = {
+    AND?: LectureReportScalarWhereWithAggregatesInput | LectureReportScalarWhereWithAggregatesInput[]
+    OR?: LectureReportScalarWhereWithAggregatesInput[]
+    NOT?: LectureReportScalarWhereWithAggregatesInput | LectureReportScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LectureReport"> | string
+    reportMessage?: StringWithAggregatesFilter<"LectureReport"> | string
+    lectureId?: IntWithAggregatesFilter<"LectureReport"> | number
+    reportedById?: StringWithAggregatesFilter<"LectureReport"> | string
   }
 
   export type AccountWhereInput = {
@@ -12520,6 +16503,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockListRelationFilter
     blocksUpdated?: MarkdownBlockListRelationFilter
     lecturePermission?: LecturePermissionsListRelationFilter
+    lectureReports?: LectureReportListRelationFilter
+    lectureSubscriptions?: LectureSubscribtionListRelationFilter
+    completedLectures?: CompletedLecturesListRelationFilter
     settings?: XOR<UserSettingsNullableScalarRelationFilter, UserSettingsWhereInput> | null
   }
 
@@ -12538,6 +16524,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockOrderByRelationAggregateInput
     blocksUpdated?: MarkdownBlockOrderByRelationAggregateInput
     lecturePermission?: LecturePermissionsOrderByRelationAggregateInput
+    lectureReports?: LectureReportOrderByRelationAggregateInput
+    lectureSubscriptions?: LectureSubscribtionOrderByRelationAggregateInput
+    completedLectures?: CompletedLecturesOrderByRelationAggregateInput
     settings?: UserSettingsOrderByWithRelationInput
   }
 
@@ -12559,6 +16548,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockListRelationFilter
     blocksUpdated?: MarkdownBlockListRelationFilter
     lecturePermission?: LecturePermissionsListRelationFilter
+    lectureReports?: LectureReportListRelationFilter
+    lectureSubscriptions?: LectureSubscribtionListRelationFilter
+    completedLectures?: CompletedLecturesListRelationFilter
     settings?: XOR<UserSettingsNullableScalarRelationFilter, UserSettingsWhereInput> | null
   }, "id" | "email">
 
@@ -12676,10 +16668,15 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
+    reports?: LectureReportCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -12690,11 +16687,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdById: string
     updatedById: string
     HierarchyParentId?: number | null
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
+    reports?: LectureReportUncheckedCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -12703,10 +16705,15 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -12717,11 +16724,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUncheckedUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -12731,6 +16743,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdById: string
     updatedById: string
     HierarchyParentId?: number | null
@@ -12741,6 +16755,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LectureHierarchyUncheckedUpdateManyInput = {
@@ -12749,6 +16765,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -12864,6 +16882,7 @@ export namespace Prisma {
   }
 
   export type LecturePermissionsCreateInput = {
+    type: $Enums.PermissionType
     lecture: LectureHierarchyCreateNestedOneWithoutPermissionsInput
     user: UserCreateNestedOneWithoutLecturePermissionInput
   }
@@ -12871,9 +16890,11 @@ export namespace Prisma {
   export type LecturePermissionsUncheckedCreateInput = {
     lectureId: number
     userId: string
+    type: $Enums.PermissionType
   }
 
   export type LecturePermissionsUpdateInput = {
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
     lecture?: LectureHierarchyUpdateOneRequiredWithoutPermissionsNestedInput
     user?: UserUpdateOneRequiredWithoutLecturePermissionNestedInput
   }
@@ -12881,20 +16902,138 @@ export namespace Prisma {
   export type LecturePermissionsUncheckedUpdateInput = {
     lectureId?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
   }
 
   export type LecturePermissionsCreateManyInput = {
     lectureId: number
     userId: string
+    type: $Enums.PermissionType
   }
 
   export type LecturePermissionsUpdateManyMutationInput = {
-
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
   }
 
   export type LecturePermissionsUncheckedUpdateManyInput = {
     lectureId?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
+  }
+
+  export type CompletedLecturesCreateInput = {
+    lecture: LectureHierarchyCreateNestedOneWithoutCompletedByInput
+    user: UserCreateNestedOneWithoutCompletedLecturesInput
+  }
+
+  export type CompletedLecturesUncheckedCreateInput = {
+    userId: string
+    lectureId: number
+  }
+
+  export type CompletedLecturesUpdateInput = {
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutCompletedByNestedInput
+    user?: UserUpdateOneRequiredWithoutCompletedLecturesNestedInput
+  }
+
+  export type CompletedLecturesUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CompletedLecturesCreateManyInput = {
+    userId: string
+    lectureId: number
+  }
+
+  export type CompletedLecturesUpdateManyMutationInput = {
+
+  }
+
+  export type CompletedLecturesUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureSubscribtionCreateInput = {
+    lecture: LectureHierarchyCreateNestedOneWithoutSubscriptionsInput
+    user: UserCreateNestedOneWithoutLectureSubscriptionsInput
+  }
+
+  export type LectureSubscribtionUncheckedCreateInput = {
+    userId: string
+    lectureId: number
+  }
+
+  export type LectureSubscribtionUpdateInput = {
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutSubscriptionsNestedInput
+    user?: UserUpdateOneRequiredWithoutLectureSubscriptionsNestedInput
+  }
+
+  export type LectureSubscribtionUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureSubscribtionCreateManyInput = {
+    userId: string
+    lectureId: number
+  }
+
+  export type LectureSubscribtionUpdateManyMutationInput = {
+
+  }
+
+  export type LectureSubscribtionUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureReportCreateInput = {
+    id?: string
+    reportMessage: string
+    lecture: LectureHierarchyCreateNestedOneWithoutReportsInput
+    user: UserCreateNestedOneWithoutLectureReportsInput
+  }
+
+  export type LectureReportUncheckedCreateInput = {
+    id?: string
+    reportMessage: string
+    lectureId: number
+    reportedById: string
+  }
+
+  export type LectureReportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutReportsNestedInput
+    user?: UserUpdateOneRequiredWithoutLectureReportsNestedInput
+  }
+
+  export type LectureReportUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+    lectureId?: IntFieldUpdateOperationsInput | number
+    reportedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LectureReportCreateManyInput = {
+    id?: string
+    reportMessage: string
+    lectureId: number
+    reportedById: string
+  }
+
+  export type LectureReportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LectureReportUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+    lectureId?: IntFieldUpdateOperationsInput | number
+    reportedById?: StringFieldUpdateOperationsInput | string
   }
 
   export type AccountCreateInput = {
@@ -13071,6 +17210,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
     settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -13089,6 +17231,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
     settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -13107,6 +17252,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -13125,6 +17273,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -13276,6 +17427,21 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -13304,6 +17470,24 @@ export namespace Prisma {
     none?: LecturePermissionsWhereInput
   }
 
+  export type LectureReportListRelationFilter = {
+    every?: LectureReportWhereInput
+    some?: LectureReportWhereInput
+    none?: LectureReportWhereInput
+  }
+
+  export type LectureSubscribtionListRelationFilter = {
+    every?: LectureSubscribtionWhereInput
+    some?: LectureSubscribtionWhereInput
+    none?: LectureSubscribtionWhereInput
+  }
+
+  export type CompletedLecturesListRelationFilter = {
+    every?: CompletedLecturesWhereInput
+    some?: CompletedLecturesWhereInput
+    none?: CompletedLecturesWhereInput
+  }
+
   export type LectureHierarchyNullableScalarRelationFilter = {
     is?: LectureHierarchyWhereInput | null
     isNot?: LectureHierarchyWhereInput | null
@@ -13328,6 +17512,18 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type LectureReportOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LectureSubscribtionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CompletedLecturesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type LectureHierarchyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -13338,6 +17534,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
+    image?: SortOrder
+    description?: SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrder
@@ -13354,6 +17552,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
+    image?: SortOrder
+    description?: SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrder
@@ -13365,6 +17565,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPublic?: SortOrder
+    image?: SortOrder
+    description?: SortOrder
     createdById?: SortOrder
     updatedById?: SortOrder
     HierarchyParentId?: SortOrder
@@ -13431,6 +17633,24 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -13492,21 +17712,6 @@ export namespace Prisma {
     blockId?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type MarkdownBlockCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -13545,22 +17750,11 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+  export type EnumPermissionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionType | EnumPermissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionType[] | ListEnumPermissionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionType[] | ListEnumPermissionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionTypeFilter<$PrismaModel> | $Enums.PermissionType
   }
 
   export type LecturePermissionsUserIdLectureIdCompoundUniqueInput = {
@@ -13571,6 +17765,7 @@ export namespace Prisma {
   export type LecturePermissionsCountOrderByAggregateInput = {
     lectureId?: SortOrder
     userId?: SortOrder
+    type?: SortOrder
   }
 
   export type LecturePermissionsAvgOrderByAggregateInput = {
@@ -13580,14 +17775,111 @@ export namespace Prisma {
   export type LecturePermissionsMaxOrderByAggregateInput = {
     lectureId?: SortOrder
     userId?: SortOrder
+    type?: SortOrder
   }
 
   export type LecturePermissionsMinOrderByAggregateInput = {
     lectureId?: SortOrder
     userId?: SortOrder
+    type?: SortOrder
   }
 
   export type LecturePermissionsSumOrderByAggregateInput = {
+    lectureId?: SortOrder
+  }
+
+  export type EnumPermissionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionType | EnumPermissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionType[] | ListEnumPermissionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionType[] | ListEnumPermissionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionTypeWithAggregatesFilter<$PrismaModel> | $Enums.PermissionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPermissionTypeFilter<$PrismaModel>
+    _max?: NestedEnumPermissionTypeFilter<$PrismaModel>
+  }
+
+  export type CompletedLecturesUserIdLectureIdCompoundUniqueInput = {
+    userId: string
+    lectureId: number
+  }
+
+  export type CompletedLecturesCountOrderByAggregateInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+  }
+
+  export type CompletedLecturesAvgOrderByAggregateInput = {
+    lectureId?: SortOrder
+  }
+
+  export type CompletedLecturesMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+  }
+
+  export type CompletedLecturesMinOrderByAggregateInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+  }
+
+  export type CompletedLecturesSumOrderByAggregateInput = {
+    lectureId?: SortOrder
+  }
+
+  export type LectureSubscribtionUserIdLectureIdCompoundUniqueInput = {
+    userId: string
+    lectureId: number
+  }
+
+  export type LectureSubscribtionCountOrderByAggregateInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+  }
+
+  export type LectureSubscribtionAvgOrderByAggregateInput = {
+    lectureId?: SortOrder
+  }
+
+  export type LectureSubscribtionMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+  }
+
+  export type LectureSubscribtionMinOrderByAggregateInput = {
+    userId?: SortOrder
+    lectureId?: SortOrder
+  }
+
+  export type LectureSubscribtionSumOrderByAggregateInput = {
+    lectureId?: SortOrder
+  }
+
+  export type LectureReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    reportMessage?: SortOrder
+    lectureId?: SortOrder
+    reportedById?: SortOrder
+  }
+
+  export type LectureReportAvgOrderByAggregateInput = {
+    lectureId?: SortOrder
+  }
+
+  export type LectureReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    reportMessage?: SortOrder
+    lectureId?: SortOrder
+    reportedById?: SortOrder
+  }
+
+  export type LectureReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    reportMessage?: SortOrder
+    lectureId?: SortOrder
+    reportedById?: SortOrder
+  }
+
+  export type LectureReportSumOrderByAggregateInput = {
     lectureId?: SortOrder
   }
 
@@ -13863,6 +18155,27 @@ export namespace Prisma {
     connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
   }
 
+  export type LectureReportCreateNestedManyWithoutLectureInput = {
+    create?: XOR<LectureReportCreateWithoutLectureInput, LectureReportUncheckedCreateWithoutLectureInput> | LectureReportCreateWithoutLectureInput[] | LectureReportUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureReportCreateOrConnectWithoutLectureInput | LectureReportCreateOrConnectWithoutLectureInput[]
+    createMany?: LectureReportCreateManyLectureInputEnvelope
+    connect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+  }
+
+  export type LectureSubscribtionCreateNestedManyWithoutLectureInput = {
+    create?: XOR<LectureSubscribtionCreateWithoutLectureInput, LectureSubscribtionUncheckedCreateWithoutLectureInput> | LectureSubscribtionCreateWithoutLectureInput[] | LectureSubscribtionUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureSubscribtionCreateOrConnectWithoutLectureInput | LectureSubscribtionCreateOrConnectWithoutLectureInput[]
+    createMany?: LectureSubscribtionCreateManyLectureInputEnvelope
+    connect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+  }
+
+  export type CompletedLecturesCreateNestedManyWithoutLectureInput = {
+    create?: XOR<CompletedLecturesCreateWithoutLectureInput, CompletedLecturesUncheckedCreateWithoutLectureInput> | CompletedLecturesCreateWithoutLectureInput[] | CompletedLecturesUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: CompletedLecturesCreateOrConnectWithoutLectureInput | CompletedLecturesCreateOrConnectWithoutLectureInput[]
+    createMany?: CompletedLecturesCreateManyLectureInputEnvelope
+    connect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+  }
+
   export type LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput = {
     create?: XOR<LectureHierarchyCreateWithoutHierarchyChildrenInput, LectureHierarchyUncheckedCreateWithoutHierarchyChildrenInput>
     connectOrCreate?: LectureHierarchyCreateOrConnectWithoutHierarchyChildrenInput
@@ -13890,6 +18203,27 @@ export namespace Prisma {
     connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
   }
 
+  export type LectureReportUncheckedCreateNestedManyWithoutLectureInput = {
+    create?: XOR<LectureReportCreateWithoutLectureInput, LectureReportUncheckedCreateWithoutLectureInput> | LectureReportCreateWithoutLectureInput[] | LectureReportUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureReportCreateOrConnectWithoutLectureInput | LectureReportCreateOrConnectWithoutLectureInput[]
+    createMany?: LectureReportCreateManyLectureInputEnvelope
+    connect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+  }
+
+  export type LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput = {
+    create?: XOR<LectureSubscribtionCreateWithoutLectureInput, LectureSubscribtionUncheckedCreateWithoutLectureInput> | LectureSubscribtionCreateWithoutLectureInput[] | LectureSubscribtionUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureSubscribtionCreateOrConnectWithoutLectureInput | LectureSubscribtionCreateOrConnectWithoutLectureInput[]
+    createMany?: LectureSubscribtionCreateManyLectureInputEnvelope
+    connect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+  }
+
+  export type CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput = {
+    create?: XOR<CompletedLecturesCreateWithoutLectureInput, CompletedLecturesUncheckedCreateWithoutLectureInput> | CompletedLecturesCreateWithoutLectureInput[] | CompletedLecturesUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: CompletedLecturesCreateOrConnectWithoutLectureInput | CompletedLecturesCreateOrConnectWithoutLectureInput[]
+    createMany?: CompletedLecturesCreateManyLectureInputEnvelope
+    connect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+  }
+
   export type LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput = {
     create?: XOR<LectureHierarchyCreateWithoutHierarchyParentInput, LectureHierarchyUncheckedCreateWithoutHierarchyParentInput> | LectureHierarchyCreateWithoutHierarchyParentInput[] | LectureHierarchyUncheckedCreateWithoutHierarchyParentInput[]
     connectOrCreate?: LectureHierarchyCreateOrConnectWithoutHierarchyParentInput | LectureHierarchyCreateOrConnectWithoutHierarchyParentInput[]
@@ -13907,6 +18241,10 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type UserUpdateOneRequiredWithoutLecturesCreatedNestedInput = {
@@ -13951,6 +18289,48 @@ export namespace Prisma {
     update?: LecturePermissionsUpdateWithWhereUniqueWithoutLectureInput | LecturePermissionsUpdateWithWhereUniqueWithoutLectureInput[]
     updateMany?: LecturePermissionsUpdateManyWithWhereWithoutLectureInput | LecturePermissionsUpdateManyWithWhereWithoutLectureInput[]
     deleteMany?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
+  }
+
+  export type LectureReportUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<LectureReportCreateWithoutLectureInput, LectureReportUncheckedCreateWithoutLectureInput> | LectureReportCreateWithoutLectureInput[] | LectureReportUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureReportCreateOrConnectWithoutLectureInput | LectureReportCreateOrConnectWithoutLectureInput[]
+    upsert?: LectureReportUpsertWithWhereUniqueWithoutLectureInput | LectureReportUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: LectureReportCreateManyLectureInputEnvelope
+    set?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    disconnect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    delete?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    connect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    update?: LectureReportUpdateWithWhereUniqueWithoutLectureInput | LectureReportUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: LectureReportUpdateManyWithWhereWithoutLectureInput | LectureReportUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: LectureReportScalarWhereInput | LectureReportScalarWhereInput[]
+  }
+
+  export type LectureSubscribtionUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<LectureSubscribtionCreateWithoutLectureInput, LectureSubscribtionUncheckedCreateWithoutLectureInput> | LectureSubscribtionCreateWithoutLectureInput[] | LectureSubscribtionUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureSubscribtionCreateOrConnectWithoutLectureInput | LectureSubscribtionCreateOrConnectWithoutLectureInput[]
+    upsert?: LectureSubscribtionUpsertWithWhereUniqueWithoutLectureInput | LectureSubscribtionUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: LectureSubscribtionCreateManyLectureInputEnvelope
+    set?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    disconnect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    delete?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    connect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    update?: LectureSubscribtionUpdateWithWhereUniqueWithoutLectureInput | LectureSubscribtionUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: LectureSubscribtionUpdateManyWithWhereWithoutLectureInput | LectureSubscribtionUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: LectureSubscribtionScalarWhereInput | LectureSubscribtionScalarWhereInput[]
+  }
+
+  export type CompletedLecturesUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<CompletedLecturesCreateWithoutLectureInput, CompletedLecturesUncheckedCreateWithoutLectureInput> | CompletedLecturesCreateWithoutLectureInput[] | CompletedLecturesUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: CompletedLecturesCreateOrConnectWithoutLectureInput | CompletedLecturesCreateOrConnectWithoutLectureInput[]
+    upsert?: CompletedLecturesUpsertWithWhereUniqueWithoutLectureInput | CompletedLecturesUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: CompletedLecturesCreateManyLectureInputEnvelope
+    set?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    disconnect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    delete?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    connect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    update?: CompletedLecturesUpdateWithWhereUniqueWithoutLectureInput | CompletedLecturesUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: CompletedLecturesUpdateManyWithWhereWithoutLectureInput | CompletedLecturesUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: CompletedLecturesScalarWhereInput | CompletedLecturesScalarWhereInput[]
   }
 
   export type LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput = {
@@ -14021,6 +18401,48 @@ export namespace Prisma {
     deleteMany?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
   }
 
+  export type LectureReportUncheckedUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<LectureReportCreateWithoutLectureInput, LectureReportUncheckedCreateWithoutLectureInput> | LectureReportCreateWithoutLectureInput[] | LectureReportUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureReportCreateOrConnectWithoutLectureInput | LectureReportCreateOrConnectWithoutLectureInput[]
+    upsert?: LectureReportUpsertWithWhereUniqueWithoutLectureInput | LectureReportUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: LectureReportCreateManyLectureInputEnvelope
+    set?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    disconnect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    delete?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    connect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    update?: LectureReportUpdateWithWhereUniqueWithoutLectureInput | LectureReportUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: LectureReportUpdateManyWithWhereWithoutLectureInput | LectureReportUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: LectureReportScalarWhereInput | LectureReportScalarWhereInput[]
+  }
+
+  export type LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<LectureSubscribtionCreateWithoutLectureInput, LectureSubscribtionUncheckedCreateWithoutLectureInput> | LectureSubscribtionCreateWithoutLectureInput[] | LectureSubscribtionUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: LectureSubscribtionCreateOrConnectWithoutLectureInput | LectureSubscribtionCreateOrConnectWithoutLectureInput[]
+    upsert?: LectureSubscribtionUpsertWithWhereUniqueWithoutLectureInput | LectureSubscribtionUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: LectureSubscribtionCreateManyLectureInputEnvelope
+    set?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    disconnect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    delete?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    connect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    update?: LectureSubscribtionUpdateWithWhereUniqueWithoutLectureInput | LectureSubscribtionUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: LectureSubscribtionUpdateManyWithWhereWithoutLectureInput | LectureSubscribtionUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: LectureSubscribtionScalarWhereInput | LectureSubscribtionScalarWhereInput[]
+  }
+
+  export type CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput = {
+    create?: XOR<CompletedLecturesCreateWithoutLectureInput, CompletedLecturesUncheckedCreateWithoutLectureInput> | CompletedLecturesCreateWithoutLectureInput[] | CompletedLecturesUncheckedCreateWithoutLectureInput[]
+    connectOrCreate?: CompletedLecturesCreateOrConnectWithoutLectureInput | CompletedLecturesCreateOrConnectWithoutLectureInput[]
+    upsert?: CompletedLecturesUpsertWithWhereUniqueWithoutLectureInput | CompletedLecturesUpsertWithWhereUniqueWithoutLectureInput[]
+    createMany?: CompletedLecturesCreateManyLectureInputEnvelope
+    set?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    disconnect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    delete?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    connect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    update?: CompletedLecturesUpdateWithWhereUniqueWithoutLectureInput | CompletedLecturesUpdateWithWhereUniqueWithoutLectureInput[]
+    updateMany?: CompletedLecturesUpdateManyWithWhereWithoutLectureInput | CompletedLecturesUpdateManyWithWhereWithoutLectureInput[]
+    deleteMany?: CompletedLecturesScalarWhereInput | CompletedLecturesScalarWhereInput[]
+  }
+
   export type LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput = {
     create?: XOR<LectureHierarchyCreateWithoutHierarchyParentInput, LectureHierarchyUncheckedCreateWithoutHierarchyParentInput> | LectureHierarchyCreateWithoutHierarchyParentInput[] | LectureHierarchyUncheckedCreateWithoutHierarchyParentInput[]
     connectOrCreate?: LectureHierarchyCreateOrConnectWithoutHierarchyParentInput | LectureHierarchyCreateOrConnectWithoutHierarchyParentInput[]
@@ -14089,10 +18511,6 @@ export namespace Prisma {
     connect?: LectureMarkdownWhereUniqueInput | LectureMarkdownWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type LectureMarkdownUpdateManyWithoutBlockNestedInput = {
     create?: XOR<LectureMarkdownCreateWithoutBlockInput, LectureMarkdownUncheckedCreateWithoutBlockInput> | LectureMarkdownCreateWithoutBlockInput[] | LectureMarkdownUncheckedCreateWithoutBlockInput[]
     connectOrCreate?: LectureMarkdownCreateOrConnectWithoutBlockInput | LectureMarkdownCreateOrConnectWithoutBlockInput[]
@@ -14149,6 +18567,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type EnumPermissionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.PermissionType
+  }
+
   export type LectureHierarchyUpdateOneRequiredWithoutPermissionsNestedInput = {
     create?: XOR<LectureHierarchyCreateWithoutPermissionsInput, LectureHierarchyUncheckedCreateWithoutPermissionsInput>
     connectOrCreate?: LectureHierarchyCreateOrConnectWithoutPermissionsInput
@@ -14163,6 +18585,90 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutLecturePermissionInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLecturePermissionInput, UserUpdateWithoutLecturePermissionInput>, UserUncheckedUpdateWithoutLecturePermissionInput>
+  }
+
+  export type LectureHierarchyCreateNestedOneWithoutCompletedByInput = {
+    create?: XOR<LectureHierarchyCreateWithoutCompletedByInput, LectureHierarchyUncheckedCreateWithoutCompletedByInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutCompletedByInput
+    connect?: LectureHierarchyWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCompletedLecturesInput = {
+    create?: XOR<UserCreateWithoutCompletedLecturesInput, UserUncheckedCreateWithoutCompletedLecturesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCompletedLecturesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type LectureHierarchyUpdateOneRequiredWithoutCompletedByNestedInput = {
+    create?: XOR<LectureHierarchyCreateWithoutCompletedByInput, LectureHierarchyUncheckedCreateWithoutCompletedByInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutCompletedByInput
+    upsert?: LectureHierarchyUpsertWithoutCompletedByInput
+    connect?: LectureHierarchyWhereUniqueInput
+    update?: XOR<XOR<LectureHierarchyUpdateToOneWithWhereWithoutCompletedByInput, LectureHierarchyUpdateWithoutCompletedByInput>, LectureHierarchyUncheckedUpdateWithoutCompletedByInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCompletedLecturesNestedInput = {
+    create?: XOR<UserCreateWithoutCompletedLecturesInput, UserUncheckedCreateWithoutCompletedLecturesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCompletedLecturesInput
+    upsert?: UserUpsertWithoutCompletedLecturesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCompletedLecturesInput, UserUpdateWithoutCompletedLecturesInput>, UserUncheckedUpdateWithoutCompletedLecturesInput>
+  }
+
+  export type LectureHierarchyCreateNestedOneWithoutSubscriptionsInput = {
+    create?: XOR<LectureHierarchyCreateWithoutSubscriptionsInput, LectureHierarchyUncheckedCreateWithoutSubscriptionsInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutSubscriptionsInput
+    connect?: LectureHierarchyWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLectureSubscriptionsInput = {
+    create?: XOR<UserCreateWithoutLectureSubscriptionsInput, UserUncheckedCreateWithoutLectureSubscriptionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLectureSubscriptionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type LectureHierarchyUpdateOneRequiredWithoutSubscriptionsNestedInput = {
+    create?: XOR<LectureHierarchyCreateWithoutSubscriptionsInput, LectureHierarchyUncheckedCreateWithoutSubscriptionsInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutSubscriptionsInput
+    upsert?: LectureHierarchyUpsertWithoutSubscriptionsInput
+    connect?: LectureHierarchyWhereUniqueInput
+    update?: XOR<XOR<LectureHierarchyUpdateToOneWithWhereWithoutSubscriptionsInput, LectureHierarchyUpdateWithoutSubscriptionsInput>, LectureHierarchyUncheckedUpdateWithoutSubscriptionsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutLectureSubscriptionsNestedInput = {
+    create?: XOR<UserCreateWithoutLectureSubscriptionsInput, UserUncheckedCreateWithoutLectureSubscriptionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLectureSubscriptionsInput
+    upsert?: UserUpsertWithoutLectureSubscriptionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLectureSubscriptionsInput, UserUpdateWithoutLectureSubscriptionsInput>, UserUncheckedUpdateWithoutLectureSubscriptionsInput>
+  }
+
+  export type LectureHierarchyCreateNestedOneWithoutReportsInput = {
+    create?: XOR<LectureHierarchyCreateWithoutReportsInput, LectureHierarchyUncheckedCreateWithoutReportsInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutReportsInput
+    connect?: LectureHierarchyWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLectureReportsInput = {
+    create?: XOR<UserCreateWithoutLectureReportsInput, UserUncheckedCreateWithoutLectureReportsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLectureReportsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type LectureHierarchyUpdateOneRequiredWithoutReportsNestedInput = {
+    create?: XOR<LectureHierarchyCreateWithoutReportsInput, LectureHierarchyUncheckedCreateWithoutReportsInput>
+    connectOrCreate?: LectureHierarchyCreateOrConnectWithoutReportsInput
+    upsert?: LectureHierarchyUpsertWithoutReportsInput
+    connect?: LectureHierarchyWhereUniqueInput
+    update?: XOR<XOR<LectureHierarchyUpdateToOneWithWhereWithoutReportsInput, LectureHierarchyUpdateWithoutReportsInput>, LectureHierarchyUncheckedUpdateWithoutReportsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutLectureReportsNestedInput = {
+    create?: XOR<UserCreateWithoutLectureReportsInput, UserUncheckedCreateWithoutLectureReportsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLectureReportsInput
+    upsert?: UserUpsertWithoutLectureReportsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLectureReportsInput, UserUpdateWithoutLectureReportsInput>, UserUncheckedUpdateWithoutLectureReportsInput>
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -14242,6 +18748,27 @@ export namespace Prisma {
     connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
   }
 
+  export type LectureReportCreateNestedManyWithoutUserInput = {
+    create?: XOR<LectureReportCreateWithoutUserInput, LectureReportUncheckedCreateWithoutUserInput> | LectureReportCreateWithoutUserInput[] | LectureReportUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LectureReportCreateOrConnectWithoutUserInput | LectureReportCreateOrConnectWithoutUserInput[]
+    createMany?: LectureReportCreateManyUserInputEnvelope
+    connect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+  }
+
+  export type LectureSubscribtionCreateNestedManyWithoutUserInput = {
+    create?: XOR<LectureSubscribtionCreateWithoutUserInput, LectureSubscribtionUncheckedCreateWithoutUserInput> | LectureSubscribtionCreateWithoutUserInput[] | LectureSubscribtionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LectureSubscribtionCreateOrConnectWithoutUserInput | LectureSubscribtionCreateOrConnectWithoutUserInput[]
+    createMany?: LectureSubscribtionCreateManyUserInputEnvelope
+    connect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+  }
+
+  export type CompletedLecturesCreateNestedManyWithoutUserInput = {
+    create?: XOR<CompletedLecturesCreateWithoutUserInput, CompletedLecturesUncheckedCreateWithoutUserInput> | CompletedLecturesCreateWithoutUserInput[] | CompletedLecturesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CompletedLecturesCreateOrConnectWithoutUserInput | CompletedLecturesCreateOrConnectWithoutUserInput[]
+    createMany?: CompletedLecturesCreateManyUserInputEnvelope
+    connect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+  }
+
   export type UserSettingsCreateNestedOneWithoutUserInput = {
     create?: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserSettingsCreateOrConnectWithoutUserInput
@@ -14295,6 +18822,27 @@ export namespace Prisma {
     connectOrCreate?: LecturePermissionsCreateOrConnectWithoutUserInput | LecturePermissionsCreateOrConnectWithoutUserInput[]
     createMany?: LecturePermissionsCreateManyUserInputEnvelope
     connect?: LecturePermissionsWhereUniqueInput | LecturePermissionsWhereUniqueInput[]
+  }
+
+  export type LectureReportUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LectureReportCreateWithoutUserInput, LectureReportUncheckedCreateWithoutUserInput> | LectureReportCreateWithoutUserInput[] | LectureReportUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LectureReportCreateOrConnectWithoutUserInput | LectureReportCreateOrConnectWithoutUserInput[]
+    createMany?: LectureReportCreateManyUserInputEnvelope
+    connect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+  }
+
+  export type LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LectureSubscribtionCreateWithoutUserInput, LectureSubscribtionUncheckedCreateWithoutUserInput> | LectureSubscribtionCreateWithoutUserInput[] | LectureSubscribtionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LectureSubscribtionCreateOrConnectWithoutUserInput | LectureSubscribtionCreateOrConnectWithoutUserInput[]
+    createMany?: LectureSubscribtionCreateManyUserInputEnvelope
+    connect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+  }
+
+  export type CompletedLecturesUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CompletedLecturesCreateWithoutUserInput, CompletedLecturesUncheckedCreateWithoutUserInput> | CompletedLecturesCreateWithoutUserInput[] | CompletedLecturesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CompletedLecturesCreateOrConnectWithoutUserInput | CompletedLecturesCreateOrConnectWithoutUserInput[]
+    createMany?: CompletedLecturesCreateManyUserInputEnvelope
+    connect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
   }
 
   export type UserSettingsUncheckedCreateNestedOneWithoutUserInput = {
@@ -14409,6 +18957,48 @@ export namespace Prisma {
     deleteMany?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
   }
 
+  export type LectureReportUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LectureReportCreateWithoutUserInput, LectureReportUncheckedCreateWithoutUserInput> | LectureReportCreateWithoutUserInput[] | LectureReportUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LectureReportCreateOrConnectWithoutUserInput | LectureReportCreateOrConnectWithoutUserInput[]
+    upsert?: LectureReportUpsertWithWhereUniqueWithoutUserInput | LectureReportUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LectureReportCreateManyUserInputEnvelope
+    set?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    disconnect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    delete?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    connect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    update?: LectureReportUpdateWithWhereUniqueWithoutUserInput | LectureReportUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LectureReportUpdateManyWithWhereWithoutUserInput | LectureReportUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LectureReportScalarWhereInput | LectureReportScalarWhereInput[]
+  }
+
+  export type LectureSubscribtionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LectureSubscribtionCreateWithoutUserInput, LectureSubscribtionUncheckedCreateWithoutUserInput> | LectureSubscribtionCreateWithoutUserInput[] | LectureSubscribtionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LectureSubscribtionCreateOrConnectWithoutUserInput | LectureSubscribtionCreateOrConnectWithoutUserInput[]
+    upsert?: LectureSubscribtionUpsertWithWhereUniqueWithoutUserInput | LectureSubscribtionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LectureSubscribtionCreateManyUserInputEnvelope
+    set?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    disconnect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    delete?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    connect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    update?: LectureSubscribtionUpdateWithWhereUniqueWithoutUserInput | LectureSubscribtionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LectureSubscribtionUpdateManyWithWhereWithoutUserInput | LectureSubscribtionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LectureSubscribtionScalarWhereInput | LectureSubscribtionScalarWhereInput[]
+  }
+
+  export type CompletedLecturesUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CompletedLecturesCreateWithoutUserInput, CompletedLecturesUncheckedCreateWithoutUserInput> | CompletedLecturesCreateWithoutUserInput[] | CompletedLecturesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CompletedLecturesCreateOrConnectWithoutUserInput | CompletedLecturesCreateOrConnectWithoutUserInput[]
+    upsert?: CompletedLecturesUpsertWithWhereUniqueWithoutUserInput | CompletedLecturesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CompletedLecturesCreateManyUserInputEnvelope
+    set?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    disconnect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    delete?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    connect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    update?: CompletedLecturesUpdateWithWhereUniqueWithoutUserInput | CompletedLecturesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CompletedLecturesUpdateManyWithWhereWithoutUserInput | CompletedLecturesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CompletedLecturesScalarWhereInput | CompletedLecturesScalarWhereInput[]
+  }
+
   export type UserSettingsUpdateOneWithoutUserNestedInput = {
     create?: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserSettingsCreateOrConnectWithoutUserInput
@@ -14517,6 +19107,48 @@ export namespace Prisma {
     deleteMany?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
   }
 
+  export type LectureReportUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LectureReportCreateWithoutUserInput, LectureReportUncheckedCreateWithoutUserInput> | LectureReportCreateWithoutUserInput[] | LectureReportUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LectureReportCreateOrConnectWithoutUserInput | LectureReportCreateOrConnectWithoutUserInput[]
+    upsert?: LectureReportUpsertWithWhereUniqueWithoutUserInput | LectureReportUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LectureReportCreateManyUserInputEnvelope
+    set?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    disconnect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    delete?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    connect?: LectureReportWhereUniqueInput | LectureReportWhereUniqueInput[]
+    update?: LectureReportUpdateWithWhereUniqueWithoutUserInput | LectureReportUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LectureReportUpdateManyWithWhereWithoutUserInput | LectureReportUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LectureReportScalarWhereInput | LectureReportScalarWhereInput[]
+  }
+
+  export type LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LectureSubscribtionCreateWithoutUserInput, LectureSubscribtionUncheckedCreateWithoutUserInput> | LectureSubscribtionCreateWithoutUserInput[] | LectureSubscribtionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LectureSubscribtionCreateOrConnectWithoutUserInput | LectureSubscribtionCreateOrConnectWithoutUserInput[]
+    upsert?: LectureSubscribtionUpsertWithWhereUniqueWithoutUserInput | LectureSubscribtionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LectureSubscribtionCreateManyUserInputEnvelope
+    set?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    disconnect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    delete?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    connect?: LectureSubscribtionWhereUniqueInput | LectureSubscribtionWhereUniqueInput[]
+    update?: LectureSubscribtionUpdateWithWhereUniqueWithoutUserInput | LectureSubscribtionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LectureSubscribtionUpdateManyWithWhereWithoutUserInput | LectureSubscribtionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LectureSubscribtionScalarWhereInput | LectureSubscribtionScalarWhereInput[]
+  }
+
+  export type CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CompletedLecturesCreateWithoutUserInput, CompletedLecturesUncheckedCreateWithoutUserInput> | CompletedLecturesCreateWithoutUserInput[] | CompletedLecturesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CompletedLecturesCreateOrConnectWithoutUserInput | CompletedLecturesCreateOrConnectWithoutUserInput[]
+    upsert?: CompletedLecturesUpsertWithWhereUniqueWithoutUserInput | CompletedLecturesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CompletedLecturesCreateManyUserInputEnvelope
+    set?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    disconnect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    delete?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    connect?: CompletedLecturesWhereUniqueInput | CompletedLecturesWhereUniqueInput[]
+    update?: CompletedLecturesUpdateWithWhereUniqueWithoutUserInput | CompletedLecturesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CompletedLecturesUpdateManyWithWhereWithoutUserInput | CompletedLecturesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CompletedLecturesScalarWhereInput | CompletedLecturesScalarWhereInput[]
+  }
+
   export type UserSettingsUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserSettingsCreateOrConnectWithoutUserInput
@@ -14584,6 +19216,20 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -14663,6 +19309,23 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -14690,35 +19353,21 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type NestedEnumPermissionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionType | EnumPermissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionType[] | ListEnumPermissionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionType[] | ListEnumPermissionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionTypeFilter<$PrismaModel> | $Enums.PermissionType
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+  export type NestedEnumPermissionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionType | EnumPermissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionType[] | ListEnumPermissionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionType[] | ListEnumPermissionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionTypeWithAggregatesFilter<$PrismaModel> | $Enums.PermissionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPermissionTypeFilter<$PrismaModel>
+    _max?: NestedEnumPermissionTypeFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -14794,6 +19443,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
     settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -14811,6 +19463,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
     settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -14833,6 +19488,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
     settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -14850,6 +19508,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
     settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -14879,11 +19540,13 @@ export namespace Prisma {
   }
 
   export type LecturePermissionsCreateWithoutLectureInput = {
+    type: $Enums.PermissionType
     user: UserCreateNestedOneWithoutLecturePermissionInput
   }
 
   export type LecturePermissionsUncheckedCreateWithoutLectureInput = {
     userId: string
+    type: $Enums.PermissionType
   }
 
   export type LecturePermissionsCreateOrConnectWithoutLectureInput = {
@@ -14896,15 +19559,78 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LectureReportCreateWithoutLectureInput = {
+    id?: string
+    reportMessage: string
+    user: UserCreateNestedOneWithoutLectureReportsInput
+  }
+
+  export type LectureReportUncheckedCreateWithoutLectureInput = {
+    id?: string
+    reportMessage: string
+    reportedById: string
+  }
+
+  export type LectureReportCreateOrConnectWithoutLectureInput = {
+    where: LectureReportWhereUniqueInput
+    create: XOR<LectureReportCreateWithoutLectureInput, LectureReportUncheckedCreateWithoutLectureInput>
+  }
+
+  export type LectureReportCreateManyLectureInputEnvelope = {
+    data: LectureReportCreateManyLectureInput | LectureReportCreateManyLectureInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LectureSubscribtionCreateWithoutLectureInput = {
+    user: UserCreateNestedOneWithoutLectureSubscriptionsInput
+  }
+
+  export type LectureSubscribtionUncheckedCreateWithoutLectureInput = {
+    userId: string
+  }
+
+  export type LectureSubscribtionCreateOrConnectWithoutLectureInput = {
+    where: LectureSubscribtionWhereUniqueInput
+    create: XOR<LectureSubscribtionCreateWithoutLectureInput, LectureSubscribtionUncheckedCreateWithoutLectureInput>
+  }
+
+  export type LectureSubscribtionCreateManyLectureInputEnvelope = {
+    data: LectureSubscribtionCreateManyLectureInput | LectureSubscribtionCreateManyLectureInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompletedLecturesCreateWithoutLectureInput = {
+    user: UserCreateNestedOneWithoutCompletedLecturesInput
+  }
+
+  export type CompletedLecturesUncheckedCreateWithoutLectureInput = {
+    userId: string
+  }
+
+  export type CompletedLecturesCreateOrConnectWithoutLectureInput = {
+    where: CompletedLecturesWhereUniqueInput
+    create: XOR<CompletedLecturesCreateWithoutLectureInput, CompletedLecturesUncheckedCreateWithoutLectureInput>
+  }
+
+  export type CompletedLecturesCreateManyLectureInputEnvelope = {
+    data: CompletedLecturesCreateManyLectureInput | CompletedLecturesCreateManyLectureInput[]
+    skipDuplicates?: boolean
+  }
+
   export type LectureHierarchyCreateWithoutHierarchyChildrenInput = {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
+    reports?: LectureReportCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
   }
 
@@ -14914,11 +19640,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdById: string
     updatedById: string
     HierarchyParentId?: number | null
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
+    reports?: LectureReportUncheckedCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput
   }
 
   export type LectureHierarchyCreateOrConnectWithoutHierarchyChildrenInput = {
@@ -14931,10 +19662,15 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
+    reports?: LectureReportCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -14944,10 +19680,15 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdById: string
     updatedById: string
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
+    reports?: LectureReportUncheckedCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -14986,6 +19727,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -15003,6 +19747,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -15031,6 +19778,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -15048,6 +19798,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -15098,6 +19851,81 @@ export namespace Prisma {
     NOT?: LecturePermissionsScalarWhereInput | LecturePermissionsScalarWhereInput[]
     lectureId?: IntFilter<"LecturePermissions"> | number
     userId?: StringFilter<"LecturePermissions"> | string
+    type?: EnumPermissionTypeFilter<"LecturePermissions"> | $Enums.PermissionType
+  }
+
+  export type LectureReportUpsertWithWhereUniqueWithoutLectureInput = {
+    where: LectureReportWhereUniqueInput
+    update: XOR<LectureReportUpdateWithoutLectureInput, LectureReportUncheckedUpdateWithoutLectureInput>
+    create: XOR<LectureReportCreateWithoutLectureInput, LectureReportUncheckedCreateWithoutLectureInput>
+  }
+
+  export type LectureReportUpdateWithWhereUniqueWithoutLectureInput = {
+    where: LectureReportWhereUniqueInput
+    data: XOR<LectureReportUpdateWithoutLectureInput, LectureReportUncheckedUpdateWithoutLectureInput>
+  }
+
+  export type LectureReportUpdateManyWithWhereWithoutLectureInput = {
+    where: LectureReportScalarWhereInput
+    data: XOR<LectureReportUpdateManyMutationInput, LectureReportUncheckedUpdateManyWithoutLectureInput>
+  }
+
+  export type LectureReportScalarWhereInput = {
+    AND?: LectureReportScalarWhereInput | LectureReportScalarWhereInput[]
+    OR?: LectureReportScalarWhereInput[]
+    NOT?: LectureReportScalarWhereInput | LectureReportScalarWhereInput[]
+    id?: StringFilter<"LectureReport"> | string
+    reportMessage?: StringFilter<"LectureReport"> | string
+    lectureId?: IntFilter<"LectureReport"> | number
+    reportedById?: StringFilter<"LectureReport"> | string
+  }
+
+  export type LectureSubscribtionUpsertWithWhereUniqueWithoutLectureInput = {
+    where: LectureSubscribtionWhereUniqueInput
+    update: XOR<LectureSubscribtionUpdateWithoutLectureInput, LectureSubscribtionUncheckedUpdateWithoutLectureInput>
+    create: XOR<LectureSubscribtionCreateWithoutLectureInput, LectureSubscribtionUncheckedCreateWithoutLectureInput>
+  }
+
+  export type LectureSubscribtionUpdateWithWhereUniqueWithoutLectureInput = {
+    where: LectureSubscribtionWhereUniqueInput
+    data: XOR<LectureSubscribtionUpdateWithoutLectureInput, LectureSubscribtionUncheckedUpdateWithoutLectureInput>
+  }
+
+  export type LectureSubscribtionUpdateManyWithWhereWithoutLectureInput = {
+    where: LectureSubscribtionScalarWhereInput
+    data: XOR<LectureSubscribtionUpdateManyMutationInput, LectureSubscribtionUncheckedUpdateManyWithoutLectureInput>
+  }
+
+  export type LectureSubscribtionScalarWhereInput = {
+    AND?: LectureSubscribtionScalarWhereInput | LectureSubscribtionScalarWhereInput[]
+    OR?: LectureSubscribtionScalarWhereInput[]
+    NOT?: LectureSubscribtionScalarWhereInput | LectureSubscribtionScalarWhereInput[]
+    userId?: StringFilter<"LectureSubscribtion"> | string
+    lectureId?: IntFilter<"LectureSubscribtion"> | number
+  }
+
+  export type CompletedLecturesUpsertWithWhereUniqueWithoutLectureInput = {
+    where: CompletedLecturesWhereUniqueInput
+    update: XOR<CompletedLecturesUpdateWithoutLectureInput, CompletedLecturesUncheckedUpdateWithoutLectureInput>
+    create: XOR<CompletedLecturesCreateWithoutLectureInput, CompletedLecturesUncheckedCreateWithoutLectureInput>
+  }
+
+  export type CompletedLecturesUpdateWithWhereUniqueWithoutLectureInput = {
+    where: CompletedLecturesWhereUniqueInput
+    data: XOR<CompletedLecturesUpdateWithoutLectureInput, CompletedLecturesUncheckedUpdateWithoutLectureInput>
+  }
+
+  export type CompletedLecturesUpdateManyWithWhereWithoutLectureInput = {
+    where: CompletedLecturesScalarWhereInput
+    data: XOR<CompletedLecturesUpdateManyMutationInput, CompletedLecturesUncheckedUpdateManyWithoutLectureInput>
+  }
+
+  export type CompletedLecturesScalarWhereInput = {
+    AND?: CompletedLecturesScalarWhereInput | CompletedLecturesScalarWhereInput[]
+    OR?: CompletedLecturesScalarWhereInput[]
+    NOT?: CompletedLecturesScalarWhereInput | CompletedLecturesScalarWhereInput[]
+    userId?: StringFilter<"CompletedLectures"> | string
+    lectureId?: IntFilter<"CompletedLectures"> | number
   }
 
   export type LectureHierarchyUpsertWithoutHierarchyChildrenInput = {
@@ -15116,10 +19944,15 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
   }
 
@@ -15129,11 +19962,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUncheckedUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput
   }
 
   export type LectureHierarchyUpsertWithWhereUniqueWithoutHierarchyParentInput = {
@@ -15161,6 +19999,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     updatedAt?: DateTimeFilter<"LectureHierarchy"> | Date | string
     isPublic?: BoolFilter<"LectureHierarchy"> | boolean
+    image?: StringNullableFilter<"LectureHierarchy"> | string | null
+    description?: StringNullableFilter<"LectureHierarchy"> | string | null
     createdById?: StringFilter<"LectureHierarchy"> | string
     updatedById?: StringFilter<"LectureHierarchy"> | string
     HierarchyParentId?: IntNullableFilter<"LectureHierarchy"> | number | null
@@ -15171,9 +20011,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
+    reports?: LectureReportCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -15184,10 +20029,15 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdById: string
     updatedById: string
     HierarchyParentId?: number | null
     permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
+    reports?: LectureReportUncheckedCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -15236,9 +20086,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -15249,10 +20104,15 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUncheckedUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -15320,6 +20180,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
     settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -15337,6 +20200,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
     settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -15359,6 +20225,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
     settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -15376,6 +20245,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
     settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -15425,6 +20297,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -15442,6 +20317,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -15470,6 +20348,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -15487,6 +20368,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -15495,9 +20379,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    reports?: LectureReportCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -15508,10 +20397,15 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdById: string
     updatedById: string
     HierarchyParentId?: number | null
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    reports?: LectureReportUncheckedCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -15534,6 +20428,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
     settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -15551,6 +20448,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
     settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -15575,9 +20475,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -15588,10 +20493,15 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUncheckedUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -15620,6 +20530,9 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -15637,6 +20550,555 @@ export namespace Prisma {
     lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type LectureHierarchyCreateWithoutCompletedByInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    image?: string | null
+    description?: string | null
+    createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
+    updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
+    reports?: LectureReportCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionCreateNestedManyWithoutLectureInput
+    hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
+    hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyUncheckedCreateWithoutCompletedByInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    image?: string | null
+    description?: string | null
+    createdById: string
+    updatedById: string
+    HierarchyParentId?: number | null
+    blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
+    reports?: LectureReportUncheckedCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput
+    hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyCreateOrConnectWithoutCompletedByInput = {
+    where: LectureHierarchyWhereUniqueInput
+    create: XOR<LectureHierarchyCreateWithoutCompletedByInput, LectureHierarchyUncheckedCreateWithoutCompletedByInput>
+  }
+
+  export type UserCreateWithoutCompletedLecturesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCompletedLecturesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyUncheckedCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCompletedLecturesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCompletedLecturesInput, UserUncheckedCreateWithoutCompletedLecturesInput>
+  }
+
+  export type LectureHierarchyUpsertWithoutCompletedByInput = {
+    update: XOR<LectureHierarchyUpdateWithoutCompletedByInput, LectureHierarchyUncheckedUpdateWithoutCompletedByInput>
+    create: XOR<LectureHierarchyCreateWithoutCompletedByInput, LectureHierarchyUncheckedCreateWithoutCompletedByInput>
+    where?: LectureHierarchyWhereInput
+  }
+
+  export type LectureHierarchyUpdateToOneWithWhereWithoutCompletedByInput = {
+    where?: LectureHierarchyWhereInput
+    data: XOR<LectureHierarchyUpdateWithoutCompletedByInput, LectureHierarchyUncheckedUpdateWithoutCompletedByInput>
+  }
+
+  export type LectureHierarchyUpdateWithoutCompletedByInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
+    updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUpdateManyWithoutLectureNestedInput
+    hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
+    hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type LectureHierarchyUncheckedUpdateWithoutCompletedByInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    updatedById?: StringFieldUpdateOperationsInput | string
+    HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUncheckedUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput
+    hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type UserUpsertWithoutCompletedLecturesInput = {
+    update: XOR<UserUpdateWithoutCompletedLecturesInput, UserUncheckedUpdateWithoutCompletedLecturesInput>
+    create: XOR<UserCreateWithoutCompletedLecturesInput, UserUncheckedCreateWithoutCompletedLecturesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCompletedLecturesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCompletedLecturesInput, UserUncheckedUpdateWithoutCompletedLecturesInput>
+  }
+
+  export type UserUpdateWithoutCompletedLecturesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCompletedLecturesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUncheckedUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type LectureHierarchyCreateWithoutSubscriptionsInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    image?: string | null
+    description?: string | null
+    createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
+    updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
+    reports?: LectureReportCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesCreateNestedManyWithoutLectureInput
+    hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
+    hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyUncheckedCreateWithoutSubscriptionsInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    image?: string | null
+    description?: string | null
+    createdById: string
+    updatedById: string
+    HierarchyParentId?: number | null
+    blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
+    reports?: LectureReportUncheckedCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput
+    hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyCreateOrConnectWithoutSubscriptionsInput = {
+    where: LectureHierarchyWhereUniqueInput
+    create: XOR<LectureHierarchyCreateWithoutSubscriptionsInput, LectureHierarchyUncheckedCreateWithoutSubscriptionsInput>
+  }
+
+  export type UserCreateWithoutLectureSubscriptionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLectureSubscriptionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyUncheckedCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLectureSubscriptionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLectureSubscriptionsInput, UserUncheckedCreateWithoutLectureSubscriptionsInput>
+  }
+
+  export type LectureHierarchyUpsertWithoutSubscriptionsInput = {
+    update: XOR<LectureHierarchyUpdateWithoutSubscriptionsInput, LectureHierarchyUncheckedUpdateWithoutSubscriptionsInput>
+    create: XOR<LectureHierarchyCreateWithoutSubscriptionsInput, LectureHierarchyUncheckedCreateWithoutSubscriptionsInput>
+    where?: LectureHierarchyWhereInput
+  }
+
+  export type LectureHierarchyUpdateToOneWithWhereWithoutSubscriptionsInput = {
+    where?: LectureHierarchyWhereInput
+    data: XOR<LectureHierarchyUpdateWithoutSubscriptionsInput, LectureHierarchyUncheckedUpdateWithoutSubscriptionsInput>
+  }
+
+  export type LectureHierarchyUpdateWithoutSubscriptionsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
+    updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUpdateManyWithoutLectureNestedInput
+    hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
+    hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type LectureHierarchyUncheckedUpdateWithoutSubscriptionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    updatedById?: StringFieldUpdateOperationsInput | string
+    HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUncheckedUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput
+    hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type UserUpsertWithoutLectureSubscriptionsInput = {
+    update: XOR<UserUpdateWithoutLectureSubscriptionsInput, UserUncheckedUpdateWithoutLectureSubscriptionsInput>
+    create: XOR<UserCreateWithoutLectureSubscriptionsInput, UserUncheckedCreateWithoutLectureSubscriptionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLectureSubscriptionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLectureSubscriptionsInput, UserUncheckedUpdateWithoutLectureSubscriptionsInput>
+  }
+
+  export type UserUpdateWithoutLectureSubscriptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLectureSubscriptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUncheckedUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type LectureHierarchyCreateWithoutReportsInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    image?: string | null
+    description?: string | null
+    createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
+    updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
+    blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesCreateNestedManyWithoutLectureInput
+    hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
+    hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyUncheckedCreateWithoutReportsInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPublic?: boolean
+    image?: string | null
+    description?: string | null
+    createdById: string
+    updatedById: string
+    HierarchyParentId?: number | null
+    blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
+    permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput
+    hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
+  }
+
+  export type LectureHierarchyCreateOrConnectWithoutReportsInput = {
+    where: LectureHierarchyWhereUniqueInput
+    create: XOR<LectureHierarchyCreateWithoutReportsInput, LectureHierarchyUncheckedCreateWithoutReportsInput>
+  }
+
+  export type UserCreateWithoutLectureReportsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
+    settings?: UserSettingsCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLectureReportsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Roles
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    lecturesCreated?: LectureHierarchyUncheckedCreateNestedManyWithoutCreatedByInput
+    lecturesUpdated?: LectureHierarchyUncheckedCreateNestedManyWithoutUpdatedByInput
+    blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
+    blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
+    lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
+    settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLectureReportsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLectureReportsInput, UserUncheckedCreateWithoutLectureReportsInput>
+  }
+
+  export type LectureHierarchyUpsertWithoutReportsInput = {
+    update: XOR<LectureHierarchyUpdateWithoutReportsInput, LectureHierarchyUncheckedUpdateWithoutReportsInput>
+    create: XOR<LectureHierarchyCreateWithoutReportsInput, LectureHierarchyUncheckedCreateWithoutReportsInput>
+    where?: LectureHierarchyWhereInput
+  }
+
+  export type LectureHierarchyUpdateToOneWithWhereWithoutReportsInput = {
+    where?: LectureHierarchyWhereInput
+    data: XOR<LectureHierarchyUpdateWithoutReportsInput, LectureHierarchyUncheckedUpdateWithoutReportsInput>
+  }
+
+  export type LectureHierarchyUpdateWithoutReportsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
+    updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
+    blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUpdateManyWithoutLectureNestedInput
+    hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
+    hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type LectureHierarchyUncheckedUpdateWithoutReportsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    updatedById?: StringFieldUpdateOperationsInput | string
+    HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
+    blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
+    permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput
+    hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
+  }
+
+  export type UserUpsertWithoutLectureReportsInput = {
+    update: XOR<UserUpdateWithoutLectureReportsInput, UserUncheckedUpdateWithoutLectureReportsInput>
+    create: XOR<UserCreateWithoutLectureReportsInput, UserUncheckedCreateWithoutLectureReportsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLectureReportsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLectureReportsInput, UserUncheckedUpdateWithoutLectureReportsInput>
+  }
+
+  export type UserUpdateWithoutLectureReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
+    settings?: UserSettingsUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLectureReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRolesFieldUpdateOperationsInput | $Enums.Roles
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    lecturesCreated?: LectureHierarchyUncheckedUpdateManyWithoutCreatedByNestedInput
+    lecturesUpdated?: LectureHierarchyUncheckedUpdateManyWithoutUpdatedByNestedInput
+    blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
+    blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -15654,6 +21116,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
     settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -15671,6 +21136,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
     settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -15704,6 +21172,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -15721,6 +21192,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -15738,6 +21212,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
     settings?: UserSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -15755,6 +21232,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
     settings?: UserSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -15788,6 +21268,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -15805,6 +21288,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
     settings?: UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -15875,9 +21361,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     updatedBy: UserCreateNestedOneWithoutLecturesUpdatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
+    reports?: LectureReportCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -15888,10 +21379,15 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     updatedById: string
     HierarchyParentId?: number | null
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
+    reports?: LectureReportUncheckedCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -15910,9 +21406,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdBy: UserCreateNestedOneWithoutLecturesCreatedInput
     blocks?: LectureMarkdownCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsCreateNestedManyWithoutLectureInput
+    reports?: LectureReportCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesCreateNestedManyWithoutLectureInput
     hierarchyParent?: LectureHierarchyCreateNestedOneWithoutHierarchyChildrenInput
     hierarchyChildren?: LectureHierarchyCreateNestedManyWithoutHierarchyParentInput
   }
@@ -15923,10 +21424,15 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdById: string
     HierarchyParentId?: number | null
     blocks?: LectureMarkdownUncheckedCreateNestedManyWithoutLectureInput
     permissions?: LecturePermissionsUncheckedCreateNestedManyWithoutLectureInput
+    reports?: LectureReportUncheckedCreateNestedManyWithoutLectureInput
+    subscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutLectureInput
+    completedBy?: CompletedLecturesUncheckedCreateNestedManyWithoutLectureInput
     hierarchyChildren?: LectureHierarchyUncheckedCreateNestedManyWithoutHierarchyParentInput
   }
 
@@ -15999,11 +21505,13 @@ export namespace Prisma {
   }
 
   export type LecturePermissionsCreateWithoutUserInput = {
+    type: $Enums.PermissionType
     lecture: LectureHierarchyCreateNestedOneWithoutPermissionsInput
   }
 
   export type LecturePermissionsUncheckedCreateWithoutUserInput = {
     lectureId: number
+    type: $Enums.PermissionType
   }
 
   export type LecturePermissionsCreateOrConnectWithoutUserInput = {
@@ -16013,6 +21521,64 @@ export namespace Prisma {
 
   export type LecturePermissionsCreateManyUserInputEnvelope = {
     data: LecturePermissionsCreateManyUserInput | LecturePermissionsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LectureReportCreateWithoutUserInput = {
+    id?: string
+    reportMessage: string
+    lecture: LectureHierarchyCreateNestedOneWithoutReportsInput
+  }
+
+  export type LectureReportUncheckedCreateWithoutUserInput = {
+    id?: string
+    reportMessage: string
+    lectureId: number
+  }
+
+  export type LectureReportCreateOrConnectWithoutUserInput = {
+    where: LectureReportWhereUniqueInput
+    create: XOR<LectureReportCreateWithoutUserInput, LectureReportUncheckedCreateWithoutUserInput>
+  }
+
+  export type LectureReportCreateManyUserInputEnvelope = {
+    data: LectureReportCreateManyUserInput | LectureReportCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LectureSubscribtionCreateWithoutUserInput = {
+    lecture: LectureHierarchyCreateNestedOneWithoutSubscriptionsInput
+  }
+
+  export type LectureSubscribtionUncheckedCreateWithoutUserInput = {
+    lectureId: number
+  }
+
+  export type LectureSubscribtionCreateOrConnectWithoutUserInput = {
+    where: LectureSubscribtionWhereUniqueInput
+    create: XOR<LectureSubscribtionCreateWithoutUserInput, LectureSubscribtionUncheckedCreateWithoutUserInput>
+  }
+
+  export type LectureSubscribtionCreateManyUserInputEnvelope = {
+    data: LectureSubscribtionCreateManyUserInput | LectureSubscribtionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompletedLecturesCreateWithoutUserInput = {
+    lecture: LectureHierarchyCreateNestedOneWithoutCompletedByInput
+  }
+
+  export type CompletedLecturesUncheckedCreateWithoutUserInput = {
+    lectureId: number
+  }
+
+  export type CompletedLecturesCreateOrConnectWithoutUserInput = {
+    where: CompletedLecturesWhereUniqueInput
+    create: XOR<CompletedLecturesCreateWithoutUserInput, CompletedLecturesUncheckedCreateWithoutUserInput>
+  }
+
+  export type CompletedLecturesCreateManyUserInputEnvelope = {
+    data: CompletedLecturesCreateManyUserInput | CompletedLecturesCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -16183,6 +21749,54 @@ export namespace Prisma {
     data: XOR<LecturePermissionsUpdateManyMutationInput, LecturePermissionsUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type LectureReportUpsertWithWhereUniqueWithoutUserInput = {
+    where: LectureReportWhereUniqueInput
+    update: XOR<LectureReportUpdateWithoutUserInput, LectureReportUncheckedUpdateWithoutUserInput>
+    create: XOR<LectureReportCreateWithoutUserInput, LectureReportUncheckedCreateWithoutUserInput>
+  }
+
+  export type LectureReportUpdateWithWhereUniqueWithoutUserInput = {
+    where: LectureReportWhereUniqueInput
+    data: XOR<LectureReportUpdateWithoutUserInput, LectureReportUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LectureReportUpdateManyWithWhereWithoutUserInput = {
+    where: LectureReportScalarWhereInput
+    data: XOR<LectureReportUpdateManyMutationInput, LectureReportUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type LectureSubscribtionUpsertWithWhereUniqueWithoutUserInput = {
+    where: LectureSubscribtionWhereUniqueInput
+    update: XOR<LectureSubscribtionUpdateWithoutUserInput, LectureSubscribtionUncheckedUpdateWithoutUserInput>
+    create: XOR<LectureSubscribtionCreateWithoutUserInput, LectureSubscribtionUncheckedCreateWithoutUserInput>
+  }
+
+  export type LectureSubscribtionUpdateWithWhereUniqueWithoutUserInput = {
+    where: LectureSubscribtionWhereUniqueInput
+    data: XOR<LectureSubscribtionUpdateWithoutUserInput, LectureSubscribtionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LectureSubscribtionUpdateManyWithWhereWithoutUserInput = {
+    where: LectureSubscribtionScalarWhereInput
+    data: XOR<LectureSubscribtionUpdateManyMutationInput, LectureSubscribtionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CompletedLecturesUpsertWithWhereUniqueWithoutUserInput = {
+    where: CompletedLecturesWhereUniqueInput
+    update: XOR<CompletedLecturesUpdateWithoutUserInput, CompletedLecturesUncheckedUpdateWithoutUserInput>
+    create: XOR<CompletedLecturesCreateWithoutUserInput, CompletedLecturesUncheckedCreateWithoutUserInput>
+  }
+
+  export type CompletedLecturesUpdateWithWhereUniqueWithoutUserInput = {
+    where: CompletedLecturesWhereUniqueInput
+    data: XOR<CompletedLecturesUpdateWithoutUserInput, CompletedLecturesUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CompletedLecturesUpdateManyWithWhereWithoutUserInput = {
+    where: CompletedLecturesScalarWhereInput
+    data: XOR<CompletedLecturesUpdateManyMutationInput, CompletedLecturesUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type UserSettingsUpsertWithoutUserInput = {
     update: XOR<UserSettingsUpdateWithoutUserInput, UserSettingsUncheckedUpdateWithoutUserInput>
     create: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
@@ -16217,6 +21831,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSettingsInput = {
@@ -16234,6 +21851,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedCreateNestedManyWithoutCreatedByInput
     blocksUpdated?: MarkdownBlockUncheckedCreateNestedManyWithoutUpdatedByInput
     lecturePermission?: LecturePermissionsUncheckedCreateNestedManyWithoutUserInput
+    lectureReports?: LectureReportUncheckedCreateNestedManyWithoutUserInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedCreateNestedManyWithoutUserInput
+    completedLectures?: CompletedLecturesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSettingsInput = {
@@ -16267,6 +21887,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSettingsInput = {
@@ -16284,6 +21907,9 @@ export namespace Prisma {
     blocksCreated?: MarkdownBlockUncheckedUpdateManyWithoutCreatedByNestedInput
     blocksUpdated?: MarkdownBlockUncheckedUpdateManyWithoutUpdatedByNestedInput
     lecturePermission?: LecturePermissionsUncheckedUpdateManyWithoutUserNestedInput
+    lectureReports?: LectureReportUncheckedUpdateManyWithoutUserNestedInput
+    lectureSubscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutUserNestedInput
+    completedLectures?: CompletedLecturesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LectureMarkdownCreateManyLectureInput = {
@@ -16293,6 +21919,21 @@ export namespace Prisma {
 
   export type LecturePermissionsCreateManyLectureInput = {
     userId: string
+    type: $Enums.PermissionType
+  }
+
+  export type LectureReportCreateManyLectureInput = {
+    id?: string
+    reportMessage: string
+    reportedById: string
+  }
+
+  export type LectureSubscribtionCreateManyLectureInput = {
+    userId: string
+  }
+
+  export type CompletedLecturesCreateManyLectureInput = {
+    userId: string
   }
 
   export type LectureHierarchyCreateManyHierarchyParentInput = {
@@ -16301,6 +21942,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdById: string
     updatedById: string
   }
@@ -16321,14 +21964,59 @@ export namespace Prisma {
   }
 
   export type LecturePermissionsUpdateWithoutLectureInput = {
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
     user?: UserUpdateOneRequiredWithoutLecturePermissionNestedInput
   }
 
   export type LecturePermissionsUncheckedUpdateWithoutLectureInput = {
     userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
   }
 
   export type LecturePermissionsUncheckedUpdateManyWithoutLectureInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
+  }
+
+  export type LectureReportUpdateWithoutLectureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutLectureReportsNestedInput
+  }
+
+  export type LectureReportUncheckedUpdateWithoutLectureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+    reportedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LectureReportUncheckedUpdateManyWithoutLectureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+    reportedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LectureSubscribtionUpdateWithoutLectureInput = {
+    user?: UserUpdateOneRequiredWithoutLectureSubscriptionsNestedInput
+  }
+
+  export type LectureSubscribtionUncheckedUpdateWithoutLectureInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LectureSubscribtionUncheckedUpdateManyWithoutLectureInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CompletedLecturesUpdateWithoutLectureInput = {
+    user?: UserUpdateOneRequiredWithoutCompletedLecturesNestedInput
+  }
+
+  export type CompletedLecturesUncheckedUpdateWithoutLectureInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CompletedLecturesUncheckedUpdateManyWithoutLectureInput = {
     userId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -16337,10 +22025,15 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -16350,10 +22043,15 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUncheckedUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -16363,6 +22061,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     updatedById?: StringFieldUpdateOperationsInput | string
   }
@@ -16414,6 +22114,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     updatedById: string
     HierarchyParentId?: number | null
   }
@@ -16424,6 +22126,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPublic?: boolean
+    image?: string | null
+    description?: string | null
     createdById: string
     HierarchyParentId?: number | null
   }
@@ -16447,6 +22151,21 @@ export namespace Prisma {
   }
 
   export type LecturePermissionsCreateManyUserInput = {
+    lectureId: number
+    type: $Enums.PermissionType
+  }
+
+  export type LectureReportCreateManyUserInput = {
+    id?: string
+    reportMessage: string
+    lectureId: number
+  }
+
+  export type LectureSubscribtionCreateManyUserInput = {
+    lectureId: number
+  }
+
+  export type CompletedLecturesCreateManyUserInput = {
     lectureId: number
   }
 
@@ -16518,9 +22237,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     updatedBy?: UserUpdateOneRequiredWithoutLecturesUpdatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -16531,10 +22255,15 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUncheckedUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -16544,6 +22273,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     updatedById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -16553,9 +22284,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: UserUpdateOneRequiredWithoutLecturesCreatedNestedInput
     blocks?: LectureMarkdownUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUpdateManyWithoutLectureNestedInput
     hierarchyParent?: LectureHierarchyUpdateOneWithoutHierarchyChildrenNestedInput
     hierarchyChildren?: LectureHierarchyUpdateManyWithoutHierarchyParentNestedInput
   }
@@ -16566,10 +22302,15 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
     blocks?: LectureMarkdownUncheckedUpdateManyWithoutLectureNestedInput
     permissions?: LecturePermissionsUncheckedUpdateManyWithoutLectureNestedInput
+    reports?: LectureReportUncheckedUpdateManyWithoutLectureNestedInput
+    subscriptions?: LectureSubscribtionUncheckedUpdateManyWithoutLectureNestedInput
+    completedBy?: CompletedLecturesUncheckedUpdateManyWithoutLectureNestedInput
     hierarchyChildren?: LectureHierarchyUncheckedUpdateManyWithoutHierarchyParentNestedInput
   }
 
@@ -16579,6 +22320,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     HierarchyParentId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -16640,14 +22383,59 @@ export namespace Prisma {
   }
 
   export type LecturePermissionsUpdateWithoutUserInput = {
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
     lecture?: LectureHierarchyUpdateOneRequiredWithoutPermissionsNestedInput
   }
 
   export type LecturePermissionsUncheckedUpdateWithoutUserInput = {
     lectureId?: IntFieldUpdateOperationsInput | number
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
   }
 
   export type LecturePermissionsUncheckedUpdateManyWithoutUserInput = {
+    lectureId?: IntFieldUpdateOperationsInput | number
+    type?: EnumPermissionTypeFieldUpdateOperationsInput | $Enums.PermissionType
+  }
+
+  export type LectureReportUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutReportsNestedInput
+  }
+
+  export type LectureReportUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureReportUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportMessage?: StringFieldUpdateOperationsInput | string
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureSubscribtionUpdateWithoutUserInput = {
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutSubscriptionsNestedInput
+  }
+
+  export type LectureSubscribtionUncheckedUpdateWithoutUserInput = {
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LectureSubscribtionUncheckedUpdateManyWithoutUserInput = {
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CompletedLecturesUpdateWithoutUserInput = {
+    lecture?: LectureHierarchyUpdateOneRequiredWithoutCompletedByNestedInput
+  }
+
+  export type CompletedLecturesUncheckedUpdateWithoutUserInput = {
+    lectureId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CompletedLecturesUncheckedUpdateManyWithoutUserInput = {
     lectureId?: IntFieldUpdateOperationsInput | number
   }
 

@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useId, useState } from "react";
+
+import React, { useId, useState } from "react";
 import toast from "react-hot-toast";
 import { FaCheck } from "react-icons/fa";
 
@@ -7,10 +8,6 @@ interface InputCheckboxProps {
   dbKey?: string;
   label?: string;
   initialValue?: boolean;
-  defaultValue?: {
-    createDefault?: boolean;
-    editDefault?: boolean;
-  };
   required?: boolean;
   onChange?: (value: boolean) => void;
   className?: string;
@@ -19,97 +16,48 @@ interface InputCheckboxProps {
 }
 
 function InputCheckbox(props: InputCheckboxProps) {
-  const [checkValue, setCheckValue] = useState<boolean>(
-    props.initialValue ?? false,
-  );
-  const [errorMessage, setErrorMessage] = useState("");
-  const distinctId = useId();
-
-  useEffect(() => {
-    const inputEl = document.getElementById(distinctId);
-    if (!inputEl) return;
-
-    const closestForm = inputEl.closest("form");
-    const defaults = props.defaultValue;
-
-    if (props.initialValue !== undefined) {
-      setCheckValue(props.initialValue);
-      return;
-    }
-
-    if (defaults && closestForm instanceof HTMLFormElement) {
-      const formType = closestForm.dataset.formType;
-
-      if (formType === "create" && defaults.createDefault !== undefined) {
-        setCheckValue(defaults.createDefault);
-      } else if (formType === "update" && defaults.editDefault !== undefined) {
-        setCheckValue(defaults.editDefault);
-      }
-    } else if (defaults?.createDefault !== undefined) {
-      setCheckValue(defaults.createDefault);
-    }
-  }, [props.initialValue, props.defaultValue]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.checked;
-    setCheckValue(newValue);
-    setErrorMessage("");
-    props.onChange?.(newValue);
-  };
-
-  const handleInvalid = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (props.required && !checkValue) {
-      setErrorMessage("Toto pole je povinné.");
-    }
-  };
+  const id = useId();
+  const [checked, setChecked] = useState(props.initialValue ?? false);
 
   return (
-    <div className={`flex w-full flex-col ${props.className}`}>
-      <div
-        className="flex cursor-pointer items-center gap-2"
-        onClick={() => {
-          if (props.disabled && props.disabledMessage) {
-            toast.error(props.disabledMessage);
-          }
-        }}
-      >
+    <div className={`flex w-full flex-col ${props.className ?? ""}`}>
+      <div className="flex items-center gap-2">
         <input
-          id={distinctId}
+          id={id}
           name={props.dbKey}
           type="checkbox"
+          checked={checked}
           required={props.required}
-          checked={checkValue}
-          onChange={handleChange}
-          onInvalid={handleInvalid}
-          className="peer sr-only"
-          disabled={props.disabled ?? false}
+          readOnly={props.disabled}
+          onChange={(e) => {
+            if (props.disabled === true) {
+              toast.error(props.disabledMessage ?? "Chyba");
+              return;
+            }
+            setChecked(e.target.checked);
+            props.onChange?.(e.target.checked);
+          }}
+          className="sr-only"
         />
 
         <label
-          htmlFor={distinctId}
-          className={`relative flex h-5 w-5 cursor-pointer items-center justify-center rounded border-2 transition-all duration-150 select-none ${
-            checkValue
+          htmlFor={id}
+          className={`relative flex h-5 w-5 cursor-pointer items-center justify-center rounded border-2 transition-all duration-150 ${
+            checked
               ? "border-gray-400 bg-gray-400 shadow-md"
-              : errorMessage
-                ? "border-danger bg-white"
-                : "hover:border-primary-light border-gray-400 bg-white"
-          }`}
+              : "border-gray-400 bg-white"
+          } `}
         >
-          {checkValue && <FaCheck color="white" />}
+          {checked && <FaCheck className="text-white" size={12} />}
         </label>
 
         <label
-          htmlFor={distinctId}
+          htmlFor={id}
           className="dark:text-text-dark-mode cursor-pointer text-sm text-gray-700 select-none"
         >
-          {props.label ?? "Zaškrtávací pole"}
+          {props.label ?? ""}
         </label>
       </div>
-
-      <span className="text text-danger mt-1 block h-4 text-sm">
-        {errorMessage}
-      </span>
     </div>
   );
 }

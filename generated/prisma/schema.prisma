@@ -18,9 +18,21 @@ datasource db {
 //============================
 //          ENUMS
 //============================
+enum ReportType {
+  REPORT
+  SUGGESTION
+}
+
+enum PermissionType {
+  MINIMAL
+  CREATOR
+  ADMIN
+}
+
 enum Roles {
   USER
   ADMIN
+  OWNER
 }
 
 enum Themes {
@@ -33,11 +45,13 @@ enum Themes {
 //===========================
 
 model LectureHierarchy {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  isPublic  Boolean  @default(false)
+  id          Int      @id @default(autoincrement())
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isPublic    Boolean  @default(false)
+  image       String?
+  description String?
 
   createdById String
   createdBy   User   @relation("LectureCreatedBy", fields: [createdById], references: [id])
@@ -45,8 +59,11 @@ model LectureHierarchy {
   updatedById String
   updatedBy   User   @relation("LectureUpdatedBy", fields: [updatedById], references: [id])
 
-  blocks      LectureMarkdown[]    @relation("LectureHierarchy")
-  permissions LecturePermissions[] @relation("LectureHierarchyPermission")
+  blocks        LectureMarkdown[]     @relation("LectureHierarchy")
+  permissions   LecturePermissions[]  @relation("LectureHierarchyPermission")
+  reports       LectureReport[]       @relation("LectureHierarchyReport")
+  subscriptions LectureSubscribtion[] @relation("LectureHierarchySubscribtion")
+  completedBy   CompletedLectures[]   @relation("LectureHierarchyCompletion")
 
   // hierarchy
   HierarchyParentId Int?
@@ -85,11 +102,44 @@ model MarkdownBlock {
 model LecturePermissions {
   lectureId Int
   userId    String
+  type      PermissionType
 
   lecture LectureHierarchy @relation("LectureHierarchyPermission", fields: [lectureId], references: [id], onDelete: Cascade)
-  user    User             @relation("UserPermission", fields: [userId], references: [id])
+  user    User             @relation("UserLecturePermission", fields: [userId], references: [id])
 
   @@id([userId, lectureId])
+}
+
+model CompletedLectures {
+  userId    String
+  lectureId Int
+
+  lecture LectureHierarchy @relation("LectureHierarchyCompletion", fields: [lectureId], references: [id], onDelete: Cascade)
+  user    User             @relation("UserLectureCompletion", fields: [userId], references: [id])
+
+  @@id([userId, lectureId])
+}
+
+model LectureSubscribtion {
+  userId    String
+  lectureId Int
+
+  lecture LectureHierarchy @relation("LectureHierarchySubscribtion", fields: [lectureId], references: [id], onDelete: Cascade)
+  user    User             @relation("UserLectureSubscription", fields: [userId], references: [id])
+
+  @@id([userId, lectureId])
+}
+
+model LectureReport {
+  id String @id @default(uuid())
+
+  reportMessage String @db.Text
+
+  lectureId    Int
+  reportedById String
+
+  lecture LectureHierarchy @relation("LectureHierarchyReport", fields: [lectureId], references: [id], onDelete: Cascade)
+  user    User             @relation("UserLectureReport", fields: [reportedById], references: [id])
 }
 
 // Necessary for Next auth
@@ -133,11 +183,14 @@ model User {
   sessions Session[]
 
   // reverse relations
-  lecturesCreated   LectureHierarchy[]   @relation("LectureCreatedBy")
-  lecturesUpdated   LectureHierarchy[]   @relation("LectureUpdatedBy")
-  blocksCreated     MarkdownBlock[]      @relation("BlockCreatedBy")
-  blocksUpdated     MarkdownBlock[]      @relation("BlockUpdatedBy")
-  lecturePermission LecturePermissions[] @relation("UserPermission")
+  lecturesCreated      LectureHierarchy[]    @relation("LectureCreatedBy")
+  lecturesUpdated      LectureHierarchy[]    @relation("LectureUpdatedBy")
+  blocksCreated        MarkdownBlock[]       @relation("BlockCreatedBy")
+  blocksUpdated        MarkdownBlock[]       @relation("BlockUpdatedBy")
+  lecturePermission    LecturePermissions[]  @relation("UserLecturePermission")
+  lectureReports       LectureReport[]       @relation("UserLectureReport")
+  lectureSubscriptions LectureSubscribtion[] @relation("UserLectureSubscription")
+  completedLectures    CompletedLectures[]   @relation("UserLectureCompletion")
 
   settings UserSettings? @relation("UserSettings")
 }

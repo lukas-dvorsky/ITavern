@@ -3,9 +3,10 @@ import Modal, { type ModalHandle } from "../Modals/Modal";
 import { FaRegEdit } from "react-icons/fa";
 
 interface FormUpdateProps {
-  buttonTitle?: string;
+  buttonTitle?: string | React.ReactNode;
   children: React.ReactNode;
   apiUpdate: (data: Record<string, unknown>) => void;
+  buttonHoverEffect?: boolean;
 }
 
 function FormUpdate(props: FormUpdateProps) {
@@ -28,7 +29,7 @@ function FormUpdate(props: FormUpdateProps) {
       <Modal ref={modalRef} title="Update" autoWidth={true}>
         {props.children}
         <button
-          className="col-span-2 col-start-11 cursor-pointer self-end rounded-lg bg-blue-500 py-4 text-white"
+          className="col-span-2 col-start-11 cursor-pointer self-end rounded-lg bg-blue-500 py-4"
           type="submit"
         >
           {`Upravit ->`}
@@ -36,7 +37,7 @@ function FormUpdate(props: FormUpdateProps) {
       </Modal>
       <button
         type="button"
-        className="dark:hover:bg-background-dark cursor-pointer rounded-md p-2 hover:bg-gray-200"
+        className={`cursor-pointer rounded-md p-2 ${props.buttonHoverEffect && "dark:hover:bg-background-dark hover:bg-gray-200"}`}
         onClick={(e) => {
           e.stopPropagation();
           modalRef.current?.open();
