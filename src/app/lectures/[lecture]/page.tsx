@@ -41,7 +41,10 @@ export default async function LecturePage({ params }: PageProps) {
           isLecturePublic={lecture.isPublic}
           lectureId={lectureId}
         />
-          <LectureChildren lectureId={lecture.id}/>
+        <LectureChildren
+          lectureId={lecture.id}
+          className="col-span-6 mx-auto mt-36 flex w-9/12 flex-col gap-16"
+        />
       </div>
     </GridLayout>
   );

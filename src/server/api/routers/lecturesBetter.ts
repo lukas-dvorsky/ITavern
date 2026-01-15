@@ -1,6 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import {
   Roles,
+  type CompletedLectures,
   type LectureHierarchy,
   type LecturePermissions,
 } from "generated/prisma";
@@ -323,6 +324,22 @@ export const lectureRouter = createTRPCRouter({
       return completion !== null;
     }),
 
+  getLecturesCompletionStatus: protectedProcedure
+    .input(z.array(z.number()))
+    .query(async ({ ctx, input }) => {
+      const completions = await ctx.db.completedLectures.findMany({
+        where: {
+          lectureId: { in: input },
+          userId: ctx.session.user.id,
+        },
+        select: {
+          lectureId: true,
+        },
+      });
+
+      return completions;
+    }),
+
   //==================
   //    [UPDATE]
   //==================
@@ -379,4 +396,35 @@ export const lectureRouter = createTRPCRouter({
   //==================
   //    [DELETE]
   //==================
+
+  deleteLectureProgression: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      const lecturesToDelete: number[] = [];
+
+      const queue: number[] = [input];
+
+      while (queue.length > 0) {
+        const current = queue.shift()!;
+        lecturesToDelete.push(current);
+
+        const children = await ctx.db.lectureHierarchy.findMany({
+          where: { HierarchyParentId: current },
+          select: { id: true },
+        });
+
+        queue.push(...children.map((c) => c.id));
+      }
+
+      await ctx.db.completedLectures.deleteMany({
+        where: {
+          lectureId: { in: lecturesToDelete },
+          userId,
+        },
+      });
+
+      return { deletedLectures: lecturesToDelete.length };
+    }),
 });

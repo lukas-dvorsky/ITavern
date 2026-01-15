@@ -3,6 +3,7 @@
 import { forwardRef, useImperativeHandle, useState, useEffect } from "react";
 import { TfiClose } from "react-icons/tfi";
 import GridLayout from "../Layout/GridLayout";
+import { createPortal } from "react-dom";
 
 export interface ModalHandle {
   open: () => void;
@@ -47,7 +48,7 @@ const Modal = forwardRef<ModalHandle, ModalProps>(
 
     const widthClass = "col-span-10 col-start-2 lg:col-span-8 lg:col-start-3";
 
-    return (
+    return createPortal(
       <div
         className="fixed inset-0 z-60 flex h-screen w-full cursor-auto items-center justify-center bg-black/50 text-xl backdrop-blur-sm"
         onClick={() => setOpen(false)}
@@ -79,7 +80,8 @@ const Modal = forwardRef<ModalHandle, ModalProps>(
             </div>
           </div>
         </div>
-      </div>
+      </div>,
+      document.body,
     );
   },
 );
