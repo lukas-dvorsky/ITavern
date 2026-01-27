@@ -9,7 +9,6 @@ import LectureChildStatistics from "../LectureChildStatistics";
 import Button from "~/app/_components/UI/Button";
 import Modal, { type ModalHandle } from "~/app/_components/Modals/Modal";
 import InputText from "~/app/_components/UI/InputText";
-import { projectGetSourceMapSync } from "next/dist/build/swc/generated-native";
 import toast from "react-hot-toast";
 
 interface ILectureChild {
@@ -48,7 +47,7 @@ function LectureChild(props: ILectureChild) {
       props.lecture.id,
     );
 
-    if (isLectureCompleted.data) {
+    if (isLectureCompleted.data?.lectureCompleted) {
       max = 1;
       count = 1;
     } else {

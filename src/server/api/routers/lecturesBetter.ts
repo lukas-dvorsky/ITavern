@@ -169,15 +169,10 @@ export const lectureRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { user } = ctx.session;
 
-      let whereClause = {};
-
+      // 1️⃣ Najdi lekci
       const lecture = await ctx.db.lectureHierarchy.findUnique({
-        where: {
-          id: input,
-        },
-        include: {
-          permissions: true,
-        },
+        where: { id: input },
+        include: { permissions: true },
       });
 
       if (!lecture) {
@@ -187,110 +182,80 @@ export const lectureRouter = createTRPCRouter({
         });
       }
 
-      let root = lecture;
-      while (root.HierarchyParentId !== null) {
-        const parent = await ctx.db.lectureHierarchy.findUnique({
-          where: {
-            id: root.HierarchyParentId,
+      // 2️⃣ Najdi ROOT lekce (bez cyklu)
+      // root = lekce, která nemá parenta a je v řetězci nad touto lekcí
+      const root = await ctx.db.lectureHierarchy.findFirst({
+        where: {
+          hierarchyChildren: {
+            some: {
+              id: lecture.id,
+            },
           },
-          include: {
-            permissions: true,
-          },
-        });
+          HierarchyParentId: null,
+        },
+        include: {
+          permissions: true,
+        },
+      });
 
-        if (!parent) break;
+      // fallback – pokud je input už root
+      const rootLecture = root ?? lecture;
 
-        root = parent;
-      }
+      // 3️⃣ Vyhodnocení práv
+      let whereClause: any;
 
-      // vlastnik celeho kurzu vidi vsechny i ty, co nejsou jeho to stejny admin
-      // uzivatel s pravy na konkretni lekci na ktere se nachazime ma CREATOR prava
+      const isOwner =
+        rootLecture.createdById === user.id || user.role === "ADMIN";
 
-      //nebo ma CREATOR PRAVA na nejakeho predka, TOTO BUDEME RESIT TAK, ZE PRI ZAKLADANI PRAV SE VYTVORI ZAZNAMY DO PERMISSIONS.
-      //pokud ma uzivatel na predkovy creator prava, tak se vytvori zaznam do tabulky pri vytvoreni lekce.
-      if (
-        root.createdById === user.id ||
-        user.role === "ADMIN" ||
-        lecture.permissions.some(
-          (p) => p.userId === user.id && p.type === "CREATOR",
-        )
-      ) {
+      const hasCreatorPermission = lecture.permissions.some(
+        (p) => p.userId === user.id && p.type === "CREATOR",
+      );
+
+      const hasMinimalPermission = lecture.permissions.some(
+        (p) => p.userId === user.id && p.type === "MINIMAL",
+      );
+
+      if (isOwner || hasCreatorPermission) {
         whereClause = {
           HierarchyParentId: input,
         };
-      } else if (
-        // MINIMAL vidi jen ty, co muze editovat, ale muzou byt i isPublic = false
-        lecture.permissions.some(
-          (p) => p.userId === user.id && p.type === "MINIMAL",
-        )
-      ) {
+      } else if (hasMinimalPermission) {
         whereClause = {
+          HierarchyParentId: input,
           OR: [
+            { isPublic: true },
             {
-              AND: [
-                {
-                  HierarchyParentId: input,
+              permissions: {
+                some: {
+                  userId: user.id,
+                  type: "MINIMAL",
                 },
-                {
-                  isPublic: true,
-                },
-              ],
-            },
-            {
-              AND: [
-                {
-                  HierarchyParentId: input,
-                },
-                {
-                  permissions: {
-                    some: {
-                      AND: [
-                        {
-                          userId: ctx.session.user.id,
-                        },
-                        {
-                          type: "MINIMAL",
-                        },
-                      ],
-                    },
-                  },
-                },
-              ],
+              },
             },
           ],
         };
       } else {
-        // USER vidi jen public
         whereClause = {
-          AND: [
-            {
-              HierarchyParentId: input,
-            },
-            {
-              isPublic: true,
-            },
-          ],
+          HierarchyParentId: input,
+          isPublic: true,
         };
       }
 
-      return await ctx.db.lectureHierarchy.findMany({
+      // 4️⃣ Nacti childy
+      return ctx.db.lectureHierarchy.findMany({
         where: whereClause,
         include: {
           createdBy: {
-            select: {
-              name: true,
-            },
+            select: { name: true },
           },
           updatedBy: {
-            select: {
-              name: true,
-            },
+            select: { name: true },
           },
           hierarchyChildren: {
             where: {
               completedBy: {
                 some: {
-                  userId: ctx.session.user.id,
+                  userId: user.id,
                 },
               },
             },
@@ -301,9 +266,7 @@ export const lectureRouter = createTRPCRouter({
           _count: {
             select: {
               hierarchyChildren: {
-                where: {
-                  isPublic: true,
-                },
+                where: { isPublic: true },
               },
             },
           },
@@ -313,7 +276,7 @@ export const lectureRouter = createTRPCRouter({
 
   getLectureCompletionStatus: protectedProcedure
     .input(z.number())
-    .query(async ({ ctx, input }): Promise<boolean> => {
+    .query(async ({ ctx, input }) => {
       const completion = await ctx.db.completedLectures.findFirst({
         where: {
           lectureId: input,
@@ -321,7 +284,28 @@ export const lectureRouter = createTRPCRouter({
         },
       });
 
-      return completion !== null;
+      const children = await ctx.db.lectureHierarchy.findMany({
+        where: {
+          HierarchyParentId: input,
+        },
+      });
+
+      const completedChildrenCount = await ctx.db.completedLectures.count({
+        where: {
+          userId: ctx.session.user.id,
+          lectureId: {
+            in: children.map((c) => c.id),
+          },
+        },
+      });
+      const childrenLectureCompleted =
+        children.length > 0 && completedChildrenCount === children.length;
+
+      return {
+        lectureCompleted: completion !== null,
+        childrenLectureCompleted:
+          children.length === 0 ? true : childrenLectureCompleted,
+      };
     }),
 
   getLecturesCompletionStatus: protectedProcedure
@@ -426,5 +410,28 @@ export const lectureRouter = createTRPCRouter({
       });
 
       return { deletedLectures: lecturesToDelete.length };
+    }),
+
+  //==================
+  //    [CREATE]
+  //==================
+  createCompletion: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      const currentStatus = await ctx.db.completedLectures.findFirst({
+        where: {
+          lectureId: input,
+          userId: ctx.session.user.id,
+        },
+      });
+
+      if (currentStatus) return;
+
+      return await ctx.db.completedLectures.create({
+        data: {
+          lectureId: input,
+          userId: ctx.session.user.id,
+        },
+      });
     }),
 });

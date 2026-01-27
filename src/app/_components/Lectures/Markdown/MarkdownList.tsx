@@ -2,7 +2,7 @@
 
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import type { DropResult } from "@hello-pangea/dnd";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import MarkdownAddButton from "./MarkdownAddButton";
 import { api } from "~/trpc/react";
 import GridLayout from "../../Layout/GridLayout";
@@ -17,6 +17,7 @@ import type {
 } from "@tanstack/react-query";
 import InputCheckbox from "../../UI/InputCheckbox";
 import LecturePermissionEdit from "../Permissions/LecturePermissionEdit";
+import PositionWatcher from "../Hierarchy/PositionWatcher";
 
 export interface LectureBlockItem extends LectureMarkdown {
   block: MarkdownBlock;
@@ -48,7 +49,8 @@ export default function MarkdownList({
   createdBy,
 }: MarkdownListProps) {
   // ==== [ API ] ====
-  // const lecture = api.lectures.getLecture.useQuery(lectureId);
+  const isLectureCompleted =
+    api.lectures.getLectureCompletionStatus.useQuery(lectureId);
   const permisionType =
     api.lectures.getUserPermissionTypeonLecture.useQuery(lectureId);
   const LecturesMdBlocks = api.block.getLectureBlocks.useQuery(lectureId);
@@ -63,6 +65,8 @@ export default function MarkdownList({
       setWait(true);
     },
   });
+
+  const watcherRef = useRef<HTMLDivElement>(null);
   /*   const updateLecturePublic = api.lectures.setLecturePublic.useMutation({
     onSuccess: async () => {
       if (lecturePublic) {
@@ -135,6 +139,10 @@ export default function MarkdownList({
 
   return (
     <GridLayout>
+      {!isLectureCompleted.data?.lectureCompleted &&
+        isLectureCompleted.data?.childrenLectureCompleted && (
+          <PositionWatcher elementRef={watcherRef} lectureId={lectureId} />
+        )}
       {permisionType.data !== "NONE" && (
         <GridLayout className="col-span-12 mb-4 flex gap-2">
           <InputCheckbox
@@ -241,6 +249,7 @@ export default function MarkdownList({
           )}
         </Droppable>
       </DragDropContext>
+      <div ref={watcherRef}></div>
     </GridLayout>
   );
 }
