@@ -30,8 +30,9 @@ function LecturePermissionRecord(props: LecturePermissionRecordProps) {
         className="dark:hover:bg-background-dark/60 rounded-sm p-2 hover:cursor-pointer"
         onClick={() =>
           addPermission.mutate({
-            userId: props.userId,
             lectureId: props.lectureId,
+            userId: props.userId,
+            type: "CREATOR",
           })
         }
       >

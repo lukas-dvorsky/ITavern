@@ -90,7 +90,7 @@ export const blockRouter = createTRPCRouter({
   //    [UPDATE]
   //==================
 
-  updateBlock: roleProcedure(["ADMIN"])
+  updateBlock: protectedProcedure
     .input(
       z.object({
         blockId: z.number(),

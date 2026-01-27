@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import {
+  PermissionType,
   Roles,
   type CompletedLectures,
   type LectureHierarchy,
@@ -28,6 +29,12 @@ function validateUserLecturePermissions(
 
   return hasPermission ? "PERMITTED" : "NO_PERMISSION";
 }
+
+const permissionTypeValues = Object.values(PermissionType) as [
+  PermissionType,
+  ...PermissionType[],
+];
+const permissionTypeSchema = z.enum(permissionTypeValues);
 
 export const lectureRouter = createTRPCRouter({
   //==================
@@ -169,10 +176,30 @@ export const lectureRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { user } = ctx.session;
 
-      // 1️⃣ Najdi lekci
-      const lecture = await ctx.db.lectureHierarchy.findUnique({
-        where: { id: input },
-        include: { permissions: true },
+      /**
+       * 1️⃣ Definice viditelnosti lekce pro uživatele
+       * (stejná logika jako v getLecture)
+       */
+      const visibilityWhere = {
+        OR: [
+          { isPublic: true },
+          { createdById: user.id },
+          { permissions: { some: { userId: user.id } } },
+        ],
+      };
+
+      /**
+       * 2️⃣ Načti aktuální lekci – pouze pokud je VIDITELNÁ
+       * (díky tomu se public child bez public parenta chová jako root)
+       */
+      const lecture = await ctx.db.lectureHierarchy.findFirst({
+        where: {
+          id: input,
+          ...visibilityWhere,
+        },
+        include: {
+          permissions: true,
+        },
       });
 
       if (!lecture) {
@@ -182,30 +209,12 @@ export const lectureRouter = createTRPCRouter({
         });
       }
 
-      // 2️⃣ Najdi ROOT lekce (bez cyklu)
-      // root = lekce, která nemá parenta a je v řetězci nad touto lekcí
-      const root = await ctx.db.lectureHierarchy.findFirst({
-        where: {
-          hierarchyChildren: {
-            some: {
-              id: lecture.id,
-            },
-          },
-          HierarchyParentId: null,
-        },
-        include: {
-          permissions: true,
-        },
-      });
+      /**
+       * 3️⃣ Vyhodnocení práv uživatele k TÉTO lekci
+       */
+      const isAdmin = user.role === Roles.ADMIN;
 
-      // fallback – pokud je input už root
-      const rootLecture = root ?? lecture;
-
-      // 3️⃣ Vyhodnocení práv
-      let whereClause: any;
-
-      const isOwner =
-        rootLecture.createdById === user.id || user.role === "ADMIN";
+      const isOwner = lecture.createdById === user.id;
 
       const hasCreatorPermission = lecture.permissions.some(
         (p) => p.userId === user.id && p.type === "CREATOR",
@@ -215,11 +224,19 @@ export const lectureRouter = createTRPCRouter({
         (p) => p.userId === user.id && p.type === "MINIMAL",
       );
 
-      if (isOwner || hasCreatorPermission) {
+      /**
+       * 4️⃣ Sestavení WHERE podmínky pro children
+       */
+      let whereClause: any;
+
+      // ADMIN / OWNER / CREATOR → vidí všechny childy
+      if (isAdmin || isOwner || hasCreatorPermission) {
         whereClause = {
           HierarchyParentId: input,
         };
-      } else if (hasMinimalPermission) {
+      }
+      // MINIMAL → public + ty, ke kterým má explicitní právo
+      else if (hasMinimalPermission) {
         whereClause = {
           HierarchyParentId: input,
           OR: [
@@ -234,14 +251,18 @@ export const lectureRouter = createTRPCRouter({
             },
           ],
         };
-      } else {
+      }
+      // OSTATNÍ → pouze public
+      else {
         whereClause = {
           HierarchyParentId: input,
           isPublic: true,
         };
       }
 
-      // 4️⃣ Nacti childy
+      /**
+       * 5️⃣ Načtení child lekcí
+       */
       return ctx.db.lectureHierarchy.findMany({
         where: whereClause,
         include: {
@@ -266,7 +287,9 @@ export const lectureRouter = createTRPCRouter({
           _count: {
             select: {
               hierarchyChildren: {
-                where: { isPublic: true },
+                where: {
+                  isPublic: true,
+                },
               },
             },
           },
@@ -322,6 +345,72 @@ export const lectureRouter = createTRPCRouter({
       });
 
       return completions;
+    }),
+
+  setLecturePublic: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      const currentStatus = await ctx.db.lectureHierarchy.findUnique({
+        where: {
+          id: input,
+        },
+        select: {
+          isPublic: true,
+        },
+      });
+
+      const completions = await ctx.db.lectureHierarchy.update({
+        where: {
+          id: input,
+        },
+        data: {
+          isPublic: !currentStatus?.isPublic,
+          updatedById: ctx.session.user.id,
+        },
+      });
+
+      return completions;
+    }),
+
+  getPermittedUsers: protectedProcedure
+    .input(z.number())
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.lecturePermissions.findMany({
+        where: {
+          lectureId: input,
+        },
+        include: {
+          user: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+    }),
+
+  getUnpermittedUsers: protectedProcedure
+    .input(z.object({ lectureId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      const usersWithPermission = await ctx.db.lecturePermissions.findMany({
+        where: { lectureId: input.lectureId },
+        select: { userId: true },
+      });
+
+      const userIdsWithPermission = usersWithPermission.map((u) => u.userId);
+
+      return ctx.db.user.findMany({
+        where: {
+          AND: [
+            { id: { notIn: userIdsWithPermission } },
+            { id: { not: ctx.session.user.id } },
+          ],
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
     }),
 
   //==================
@@ -412,6 +501,19 @@ export const lectureRouter = createTRPCRouter({
       return { deletedLectures: lecturesToDelete.length };
     }),
 
+  removePermission: protectedProcedure
+    .input(z.object({ userId: z.string(), lectureId: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.lecturePermissions.delete({
+        where: {
+          userId_lectureId: {
+            userId: input.userId,
+            lectureId: input.lectureId,
+          },
+        },
+      });
+    }),
+
   //==================
   //    [CREATE]
   //==================
@@ -431,6 +533,24 @@ export const lectureRouter = createTRPCRouter({
         data: {
           lectureId: input,
           userId: ctx.session.user.id,
+        },
+      });
+    }),
+
+  gainPermission: protectedProcedure
+    .input(
+      z.object({
+        lectureId: z.number(),
+        userId: z.string(),
+        type: permissionTypeSchema,
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.lecturePermissions.create({
+        data: {
+          userId: input.userId,
+          lectureId: input.lectureId,
+          type: input.type,
         },
       });
     }),

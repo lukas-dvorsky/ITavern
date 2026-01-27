@@ -49,10 +49,11 @@ export default function MarkdownList({
   createdBy,
 }: MarkdownListProps) {
   // ==== [ API ] ====
-  const isLectureCompleted =
-    api.lectures.getLectureCompletionStatus.useQuery(lectureId);
+  /*   const isLectureCompleted =
+    api.lectures.getLectureCompletionStatus.useQuery(lectureId); */ // Ser na to vole
   const permisionType =
     api.lectures.getUserPermissionTypeonLecture.useQuery(lectureId);
+
   const LecturesMdBlocks = api.block.getLectureBlocks.useQuery(lectureId);
   const updateBlockOrder = api.block.reorderBlocks.useMutation({
     onSuccess: async () => {
@@ -67,7 +68,7 @@ export default function MarkdownList({
   });
 
   const watcherRef = useRef<HTMLDivElement>(null);
-  /*   const updateLecturePublic = api.lectures.setLecturePublic.useMutation({
+  const updateLecturePublic = api.lectures.setLecturePublic.useMutation({
     onSuccess: async () => {
       if (lecturePublic) {
         toast.success("Lekce byla úspěšně schována.");
@@ -79,7 +80,7 @@ export default function MarkdownList({
     onError: async () => {
       toast.error("Chyba nastavování viditelnosti lekce.");
     },
-  }); */
+  });
 
   // ==== [ STATES ] ====
   const [editModeEnabled, setEditModeEnabled] = useState(false);
@@ -139,10 +140,10 @@ export default function MarkdownList({
 
   return (
     <GridLayout>
-      {!isLectureCompleted.data?.lectureCompleted &&
+      {/*       {!isLectureCompleted.data?.lectureCompleted &&
         isLectureCompleted.data?.childrenLectureCompleted && (
           <PositionWatcher elementRef={watcherRef} lectureId={lectureId} />
-        )}
+        )} */}
       {permisionType.data !== "NONE" && (
         <GridLayout className="col-span-12 mb-4 flex gap-2">
           <InputCheckbox
@@ -152,16 +153,12 @@ export default function MarkdownList({
             disabled={permisionType.data === "MINIMAL"}
             disabledMessage="Nemáte právo na editaci této lekce."
             onChange={() => {
-              /*               updateLecturePublic.mutate({
-                isPublic: !lecturePublic,
-                lectureId: lectureId,
-                userId: userId,
-              }); */
+              updateLecturePublic.mutate(lectureId);
             }}
           />
-          {/*           {permisionType.data === "ADMIN" && (
+          {permisionType.data === "ADMIN" && (
             <LecturePermissionEdit lectureId={lectureId} />
-          )} */}
+          )}
           <ToggleButton
             title="Editační mód"
             className="col-span-2 col-start-11"
